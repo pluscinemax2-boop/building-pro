@@ -48,7 +48,7 @@
             <a href="{{ route('building-admin.flat-management.index') }}" class="block py-2"><span class="material-symbols-outlined">home_work</span> Flats</a>
             <a href="{{ route('building-admin.resident-management.index') }}" class="block py-2"><span class="material-symbols-outlined">groups</span> Residents</a>
             <a href="{{ route('building-admin.documents.index') }}" class="block py-2"><span class="material-symbols-outlined">folder_open</span> Documents</a>
-            <a href="{{ route('building-admin.reports.index') }}" class="block py-2"><span class="material-symbols-outlined">bar_chart</span> Reports</a>
+            <a href="{{ route('building-admin.reports') }}" class="block py-2"><span class="material-symbols-outlined">bar_chart</span> Reports</a>
             <a href="{{ route('building-admin.notices.index') }}" class="block py-2"><span class="material-symbols-outlined">campaign</span> Notices</a>
             <a href="{{ route('building-admin.polls.index') }}" class="block py-2"><span class="material-symbols-outlined">how_to_vote</span> Polls</a>
             <a href="{{ route('building-admin.profile') }}" class="block py-2"><span class="material-symbols-outlined">person</span> Profile</a>

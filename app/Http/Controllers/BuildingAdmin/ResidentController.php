@@ -13,20 +13,23 @@ class ResidentController extends Controller
 
     public function index()
     {
-        $residents = Resident::all();
-        // You may want to pass $stats and $flats if needed for the new design
+        $user = \Illuminate\Support\Facades\Auth::user();
+        $building = $user->building;
+        $flats = $building ? $building->flats()->get() : collect();
+        $residents = \App\Models\Resident::whereIn('flat_id', $flats->pluck('id'))->get();
         $stats = [
             'total' => $residents->count(),
             'occupied' => $residents->where('status', 'occupied')->count(),
             'vacant' => $residents->where('status', 'vacant')->count(),
         ];
-        $flats = Flat::all();
         return view('building-admin.resident-management', compact('residents', 'stats', 'flats'));
     }
 
     public function create()
     {
-        $flats = Flat::all();
+        $user = \Illuminate\Support\Facades\Auth::user();
+        $building = $user->building;
+        $flats = $building ? $building->flats()->get() : collect();
         return view('building-admin.residents.create', compact('flats'));
     }
 

@@ -561,6 +561,16 @@ Route::middleware(['web','auth','role:Super Admin'])->prefix('admin')->group(fun
 });
 
 Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin')->group(function () {
+            // Financial Reports Download Routes
+            Route::get('/reports/download/monthly-expenses', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadMonthlyExpenses'])->name('building-admin.reports.download.monthly-expenses');
+            Route::get('/reports/download/maintenance-collections', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadMaintenanceCollections'])->name('building-admin.reports.download.maintenance-collections');
+            Route::get('/reports/download/category-wise-expenses', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadCategoryWiseExpenses'])->name('building-admin.reports.download.category-wise-expenses');
+            Route::get('/reports/download/budget-vs-actual', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadBudgetVsActual'])->name('building-admin.reports.download.budget-vs-actual');
+            Route::get('/reports/download/outstanding-dues', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadOutstandingDues'])->name('building-admin.reports.download.outstanding-dues');
+            Route::get('/reports/download/vendor-payments', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadVendorPayments'])->name('building-admin.reports.download.vendor-payments');
+            // Operational Reports Download Routes
+            Route::get('/reports/download/complaints-summary', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadComplaintsSummary'])->name('building-admin.reports.download.complaints-summary');
+            Route::get('/reports/download/amenity-usage', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadAmenityUsage'])->name('building-admin.reports.download.amenity-usage');
         Route::put('/expenses/{expense}', [\App\Http\Controllers\BuildingAdmin\ExpenseController::class, 'update'])->name('building-admin.expenses.update');
     Route::get('/expenses/{expense}/edit', [\App\Http\Controllers\BuildingAdmin\ExpenseController::class, 'edit'])->name('building-admin.expenses.edit');
 
@@ -696,9 +706,7 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
     })->name('building-admin.building-settings.save');
     
     Route::get('/profile', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'show'])->name('building-admin.profile');
-    Route::get('/reports', function () {
-        return view('building-admin.reports');
-    })->name('building-admin.reports');
+    Route::get('/reports', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'index'])->name('building-admin.reports');
     Route::get('/analytics', function () {
         return view('building-admin.analytics');
     })->name('building-admin.analytics');
@@ -717,7 +725,8 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
     Route::get('/documents/download/{id}', [\App\Http\Controllers\BuildingAdmin\DocumentController::class, 'download'])->name('building-admin.documents.download');
     Route::delete('/documents/{id}', [\App\Http\Controllers\BuildingAdmin\DocumentController::class, 'destroy'])->name('building-admin.documents.delete');
 
-    Route::get('/reports', function() { return view('building-admin.reports');})->name('building-admin.reports.index');
+    // Removed duplicate static /reports route for building-admin (now handled by controller)
+    // Removed reports create route as report creation is not used
     Route::get('/polls', function() { return view('building-admin.polls'); })->name('building-admin.polls.index');
     Route::get('/notices', [\App\Http\Controllers\BuildingAdmin\NoticeController::class, 'index'])->name('building-admin.notices.index');
     Route::get('/notices/create', [\App\Http\Controllers\BuildingAdmin\NoticeController::class, 'create'])->name('building-admin.notices.create');
@@ -730,6 +739,10 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
 
 });
 
+// Building Admin Financial Reports
+Route::middleware(['auth', 'role:Building Admin'])->prefix('building-admin')->name('building-admin.')->group(function () {
+    Route::get('/reports/all-financial', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'allFinancialReports'])->name('reports.all-financial');
+});
 
 Route::middleware(['web','auth','role:Building Admin','ensure.subscription'])->prefix('admin')->group(function () {
     // protected admin routes (buildings, flats, etc)

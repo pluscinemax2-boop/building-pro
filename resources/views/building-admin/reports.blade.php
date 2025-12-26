@@ -11,15 +11,7 @@
             <div class="flex-1 text-center">
                 <h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Reports</h2>
             </div>
-            <div class="flex w-12 items-center justify-end">
-                <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-transparent text-[#111418] dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
-                    <span class="material-symbols-outlined text-2xl">settings</span>
-                </button>
-            </div>
         </div>
-        <p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal pb-3 px-4 text-center -mt-1">
-            {{ $buildingName ?? 'Building Name' }} • Admin Dashboard
-        </p>
     </div>
     <!-- Quick Stats Section -->
     <div class="pt-5">
@@ -57,30 +49,66 @@
         <h3 class="text-[#111418] dark:text-white tracking-light text-xl font-bold leading-tight text-left pb-3">
             Filter Period
         </h3>
-        <button class="w-full flex items-center justify-between bg-white dark:bg-[#1a2632] p-4 rounded-xl border border-[#dbe0e6] dark:border-gray-700 shadow-sm active:bg-gray-50 dark:active:bg-[#202e3b] transition-colors">
-            <div class="flex items-center gap-3">
-                <div class="bg-primary/10 p-2 rounded-lg text-primary">
-                    <span class="material-symbols-outlined">calendar_month</span>
-                </div>
-                <div class="flex flex-col items-start">
-                    <span class="text-xs text-[#617589] font-medium uppercase tracking-wide">Selected Period</span>
-                    <span class="font-bold text-[#111418] dark:text-white text-base">{{ $selectedPeriod ?? 'March 2024' }}</span>
-                </div>
-            </div>
-            <span class="material-symbols-outlined text-[#617589]">expand_more</span>
-        </button>
+        <form id="periodFilterForm" method="GET" action="" class="flex gap-2 items-center">
+            <select id="monthSelect" name="month" class="rounded-lg border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1a2632] px-4 py-2 text-sm text-[#111418] dark:text-white">
+                @for($m = 1; $m <= 12; $m++)
+                    <option value="{{ $m }}" {{ request('month', now()->month) == $m ? 'selected' : '' }}>{{ date('F', mktime(0,0,0,$m,1)) }}</option>
+                @endfor
+            </select>
+            <select id="yearSelect" name="year" class="rounded-lg border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1a2632] px-4 py-2 text-sm text-[#111418] dark:text-white">
+                @for($y = now()->year; $y >= now()->year - 5; $y--)
+                    <option value="{{ $y }}" {{ request('year', now()->year) == $y ? 'selected' : '' }}>{{ $y }}</option>
+                @endfor
+            </select>
+            <button type="submit" class="px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold shadow-md whitespace-nowrap">Apply</button>
+            <span class="ml-4 text-xs text-[#617589] font-medium uppercase tracking-wide">Selected: {{ $selectedPeriod ?? (date('F Y')) }}</span>
+        </form>
         <div class="flex gap-2 mt-4 overflow-x-auto pb-2 scrollbar-hide">
-            <button class="px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold shadow-md whitespace-nowrap">This Month</button>
-            <button class="px-5 py-2.5 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 text-[#617589] dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Last Month</button>
-            <button class="px-5 py-2.5 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 text-[#617589] dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Last Quarter</button>
-            <button class="px-5 py-2.5 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 text-[#617589] dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">2023</button>
+            <button type="button" class="chip-filter px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold shadow-md whitespace-nowrap" data-month="{{ now()->month }}" data-year="{{ now()->year }}">This Month</button>
+            <button type="button" class="chip-filter px-5 py-2.5 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 text-[#617589] dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" data-month="{{ now()->subMonth()->month }}" data-year="{{ now()->subMonth()->year }}">Last Month</button>
+            <button type="button" class="chip-filter px-5 py-2.5 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 text-[#617589] dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" data-quarter="last">Last Quarter</button>
+            <button type="button" class="chip-filter px-5 py-2.5 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 text-[#617589] dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" data-month="1" data-year="{{ now()->year }}">{{ now()->year }}</button>
         </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function setQuarter(monthSelect, yearSelect, which) {
+                const now = new Date();
+                let month = now.getMonth() + 1;
+                let year = now.getFullYear();
+                if (which === 'last') {
+                    // Last quarter logic
+                    let q = Math.floor((month - 1) / 3);
+                    if (q === 0) { q = 4; year--; }
+                    else { q = q; }
+                    month = (q - 1) * 3 + 1;
+                }
+                monthSelect.value = month;
+                yearSelect.value = year;
+            }
+            document.querySelectorAll('.chip-filter').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const monthSelect = document.getElementById('monthSelect');
+                    const yearSelect = document.getElementById('yearSelect');
+                    if (btn.dataset.quarter === 'last') {
+                        setQuarter(monthSelect, yearSelect, 'last');
+                    } else {
+                        if (btn.dataset.month) monthSelect.value = btn.dataset.month;
+                        if (btn.dataset.year) yearSelect.value = btn.dataset.year;
+                    }
+                    document.getElementById('periodFilterForm').submit();
+                });
+            });
+        });
+        </script>
     </div>
     <!-- Financial Reports List -->
     <div class="px-4 mt-6">
         <div class="flex items-center justify-between mb-3">
             <h3 class="text-xs font-bold text-[#617589] uppercase tracking-widest px-1">Financials</h3>
-            <button class="text-primary text-xs font-semibold">See All</button>
+            <button class="text-primary text-xs font-semibold"
+                onclick="window.location='{{ route('building-admin.reports.all-financial', ['month' => request('month', now()->month), 'year' => request('year', now()->year)]) }}'">
+                See All
+            </button>
         </div>
         <div class="flex flex-col gap-3">
             @foreach($financialReports as $report)
@@ -91,7 +119,12 @@
                         </div>
                         <div>
                             <p class="text-[#111418] dark:text-white font-semibold text-sm leading-tight">{{ $report->title }}</p>
-                            <p class="text-xs text-[#617589] mt-1">{{ $report->type }} • {{ $report->size }}</p>
+                            <p class="text-xs text-[#617589] mt-1">
+                                {{ $report->type }} • {{ $report->size }}
+                                @if(!empty($report->date_range))
+                                    • {{ $report->date_range }}
+                                @endif
+                            </p>
                         </div>
                     </div>
                     <a href="{{ $report->download_url }}" class="h-10 w-10 flex items-center justify-center rounded-full bg-[#f6f7f8] dark:bg-[#253240] text-primary hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
@@ -131,12 +164,6 @@
                 </div>
             @endforeach
         </div>
-    </div>
-    <!-- Floating Action Button -->
-    <div class="fixed bottom-24 right-4 z-10">
-        <a href="{{ route('building-admin.reports.create') }}" class="flex items-center justify-center w-14 h-14 bg-primary text-white rounded-full shadow-lg hover:bg-blue-600 transition-colors">
-            <span class="material-symbols-outlined text-2xl">add</span>
-        </a>
     </div>
     <!-- Bottom Navigation Bar -->
     @include('building-admin.partials.bottom-nav', ['active' => 'reports'])
