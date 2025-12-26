@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Super Admin Security Logs</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white overflow-x-hidden">
+<!-- Mobile Container -->
+<div class="relative min-h-screen w-full max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-2xl overflow-hidden flex flex-col">
+<!-- Top App Bar -->
+<header class="flex items-center bg-white dark:bg-[#1A2633] px-4 py-3 justify-between border-b border-slate-100 dark:border-slate-800 sticky top-0 z-20">
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">Security Logs</h2>
+<button class="flex items-center justify-center gap-1.5 text-primary hover:bg-primary/5 active:bg-primary/10 px-3 py-1.5 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="text-sm font-bold">Export</span>
+</button>
+</header>
+<!-- Main Content Scrollable Area -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Search Bar -->
+<div class="bg-white dark:bg-[#1A2633] px-4 py-4 sticky top-[60px] z-10 shadow-sm">
+<div class="flex w-full items-center rounded-xl bg-slate-100 dark:bg-slate-800 px-3 h-11">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">search</span>
+<input aria-label="Search logs" class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-400 h-full" placeholder="Search User, IP, or Event ID" type="text"/>
+<button class="text-primary p-1">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Stats Overview -->
+<div class="px-4 py-4">
+<div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar scroll-smooth snap-x">
+<!-- Stat Card 1 -->
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-slate-100 dark:border-slate-800 snap-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">event_note</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wide">Total Events</p>
+</div>
+<p class="text-slate-900 dark:text-white text-2xl font-bold">1,240</p>
+<p class="text-green-600 text-xs font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12% today
+                        </p>
+</div>
+<!-- Stat Card 2 -->
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-slate-100 dark:border-slate-800 snap-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500 text-[20px]">gpp_bad</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wide">Failed Logins</p>
+</div>
+<p class="text-slate-900 dark:text-white text-2xl font-bold">12</p>
+<p class="text-red-500 text-xs font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">priority_high</span> Action needed
+                        </p>
+</div>
+<!-- Stat Card 3 -->
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-slate-100 dark:border-slate-800 snap-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-500 text-[20px]">admin_panel_settings</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wide">Active Sessions</p>
+</div>
+<p class="text-slate-900 dark:text-white text-2xl font-bold">85</p>
+<p class="text-slate-400 text-xs font-medium">Currently online</p>
+</div>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="px-4 pb-4">
+<div class="flex gap-2 overflow-x-auto no-scrollbar">
+<button class="whitespace-nowrap rounded-full bg-primary text-white px-4 py-1.5 text-sm font-semibold shadow-sm shadow-primary/30 transition-transform active:scale-95">All Activity</button>
+<button class="whitespace-nowrap rounded-full bg-white dark:bg-[#1A2633] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-1.5 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Login Attempts</button>
+<button class="whitespace-nowrap rounded-full bg-white dark:bg-[#1A2633] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-1.5 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Permission Changes</button>
+<button class="whitespace-nowrap rounded-full bg-white dark:bg-[#1A2633] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-1.5 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Critical Errors</button>
+</div>
+</div>
+<!-- Logs List Title -->
+<div class="px-4 py-2 flex items-center justify-between">
+<h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Recent Logs</h3>
+<span class="text-slate-400 text-xs">Today, Oct 24</span>
+</div>
+<!-- List Items -->
+<div class="flex flex-col gap-3 px-4">
+<!-- Item 1: Critical -->
+<div class="group flex flex-col gap-3 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-red-100 dark:border-red-900/30 relative overflow-hidden transition-all hover:shadow-md">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-red-500 rounded-l-xl"></div>
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 shrink-0">
+<span class="material-symbols-outlined text-[20px]">shield_person</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-tight">Failed Login Attempt</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium mt-1">user: <span class="text-slate-700 dark:text-slate-200">admin_susie</span></p>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="inline-flex items-center gap-1 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-600 dark:text-slate-300 font-mono">
+<span class="material-symbols-outlined text-[10px]">lan</span> 192.168.1.45
+                                    </span>
+<span class="text-xs text-slate-400">• New Device</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1 shrink-0">
+<span class="text-xs font-bold text-slate-500">10:42 AM</span>
+<span class="size-2 rounded-full bg-red-500"></span>
+</div>
+</div>
+</div>
+<!-- Item 2: Warning -->
+<div class="group flex flex-col gap-3 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-slate-100 dark:border-slate-800 relative overflow-hidden hover:shadow-md transition-all">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-orange-400 rounded-l-xl"></div>
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400 shrink-0">
+<span class="material-symbols-outlined text-[20px]">key</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-tight">Privilege Escalation</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium mt-1">user: <span class="text-slate-700 dark:text-slate-200">super_dave</span></p>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="inline-flex items-center gap-1 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-600 dark:text-slate-300 font-mono">
+<span class="material-symbols-outlined text-[10px]">lan</span> 10.0.0.12
+                                    </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1 shrink-0">
+<span class="text-xs font-bold text-slate-500">09:15 AM</span>
+<span class="size-2 rounded-full bg-orange-400"></span>
+</div>
+</div>
+</div>
+<!-- Item 3: Success -->
+<div class="group flex flex-col gap-3 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-slate-100 dark:border-slate-800 relative overflow-hidden hover:shadow-md transition-all">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 shrink-0">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-tight">System Backup Completed</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium mt-1">System Automated Task</p>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="text-xs text-green-600 font-medium">Success</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1 shrink-0">
+<span class="text-xs font-bold text-slate-500">08:00 AM</span>
+<!-- No dot for success to reduce noise -->
+</div>
+</div>
+</div>
+<!-- Item 4: Info -->
+<div class="group flex flex-col gap-3 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-slate-100 dark:border-slate-800 relative overflow-hidden hover:shadow-md transition-all">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-blue-50 text-primary dark:bg-blue-900/20 dark:text-blue-400 shrink-0">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-tight">New Tenant Added</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium mt-1">user: <span class="text-slate-700 dark:text-slate-200">manager_sarah</span></p>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="inline-flex items-center gap-1 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-600 dark:text-slate-300 font-mono">
+<span class="material-symbols-outlined text-[10px]">lan</span> 192.168.1.105
+                                    </span>
+<span class="text-xs text-slate-400">• Unit 4B</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1 shrink-0">
+<span class="text-xs font-bold text-slate-500">07:45 AM</span>
+</div>
+</div>
+</div>
+<!-- Item 5: Info -->
+<div class="group flex flex-col gap-3 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-slate-100 dark:border-slate-800 relative overflow-hidden hover:shadow-md transition-all">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 shrink-0">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</div>
+<div>
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-tight">Global Config Update</p>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium mt-1">user: <span class="text-slate-700 dark:text-slate-200">root_admin</span></p>
+<div class="flex flex-wrap items-center gap-2 mt-1.5">
+<span class="inline-flex items-center gap-1 rounded bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-600 dark:text-slate-300 font-mono">
+<span class="material-symbols-outlined text-[10px]">lan</span> localhost
+                                    </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1 shrink-0">
+<span class="text-xs font-bold text-slate-500">03:30 AM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Loader / End of list -->
+<div class="flex justify-center p-6">
+<p class="text-slate-400 text-sm font-medium">End of logs for today</p>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="absolute bottom-0 w-full bg-white dark:bg-[#1A2633] border-t border-slate-100 dark:border-slate-800 pb-safe pt-2">
+<div class="flex items-center justify-around pb-4">
+<a class="flex flex-col items-center gap-1 p-2 text-slate-400 hover:text-slate-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-primary" href="#">
+<span class="material-symbols-outlined text-[24px] fill-current">security</span>
+<span class="text-[10px] font-bold">Logs</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-slate-400 hover:text-slate-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">group</span>
+<span class="text-[10px] font-medium">Users</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-slate-400 hover:text-slate-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

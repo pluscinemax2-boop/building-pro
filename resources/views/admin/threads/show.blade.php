@@ -1,0 +1,1 @@
+<h1>Show Thread: {{ $id }}</h1>

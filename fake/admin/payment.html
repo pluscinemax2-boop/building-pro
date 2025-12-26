@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Super Admin Payments</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f8f9fa",
+                        "background-dark": "#101922",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1c2936",
+                        "text-main": "#111418",
+                        "text-muted": "#637588",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-white font-display antialiased">
+<!-- Mobile Container -->
+<div class="relative flex h-full min-h-screen w-full flex-col mx-auto max-w-[480px] bg-background-light dark:bg-background-dark shadow-xl overflow-x-hidden pb-24">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-10 flex items-center bg-card-light dark:bg-card-dark p-4 pb-2 justify-between border-b border-gray-100 dark:border-gray-800">
+<div class="text-text-main dark:text-white flex size-12 shrink-0 items-center justify-start cursor-pointer">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-text-main dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Payments &amp; Revenue</h2>
+<div class="flex size-12 items-center justify-end">
+<button class="flex items-center justify-center rounded-lg size-10 bg-transparent text-primary hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-2xl">download</span>
+</button>
+</div>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto">
+<!-- Stats Section -->
+<div class="flex gap-4 p-4 overflow-x-auto no-scrollbar snap-x">
+<!-- Total Revenue Card -->
+<div class="flex min-w-[200px] flex-1 flex-col gap-2 rounded-xl p-5 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 shadow-sm snap-center">
+<div class="flex items-center gap-2">
+<div class="flex items-center justify-center size-8 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-lg">monetization_on</span>
+</div>
+<p class="text-text-muted dark:text-gray-400 text-sm font-medium leading-normal">Total Revenue</p>
+</div>
+<div>
+<p class="text-text-main dark:text-white tracking-tight text-2xl font-bold leading-tight">$1,245,000</p>
+<p class="text-[#078838] text-xs font-semibold mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +12% vs last month
+                        </p>
+</div>
+</div>
+<!-- This Month Card -->
+<div class="flex min-w-[200px] flex-1 flex-col gap-2 rounded-xl p-5 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 shadow-sm snap-center">
+<div class="flex items-center gap-2">
+<div class="flex items-center justify-center size-8 rounded-full bg-blue-500/10 text-blue-500">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+</div>
+<p class="text-text-muted dark:text-gray-400 text-sm font-medium leading-normal">This Month</p>
+</div>
+<div>
+<p class="text-text-main dark:text-white tracking-tight text-2xl font-bold leading-tight">+$45,200</p>
+<p class="text-[#078838] text-xs font-semibold mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +5% vs last month
+                        </p>
+</div>
+</div>
+<!-- Pending Card -->
+<div class="flex min-w-[200px] flex-1 flex-col gap-2 rounded-xl p-5 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 shadow-sm snap-center">
+<div class="flex items-center gap-2">
+<div class="flex items-center justify-center size-8 rounded-full bg-orange-500/10 text-orange-500">
+<span class="material-symbols-outlined text-lg">pending</span>
+</div>
+<p class="text-text-muted dark:text-gray-400 text-sm font-medium leading-normal">Pending</p>
+</div>
+<div>
+<p class="text-text-main dark:text-white tracking-tight text-2xl font-bold leading-tight">$12,450</p>
+<p class="text-orange-500 text-xs font-semibold mt-1 flex items-center gap-1">
+                            24 Transactions
+                        </p>
+</div>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="px-4 pb-2">
+<label class="flex flex-col h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm">
+<div class="text-text-muted dark:text-gray-400 flex border-none bg-card-light dark:bg-card-dark items-center justify-center pl-4 rounded-l-xl border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-text-main dark:text-white focus:outline-0 focus:ring-0 border-none bg-card-light dark:bg-card-dark focus:border-none h-full placeholder:text-text-muted dark:placeholder:text-gray-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search ID or Building..." value=""/>
+<div class="flex items-center justify-center pr-2 bg-card-light dark:bg-card-dark rounded-r-xl">
+<button class="flex items-center justify-center size-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">tune</span>
+</button>
+</div>
+</div>
+</label>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 p-4 pt-2 overflow-x-auto no-scrollbar">
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white pl-3 pr-4 shadow-sm shadow-blue-200 dark:shadow-none transition-transform active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined text-lg">toc</span>
+<p class="text-sm font-medium leading-normal">All</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 pl-3 pr-4 shadow-sm transition-transform active:scale-95 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-lg text-[#078838]">check_circle</span>
+<p class="text-text-main dark:text-white text-sm font-medium leading-normal">Completed</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 pl-3 pr-4 shadow-sm transition-transform active:scale-95 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-lg text-orange-500">schedule</span>
+<p class="text-text-main dark:text-white text-sm font-medium leading-normal">Pending</p>
+</div>
+<div class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 pl-3 pr-4 shadow-sm transition-transform active:scale-95 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-lg text-red-500">error</span>
+<p class="text-text-main dark:text-white text-sm font-medium leading-normal">Failed</p>
+</div>
+</div>
+<!-- Section Header -->
+<div class="flex items-center justify-between px-4 pb-2 pt-2">
+<h3 class="text-text-main dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Recent Transactions</h3>
+<span class="text-primary text-sm font-medium cursor-pointer">See All</span>
+</div>
+<!-- Transactions List -->
+<div class="flex flex-col px-4 gap-3">
+<!-- Item 1 -->
+<div class="flex flex-col gap-3 rounded-xl p-4 bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm active:scale-[0.99] transition-transform cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">apartment</span>
+</div>
+<div class="flex flex-col">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">Sunshine Heights</p>
+<p class="text-text-muted dark:text-gray-400 text-xs font-medium">#TXN-8834 • Oct 24, 2023</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">$4,500.00</p>
+<div class="flex items-center gap-1 rounded-full bg-[#078838]/10 px-2 py-0.5">
+<span class="material-symbols-outlined text-[#078838] text-[14px]">check</span>
+<span class="text-[#078838] text-[10px] font-bold uppercase tracking-wide">Paid</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col gap-3 rounded-xl p-4 bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm active:scale-[0.99] transition-transform cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">domain</span>
+</div>
+<div class="flex flex-col">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">Greenwood Estate</p>
+<p class="text-text-muted dark:text-gray-400 text-xs font-medium">#TXN-8833 • Oct 23, 2023</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">$2,100.00</p>
+<div class="flex items-center gap-1 rounded-full bg-orange-500/10 px-2 py-0.5">
+<span class="material-symbols-outlined text-orange-500 text-[14px]">schedule</span>
+<span class="text-orange-500 text-[10px] font-bold uppercase tracking-wide">Pending</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col gap-3 rounded-xl p-4 bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm active:scale-[0.99] transition-transform cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">location_city</span>
+</div>
+<div class="flex flex-col">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">Blue Horizon Tower</p>
+<p class="text-text-muted dark:text-gray-400 text-xs font-medium">#TXN-8832 • Oct 22, 2023</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">$850.00</p>
+<div class="flex items-center gap-1 rounded-full bg-red-500/10 px-2 py-0.5">
+<span class="material-symbols-outlined text-red-500 text-[14px]">error</span>
+<span class="text-red-500 text-[10px] font-bold uppercase tracking-wide">Failed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex flex-col gap-3 rounded-xl p-4 bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm active:scale-[0.99] transition-transform cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">apartment</span>
+</div>
+<div class="flex flex-col">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">Oakwood Residency</p>
+<p class="text-text-muted dark:text-gray-400 text-xs font-medium">#TXN-8831 • Oct 22, 2023</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">$1,500.00</p>
+<div class="flex items-center gap-1 rounded-full bg-[#078838]/10 px-2 py-0.5">
+<span class="material-symbols-outlined text-[#078838] text-[14px]">check</span>
+<span class="text-[#078838] text-[10px] font-bold uppercase tracking-wide">Paid</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="flex flex-col gap-3 rounded-xl p-4 bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm active:scale-[0.99] transition-transform cursor-pointer mb-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-full bg-gray-100 dark:bg-gray-800 text-text-muted dark:text-gray-400">
+<span class="material-symbols-outlined text-xl">domain</span>
+</div>
+<div class="flex flex-col">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">Riverdale Complex</p>
+<p class="text-text-muted dark:text-gray-400 text-xs font-medium">#TXN-8830 • Oct 21, 2023</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<p class="text-text-main dark:text-white text-base font-bold leading-tight">$3,200.00</p>
+<div class="flex items-center gap-1 rounded-full bg-[#078838]/10 px-2 py-0.5">
+<span class="material-symbols-outlined text-[#078838] text-[14px]">check</span>
+<span class="text-[#078838] text-[10px] font-bold uppercase tracking-wide">Paid</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation -->
+<div class="fixed bottom-0 z-20 mx-auto w-full max-w-[480px] bg-card-light dark:bg-card-dark border-t border-gray-100 dark:border-gray-800 pb-5 pt-2 px-2">
+<div class="flex items-center justify-around">
+<button class="flex flex-col items-center justify-center gap-1 p-2 text-text-muted dark:text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 p-2 text-primary">
+<span class="material-symbols-outlined text-2xl font-bold">payments</span>
+<span class="text-[10px] font-bold">Payments</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 p-2 text-text-muted dark:text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">apartment</span>
+<span class="text-[10px] font-medium">Buildings</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 p-2 text-text-muted dark:text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">group</span>
+<span class="text-[10px] font-medium">Users</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 p-2 text-text-muted dark:text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

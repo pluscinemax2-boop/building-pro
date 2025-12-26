@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Building Admin Notice Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display antialiased overflow-x-hidden">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root">
+<!-- Top App Bar -->
+<div class="flex items-center bg-white dark:bg-[#1a2632] p-4 pb-2 justify-between sticky top-0 z-20 shadow-sm border-b border-gray-100 dark:border-gray-800">
+<div class="text-[#111418] dark:text-white flex size-12 shrink-0 items-center justify-start cursor-pointer">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Notice Board</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-background-light dark:bg-gray-800 text-[#111418] dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+</button>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="px-4 py-3 bg-white dark:bg-[#1a2632]">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#617589] flex border-none bg-[#f0f2f4] dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-2xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border-none bg-[#f0f2f4] dark:bg-gray-800 focus:border-none h-full placeholder:text-[#617589] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search notices..." value=""/>
+</div>
+</label>
+</div>
+<!-- Segmented Buttons (Tabs) -->
+<div class="flex px-4 py-2 bg-white dark:bg-[#1a2632] pb-4">
+<div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-[#f0f2f4] dark:bg-gray-800 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-[#2c3b4a] has-[:checked]:shadow-sm has-[:checked]:text-primary text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal transition-all">
+<span class="truncate">Active (4)</span>
+<input checked="" class="invisible w-0" name="tabs" type="radio" value="Active"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-[#2c3b4a] has-[:checked]:shadow-sm has-[:checked]:text-primary text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal transition-all">
+<span class="truncate">Scheduled</span>
+<input class="invisible w-0" name="tabs" type="radio" value="Scheduled"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-[#2c3b4a] has-[:checked]:shadow-sm has-[:checked]:text-primary text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal transition-all">
+<span class="truncate">Expired</span>
+<input class="invisible w-0" name="tabs" type="radio" value="Expired"/>
+</label>
+</div>
+</div>
+<!-- Content Area: Notices List -->
+<div class="flex-1 flex flex-col gap-4 p-4 pb-24">
+<!-- Card 1 -->
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-xl pt-[120px] shadow-sm overflow-hidden relative group cursor-pointer transform transition-transform active:scale-[0.98]" data-alt="Modern elevator interior with metal finish" style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCa3i0_knWNnWeER5n_Q8u8FJiCxNu9b3NPn36LqiRg6TIhfwHiXvplksa92hupbpAmuZvpb6DpbJ1DtT0yc4svuEnINFM0He_3raQ0wu4ogMum_QfassFN7FJdYQ_AlkYntbF2etyqNt9_0OURDYs3fxNRw40hbUWO3YZwy5-u1oIhsFcyivjgyt9FRvVAU0Q48J_ux-EWSchpUXVPmBXU2vGU0_Oe86cDngNgWdqcpnwGnDAicz5a6RggTWTS-i3aQ95SiljQPAt");'>
+<!-- Status Badge Overlay -->
+<div class="absolute top-3 left-3 bg-green-500/90 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                    Live
+                </div>
+<div class="flex w-full items-end justify-between gap-4 p-4">
+<div class="flex max-w-[440px] flex-1 flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-white/80 text-sm">calendar_clock</span>
+<p class="text-white/80 text-xs font-medium uppercase tracking-wider">Expires: Oct 24, 2023</p>
+</div>
+<p class="text-white tracking-tight text-xl font-bold leading-tight max-w-[440px]">Elevator B Maintenance</p>
+</div>
+<button class="flex min-w-[72px] shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Edit</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-xl pt-[120px] shadow-sm overflow-hidden relative group cursor-pointer transform transition-transform active:scale-[0.98]" data-alt="Clean blue swimming pool water" style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAxjvbuTXnOIDWQydQJv6p3L6XBXRjnRezdoVYa5hMhPLsxNrpsNc-IOf6GQn_ER7ZcDGAMUWsSubNx3egaajm7M5ZVlb1J0VIZDr980CZsDeF8E_yMyDir9FObw1Kr1o2-TRKzkY8gXPtKnRrrM4yhaOHPx8vaICHwjWKdpKt2tJLQkYjuR4z2u1BVrj5s2frLIRkrlOFCLeVAP3QHRGkaB0BV_3abapMUwHRxF7DvfQVOkmrD8nSQIEReLGmlQEJcufvmT-bY1sey");'>
+<div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+                    Published
+                </div>
+<div class="flex w-full items-end justify-between gap-4 p-4">
+<div class="flex max-w-[440px] flex-1 flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-white/80 text-sm">calendar_clock</span>
+<p class="text-white/80 text-xs font-medium uppercase tracking-wider">Expires: Nov 01, 2023</p>
+</div>
+<p class="text-white tracking-tight text-xl font-bold leading-tight max-w-[440px]">Annual Pool Cleaning</p>
+</div>
+<button class="flex min-w-[72px] shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Edit</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-xl pt-[120px] shadow-sm overflow-hidden relative group cursor-pointer transform transition-transform active:scale-[0.98]" data-alt="Abstract white and grey geometric architecture" style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDoOE1lzW2z5Dkgk4nVNB8ZKemM9QDJXmrO-AWlgTzqI_hGJQH-hqvYQOL-Jsq2xWA29NwChKez-gJWWhVaZS_Ghqwo8MsP2mMd2Wo2gQ2E4CJVIl4Z3q6T8z_lrfjdi7-rACD6EldojdoG8FW7mu_vyAylZ1b6d6UwWgoyaR1NU2TqB1_nP0KOBRgBTeJwuJ5gJiwpRdZ2Ib0-UUoCN9WbVVFkupuHxkntrdpUrLJazqqpPp_1YtGdSIm2yIDWbrPs0VojwJM2ZvT8");'>
+<div class="absolute top-3 left-3 bg-orange-500/90 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+                    Draft
+                </div>
+<div class="flex w-full items-end justify-between gap-4 p-4">
+<div class="flex max-w-[440px] flex-1 flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-white/80 text-sm">schedule</span>
+<p class="text-white/80 text-xs font-medium uppercase tracking-wider">Scheduled: Dec 10, 2023</p>
+</div>
+<p class="text-white tracking-tight text-xl font-bold leading-tight max-w-[440px]">Holiday Party Guidelines</p>
+</div>
+<button class="flex min-w-[72px] shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border border-white/30 text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Edit</span>
+</button>
+</div>
+</div>
+<!-- Card 4 (Text Heavy Fallback visual) -->
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-xl shadow-sm overflow-hidden relative group cursor-pointer transform transition-transform active:scale-[0.98] border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a2632]">
+<div class="p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<span class="bg-primary/10 text-primary text-xs font-bold px-2.5 py-1 rounded-full">Important</span>
+<div class="flex gap-1 text-[#617589]">
+<span class="material-symbols-outlined text-lg">more_horiz</span>
+</div>
+</div>
+<div>
+<h3 class="text-[#111418] dark:text-white text-lg font-bold leading-tight mb-1">Water Supply Interruption</h3>
+<p class="text-[#617589] dark:text-gray-400 text-sm line-clamp-2">The main water supply will be shut off for emergency repairs on Block A.</p>
+</div>
+<div class="flex items-center gap-2 pt-2 border-t border-gray-100 dark:border-gray-700 mt-1">
+<span class="material-symbols-outlined text-[#617589] text-sm">event_busy</span>
+<p class="text-[#617589] text-xs font-medium">Expires: Tomorrow, 2:00 PM</p>
+</div>
+</div>
+</div>
+</div>
+<!-- FAB: Create Notice -->
+<div class="fixed bottom-24 right-4 z-30">
+<button class="group flex items-center justify-center w-14 h-14 bg-primary rounded-full shadow-lg shadow-primary/30 text-white hover:bg-blue-600 transition-all hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<!-- Bottom Navigation -->
+<div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#1a2632] border-t border-gray-200 dark:border-gray-800 z-40 pb-safe">
+<div class="flex justify-around items-center h-16 max-w-lg mx-auto px-2">
+<button class="flex flex-col items-center justify-center w-full h-full space-y-1 text-[#9ca3af] hover:text-[#111418] dark:hover:text-white group">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">dashboard</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full h-full space-y-1 text-[#9ca3af] hover:text-[#111418] dark:hover:text-white group">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">group</span>
+<span class="text-[10px] font-medium">Residents</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full h-full space-y-1 text-primary relative group">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">campaign</span>
+<span class="text-[10px] font-medium">Notices</span>
+<span class="absolute top-3 right-8 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<button class="flex flex-col items-center justify-center w-full h-full space-y-1 text-[#9ca3af] hover:text-[#111418] dark:hover:text-white group">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">inbox</span>
+<span class="text-[10px] font-medium">Requests</span>
+</button>
+</div>
+<!-- iOS Home Indicator Spacing -->
+<div class="h-4 w-full bg-white dark:bg-[#1a2632]"></div>
+</div>
+</div>
+</body></html>

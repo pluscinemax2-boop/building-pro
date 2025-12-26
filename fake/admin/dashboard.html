@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Super Admin Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white min-h-screen flex justify-center w-full">
+<div class="w-full max-w-md bg-background-light dark:bg-background-dark relative flex flex-col h-full min-h-screen overflow-x-hidden pb-24 shadow-xl">
+<!-- Header Section -->
+<div class="px-4 py-5 bg-white dark:bg-[#101922] sticky top-0 z-10 shadow-sm border-b border-gray-100 dark:border-gray-800">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 ring-2 ring-primary/10" data-alt="Portrait of the Super Admin user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAcYeXuLyMrwndkpOZkLl7jegOHzvA6WfxHdxEOQQxZdyI6UEvGYVjcPydGpUgyGibGBDTW_M0zRyY2429Xe_4iqGhvseN6UwoG6bn8zZkBsTOH1Nxkk8Sgn0xxBOCMc8Jqrl0R-DUrOplefgFf6vR6i1paX2iGeAzmhPC-lv5JJgqOiz06WFKNbjMwIQravrEvN1CxuVJgpqRun0pFZ2HFy3rxHQsEkW54CJfMMl4BIGdMzzPKByOJwjIV-xykHmdBgq25ZWD6KDcV");'>
+</div>
+<div class="flex flex-col">
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium uppercase tracking-wide">Welcome Back</p>
+<h1 class="text-[#111418] dark:text-white text-lg font-bold leading-tight">Super Admin</h1>
+</div>
+</div>
+<button class="relative flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-[#111418] dark:text-white" style="font-size: 24px;">notifications</span>
+<span class="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-[#101922]"></span>
+</button>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="px-4 pt-6 pb-2">
+<label class="flex flex-col w-full">
+<div class="flex w-full items-center rounded-xl h-12 bg-white dark:bg-[#192531] shadow-sm border border-gray-100 dark:border-gray-700 transition-all focus-within:ring-2 focus-within:ring-primary/20">
+<div class="pl-4 flex items-center justify-center text-[#617589] dark:text-gray-400">
+<span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+</div>
+<input class="w-full bg-transparent border-none focus:ring-0 text-[#111418] dark:text-white placeholder:text-[#9aa2ac] h-full px-3 text-sm font-medium" placeholder="Search buildings, users, or reports..."/>
+</div>
+</label>
+</div>
+<!-- Main Stats: Revenue -->
+<div class="px-4 py-4">
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-[#192531] shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Monthly Recurring Revenue</p>
+<p class="text-[#111418] dark:text-white text-3xl font-bold tracking-tight">$45,200</p>
+</div>
+<div class="flex items-center gap-1 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400" style="font-size: 16px;">trending_up</span>
+<span class="text-green-700 dark:text-green-400 text-xs font-bold">+12%</span>
+</div>
+</div>
+<!-- Mini Chart Visual -->
+<div class="mt-4 h-12 w-full flex items-end justify-between gap-1">
+<div class="w-full bg-primary/10 dark:bg-primary/20 rounded-t-sm h-[40%]"></div>
+<div class="w-full bg-primary/10 dark:bg-primary/20 rounded-t-sm h-[60%]"></div>
+<div class="w-full bg-primary/10 dark:bg-primary/20 rounded-t-sm h-[50%]"></div>
+<div class="w-full bg-primary/10 dark:bg-primary/20 rounded-t-sm h-[70%]"></div>
+<div class="w-full bg-primary/10 dark:bg-primary/20 rounded-t-sm h-[55%]"></div>
+<div class="w-full bg-primary/10 dark:bg-primary/20 rounded-t-sm h-[80%]"></div>
+<div class="w-full bg-primary/10 dark:bg-primary/20 rounded-t-sm h-[65%]"></div>
+<div class="w-full bg-primary rounded-t-sm h-[100%] shadow-lg shadow-primary/20"></div>
+</div>
+</div>
+</div>
+<!-- Grid Stats -->
+<div class="px-4 pb-4">
+<div class="grid grid-cols-2 gap-3">
+<!-- Total Buildings -->
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-[#192531] shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-primary" style="font-size: 24px;">apartment</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium">Total Buildings</p>
+<p class="text-[#111418] dark:text-white text-xl font-bold">124</p>
+</div>
+<!-- Active Subscriptions -->
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-[#192531] shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-indigo-600 dark:text-indigo-400" style="font-size: 24px;">verified</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium">Active Subs</p>
+<p class="text-[#111418] dark:text-white text-xl font-bold">850</p>
+</div>
+<!-- Total Users -->
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-white dark:bg-[#192531] shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="w-10 h-10 rounded-lg bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-teal-600 dark:text-teal-400" style="font-size: 24px;">group</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium">Total Users</p>
+<p class="text-[#111418] dark:text-white text-xl font-bold">3,402</p>
+</div>
+<!-- Expired Subs (Alert) -->
+<div class="flex flex-col gap-2 rounded-xl p-4 bg-red-50 dark:bg-red-900/10 shadow-sm border border-red-100 dark:border-red-900/30 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full z-0"></div>
+<div class="relative z-10 w-10 h-10 rounded-lg bg-white/60 dark:bg-white/10 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-red-600 dark:text-red-400" style="font-size: 24px;">warning</span>
+</div>
+<p class="relative z-10 text-red-800 dark:text-red-300 text-xs font-bold">Expired Subs</p>
+<p class="relative z-10 text-red-900 dark:text-red-200 text-xl font-bold">5</p>
+</div>
+</div>
+</div>
+<!-- Recent Activity -->
+<div class="px-4 pb-4">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-[#111418] dark:text-white text-lg font-bold">Recent Activity</h2>
+<button class="text-primary text-sm font-medium hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Activity Item 1 -->
+<div class="flex items-center gap-3 p-3 bg-white dark:bg-[#192531] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-green-50 dark:bg-green-900/20 shrink-0">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400" style="font-size: 20px;">add_circle</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<p class="text-[#111418] dark:text-white text-sm font-semibold truncate">Sunrise Apartments added</p>
+<p class="text-[#617589] dark:text-gray-400 text-xs truncate">New property registration</p>
+</div>
+<p class="text-[#9aa2ac] dark:text-gray-500 text-xs whitespace-nowrap">2m ago</p>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex items-center gap-3 p-3 bg-white dark:bg-[#192531] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 shrink-0">
+<span class="material-symbols-outlined text-primary" style="font-size: 20px;">autorenew</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<p class="text-[#111418] dark:text-white text-sm font-semibold truncate">Green Valley renewed</p>
+<p class="text-[#617589] dark:text-gray-400 text-xs truncate">Subscription renewal</p>
+</div>
+<p class="text-[#9aa2ac] dark:text-gray-500 text-xs whitespace-nowrap">1h ago</p>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex items-center gap-3 p-3 bg-white dark:bg-[#192531] rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-900/20 shrink-0">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400" style="font-size: 20px;">person_add</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<p class="text-[#111418] dark:text-white text-sm font-semibold truncate">New Admin: John Doe</p>
+<p class="text-[#617589] dark:text-gray-400 text-xs truncate">System access granted</p>
+</div>
+<p class="text-[#9aa2ac] dark:text-gray-500 text-xs whitespace-nowrap">3h ago</p>
+</div>
+</div>
+</div>
+<!-- Spacer for content to not be hidden behind bottom nav -->
+<div class="h-8"></div>
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-[#192531] border-t border-gray-200 dark:border-gray-700 pb-safe pt-2 px-2 max-w-md mx-auto">
+<div class="flex items-center justify-around pb-2">
+<button class="flex flex-col items-center justify-center w-full gap-1 p-2 text-primary group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform filled" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full gap-1 p-2 text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">apartment</span>
+<span class="text-[10px] font-medium">Buildings</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full gap-1 p-2 text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
+<span class="text-[10px] font-medium">Users</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full gap-1 p-2 text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">bar_chart</span>
+<span class="text-[10px] font-medium">Reports</span>
+</button>
+<button class="flex flex-col items-center justify-center w-full gap-1 p-2 text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Super Admin Subscriptions</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-10 bg-white dark:bg-[#1a2632] shadow-sm">
+<div class="flex items-center px-4 py-3 justify-between">
+<button class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+<span class="material-symbols-outlined text-[#111418] dark:text-white">arrow_back</span>
+</button>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Subscriptions</h2>
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+<span class="material-symbols-outlined text-[#111418] dark:text-white">filter_list</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col gap-4 p-4 pb-24">
+<!-- Stats -->
+<section class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">check_circle</span>
+<p class="text-[#111418] dark:text-gray-300 text-sm font-medium leading-normal">Active</p>
+</div>
+<p class="text-[#111418] dark:text-white tracking-light text-2xl font-bold leading-tight">142</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-500 text-2xl">access_time</span>
+<p class="text-[#111418] dark:text-gray-300 text-sm font-medium leading-normal">Expiring</p>
+</div>
+<p class="text-[#111418] dark:text-white tracking-light text-2xl font-bold leading-tight">5</p>
+</div>
+</section>
+<!-- SearchBar -->
+<section>
+<label class="flex flex-col h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm">
+<div class="text-[#617589] dark:text-gray-400 flex border-none bg-white dark:bg-[#1a2632] items-center justify-center pl-4 rounded-l-xl border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border-none bg-white dark:bg-[#1a2632] focus:border-none h-full placeholder:text-[#617589] dark:placeholder:text-gray-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search by Building or ID..." value=""/>
+</div>
+</label>
+</section>
+<!-- Filter Chips -->
+<section class="w-full overflow-x-auto no-scrollbar">
+<div class="flex gap-3 min-w-max">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-[#111418] dark:bg-primary px-5 transition-colors">
+<p class="text-white text-sm font-medium leading-normal">All</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 px-5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-normal">Active</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 px-5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-normal">Expired</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 px-5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-normal">Pending</p>
+</button>
+</div>
+</section>
+<!-- Subscription List -->
+<section class="flex flex-col gap-3">
+<h3 class="text-[#111418] dark:text-white text-base font-bold leading-normal px-1">Buildings</h3>
+<!-- Item 1: Active -->
+<div class="flex flex-col gap-3 bg-white dark:bg-[#1a2632] px-4 py-4 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-gray-700">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-base font-bold leading-tight">Sunrise Apartments</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal">Enterprise Plan</p>
+</div>
+<span class="inline-flex items-center gap-1 rounded-full bg-green-50 dark:bg-green-900/30 px-2 py-1 text-xs font-semibold text-green-700 dark:text-green-400">
+<span class="size-1.5 rounded-full bg-green-700 dark:bg-green-400"></span>
+                            Active
+                        </span>
+</div>
+<div class="h-px bg-[#f0f2f4] dark:bg-gray-700 w-full"></div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-[#617589] dark:text-gray-400">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<p class="text-sm font-medium">Expires Oct 24, 2024</p>
+</div>
+<button class="text-primary hover:text-blue-700 text-sm font-bold flex items-center gap-1">
+                            Manage <span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Item 2: Expiring Soon -->
+<div class="flex flex-col gap-3 bg-white dark:bg-[#1a2632] px-4 py-4 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-gray-700">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-base font-bold leading-tight">Green Valley Estate</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal">Standard Plan</p>
+</div>
+<span class="inline-flex items-center gap-1 rounded-full bg-yellow-50 dark:bg-yellow-900/30 px-2 py-1 text-xs font-semibold text-yellow-700 dark:text-yellow-400">
+<span class="size-1.5 rounded-full bg-yellow-700 dark:bg-yellow-400"></span>
+                            Expiring
+                        </span>
+</div>
+<div class="h-px bg-[#f0f2f4] dark:bg-gray-700 w-full"></div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined text-lg">warning</span>
+<p class="text-sm font-medium">In 3 Days</p>
+</div>
+<button class="text-primary hover:text-blue-700 text-sm font-bold flex items-center gap-1">
+                            Manage <span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Item 3: Expired -->
+<div class="flex flex-col gap-3 bg-white dark:bg-[#1a2632] px-4 py-4 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-gray-700 opacity-90">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-base font-bold leading-tight">Blue Heights</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal">Basic Plan</p>
+</div>
+<span class="inline-flex items-center gap-1 rounded-full bg-red-50 dark:bg-red-900/30 px-2 py-1 text-xs font-semibold text-red-700 dark:text-red-400">
+<span class="size-1.5 rounded-full bg-red-700 dark:bg-red-400"></span>
+                            Expired
+                        </span>
+</div>
+<div class="h-px bg-[#f0f2f4] dark:bg-gray-700 w-full"></div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-[#617589] dark:text-gray-400">
+<span class="material-symbols-outlined text-lg">event_busy</span>
+<p class="text-sm font-medium">Ended Sep 01, 2024</p>
+</div>
+<button class="text-primary hover:text-blue-700 text-sm font-bold flex items-center gap-1">
+                            Renew <span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Item 4: Pending -->
+<div class="flex flex-col gap-3 bg-white dark:bg-[#1a2632] px-4 py-4 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-gray-700">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-base font-bold leading-tight">Metro Towers</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal">Enterprise Plan</p>
+</div>
+<span class="inline-flex items-center gap-1 rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs font-semibold text-gray-700 dark:text-gray-300">
+<span class="size-1.5 rounded-full bg-gray-500 dark:bg-gray-400"></span>
+                            Pending
+                        </span>
+</div>
+<div class="h-px bg-[#f0f2f4] dark:bg-gray-700 w-full"></div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-[#617589] dark:text-gray-400">
+<span class="material-symbols-outlined text-lg">hourglass_empty</span>
+<p class="text-sm font-medium">Awaiting Payment</p>
+</div>
+<button class="text-primary hover:text-blue-700 text-sm font-bold flex items-center gap-1">
+                            Details <span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<div class="fixed bottom-6 right-6 z-20">
+<button class="flex items-center justify-center size-14 rounded-full bg-primary text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 transition-all transform hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Building Admin Emergency Alerts</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-white dark:bg-background-dark shadow-xl">
+<!-- Header -->
+<div class="sticky top-0 z-10 flex items-center bg-white dark:bg-background-dark p-4 pb-2 justify-between border-b border-gray-100 dark:border-gray-800">
+<div class="text-[#111418] dark:text-white flex size-12 shrink-0 items-center justify-start cursor-pointer">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Emergency Alerts</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-transparent text-[#111418] dark:text-white gap-2 min-w-0 p-0">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+</div>
+</div>
+<!-- Hero Section: Compose Alert -->
+<div class="p-4 @container">
+<div class="flex flex-col items-stretch justify-start rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] bg-white dark:bg-[#1a2632] overflow-hidden border border-gray-100 dark:border-gray-700">
+<div class="w-full h-32 bg-center bg-no-repeat bg-cover relative" data-alt="Abstract blue gradient geometric pattern representing communication waves" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD_-oNXsdEHxhNF8E7sC-60A-edXrXmgv2yG4SAwZwr9FsdNszm1kPXGwvXos0AACdsDgpDTpqDpxWcJDg1ozEQqpHzxbK1TuiNfs9As01vuIW6-9j5352Uy8urGAAbnjZk0pC4QpOX_lkRveGqFNNOLEG_t_Mxt9X2kt1upCaw1fplcs5FkdRZFPpZJxD1Oq0w5p4LfTGvq21nkyTWgzYPBgmXY81OQYX5je1aoagvuzziMYcruLrlYEIg2YY_liDUU8Uie9PuBV2z");'>
+<div class="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-white/20 backdrop-blur-sm p-3 rounded-full border border-white/30">
+<span class="material-symbols-outlined text-white text-3xl">campaign</span>
+</div>
+</div>
+</div>
+<div class="flex w-full flex-col items-stretch justify-center gap-3 p-4">
+<div class="flex flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Broadcast Emergency</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">Send an urgent notification to all residents instantly. Use for fire, weather, or security alerts.</p>
+</div>
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal hover:bg-blue-600 transition-colors shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined mr-2 text-[20px]">add_alert</span>
+<span class="truncate">Compose New Alert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="px-4 py-2">
+<label class="flex flex-col min-w-40 h-10 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#617589] flex border-none bg-background-light dark:bg-[#1a2632] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border-none bg-background-light dark:bg-[#1a2632] focus:border-none h-full placeholder:text-[#617589] px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search alert history..." value=""/>
+</div>
+</label>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 p-4 overflow-x-auto no-scrollbar pb-2">
+<div class="flex h-8 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-[#111418] dark:bg-white pl-4 pr-4 transition-colors">
+<p class="text-white dark:text-[#111418] text-xs font-bold leading-normal">All</p>
+</div>
+<div class="flex h-8 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-background-light dark:bg-[#1a2632] pl-4 pr-4 border border-gray-200 dark:border-gray-700">
+<p class="text-[#111418] dark:text-white text-xs font-medium leading-normal">Sent</p>
+</div>
+<div class="flex h-8 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-background-light dark:bg-[#1a2632] pl-4 pr-4 border border-gray-200 dark:border-gray-700">
+<p class="text-[#111418] dark:text-white text-xs font-medium leading-normal">Scheduled</p>
+</div>
+<div class="flex h-8 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-background-light dark:bg-[#1a2632] pl-4 pr-4 border border-gray-200 dark:border-gray-700">
+<p class="text-[#111418] dark:text-white text-xs font-medium leading-normal">Drafts</p>
+</div>
+</div>
+<!-- Past Broadcasts Section -->
+<div class="flex flex-col flex-1">
+<h2 class="text-[#111418] dark:text-white tracking-tight text-lg font-bold leading-tight px-4 text-left pb-2 pt-2">Past Broadcasts</h2>
+<div class="flex flex-col gap-3 p-4 pt-2">
+<!-- List Item 1: Critical Sent -->
+<div class="group flex flex-col gap-2 rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-[#1a2632] p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-[#111418] dark:text-white">Fire Alarm Drill</p>
+<p class="text-xs text-[#617589] dark:text-gray-400">Oct 24, 10:00 AM</p>
+</div>
+</div>
+<div class="rounded-full bg-green-50 dark:bg-green-900/30 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-green-700 dark:text-green-400">
+                            Sent
+                        </div>
+</div>
+<p class="text-sm text-[#3b4a59] dark:text-gray-300 line-clamp-2 pl-[52px]">
+                        This is a scheduled fire drill. Please evacuate calmly using the nearest stairs. Do not use elevators.
+                    </p>
+</div>
+<!-- List Item 2: Maintenance Sent -->
+<div class="group flex flex-col gap-2 rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-[#1a2632] p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-primary dark:bg-blue-900/30 dark:text-blue-400">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-[#111418] dark:text-white">Water Supply Interruption</p>
+<p class="text-xs text-[#617589] dark:text-gray-400">Oct 20, 08:30 AM</p>
+</div>
+</div>
+<div class="rounded-full bg-green-50 dark:bg-green-900/30 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-green-700 dark:text-green-400">
+                            Sent
+                        </div>
+</div>
+<p class="text-sm text-[#3b4a59] dark:text-gray-300 line-clamp-2 pl-[52px]">
+                        Water supply will be unavailable for 2 hours due to emergency repairs on the main line.
+                    </p>
+</div>
+<!-- List Item 3: Scheduled -->
+<div class="group flex flex-col gap-2 rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-[#1a2632] p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-orange-50 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400">
+<span class="material-symbols-outlined text-[20px]">elevator</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-[#111418] dark:text-white">Elevator B Maintenance</p>
+<p class="text-xs text-[#617589] dark:text-gray-400">Oct 26, 02:00 PM</p>
+</div>
+</div>
+<div class="rounded-full bg-amber-50 dark:bg-amber-900/30 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-700 dark:text-amber-400">
+                            Scheduled
+                        </div>
+</div>
+<p class="text-sm text-[#3b4a59] dark:text-gray-300 line-clamp-2 pl-[52px]">
+                        Routine maintenance for Elevator B. Please use Elevator A or the service elevator during this time.
+                    </p>
+</div>
+<!-- List Item 4: Draft -->
+<div class="group flex flex-col gap-2 rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-[#1a2632] p-4 shadow-sm hover:shadow-md transition-shadow opacity-80">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+<span class="material-symbols-outlined text-[20px]">edit_document</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-[#111418] dark:text-white">Holiday Security Notice</p>
+<p class="text-xs text-[#617589] dark:text-gray-400">Last edited: Yesterday</p>
+</div>
+</div>
+<div class="rounded-full bg-gray-100 dark:bg-gray-700 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-gray-600 dark:text-gray-300">
+                            Draft
+                        </div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-10"></div>
+</div>
+</body></html>

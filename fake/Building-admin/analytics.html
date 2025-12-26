@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Building Admin Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-content": "#ffffff",
+                        "primary-light": "#eef6ff",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a242d",
+                        "text-primary-light": "#111418",
+                        "text-secondary-light": "#637588",
+                        "border-light": "#dbe0e6",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-primary-light dark:text-white antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-xl">
+<!-- Header -->
+<header class="flex items-center bg-surface-light dark:bg-surface-dark p-4 sticky top-0 z-10 border-b border-border-light dark:border-gray-800">
+<button class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-background-light dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-text-primary-light dark:text-white" style="font-size: 24px;">arrow_back_ios_new</span>
+</button>
+<h1 class="text-text-primary-light dark:text-white text-lg font-bold leading-tight flex-1 text-center pr-10">Analytics</h1>
+<div class="absolute right-4 flex items-center">
+<button class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-background-light dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-text-primary-light dark:text-white" style="font-size: 24px;">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Date Filter -->
+<div class="bg-surface-light dark:bg-surface-dark px-4 py-3 border-b border-border-light dark:border-gray-800 flex justify-between items-center">
+<div class="flex gap-2 items-center">
+<button class="flex h-9 items-center justify-center gap-x-2 rounded-full bg-primary-light dark:bg-primary/20 px-4 text-primary dark:text-primary-300 hover:bg-primary/10 transition-colors border border-transparent active:scale-95">
+<span class="text-sm font-semibold">September 2023</span>
+<span class="material-symbols-outlined" style="font-size: 20px;">calendar_month</span>
+</button>
+<button class="flex size-9 items-center justify-center rounded-full border border-border-light dark:border-gray-700 bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-gray-400 hover:bg-background-light dark:hover:bg-gray-800">
+<span class="material-symbols-outlined" style="font-size: 20px;">filter_list</span>
+</button>
+</div>
+<button class="text-primary text-sm font-semibold">Export</button>
+</div>
+<main class="flex-1 flex flex-col gap-4 p-4 pb-24 overflow-y-auto">
+<!-- KPI Stats Row -->
+<section class="flex gap-3 overflow-x-auto hide-scrollbar pb-1 -mx-4 px-4 snap-x">
+<!-- Card 1 -->
+<div class="flex min-w-[160px] flex-col gap-3 rounded-xl p-4 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-gray-800 shadow-sm snap-start">
+<div class="flex items-start justify-between">
+<div class="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-2 text-primary">
+<span class="material-symbols-outlined" style="font-size: 24px;">group</span>
+</div>
+<span class="flex items-center text-[#078838] bg-green-50 dark:bg-green-900/20 px-1.5 py-0.5 rounded text-xs font-bold">
+<span class="material-symbols-outlined mr-0.5" style="font-size: 14px;">trending_up</span> 2%
+                        </span>
+</div>
+<div>
+<p class="text-text-secondary-light dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Residents</p>
+<p class="text-text-primary-light dark:text-white text-2xl font-bold mt-1">142</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex min-w-[160px] flex-col gap-3 rounded-xl p-4 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-gray-800 shadow-sm snap-start">
+<div class="flex items-start justify-between">
+<div class="rounded-lg bg-orange-50 dark:bg-orange-900/20 p-2 text-orange-600">
+<span class="material-symbols-outlined" style="font-size: 24px;">assignment_late</span>
+</div>
+<span class="flex items-center text-orange-600 bg-orange-50 dark:bg-orange-900/20 px-1.5 py-0.5 rounded text-xs font-bold">
+                            Action
+                        </span>
+</div>
+<div>
+<p class="text-text-secondary-light dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Pending</p>
+<p class="text-text-primary-light dark:text-white text-2xl font-bold mt-1">5</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="flex min-w-[160px] flex-col gap-3 rounded-xl p-4 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-gray-800 shadow-sm snap-start">
+<div class="flex items-start justify-between">
+<div class="rounded-lg bg-purple-50 dark:bg-purple-900/20 p-2 text-purple-600">
+<span class="material-symbols-outlined" style="font-size: 24px;">payments</span>
+</div>
+</div>
+<div>
+<p class="text-text-secondary-light dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Spend</p>
+<p class="text-text-primary-light dark:text-white text-2xl font-bold mt-1">$12,450</p>
+</div>
+</div>
+</section>
+<!-- Chart: Complaints Overview -->
+<section class="flex flex-col gap-4 rounded-xl border border-border-light dark:border-gray-800 bg-surface-light dark:bg-surface-dark p-5 shadow-sm">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="text-text-primary-light dark:text-white text-base font-bold leading-tight">Complaints Overview</h3>
+<p class="text-text-secondary-light dark:text-gray-400 text-sm mt-1">Last 6 Months</p>
+</div>
+<div class="text-right">
+<p class="text-text-primary-light dark:text-white text-2xl font-bold">24</p>
+<p class="text-[#078838] text-xs font-medium flex items-center justify-end"><span class="material-symbols-outlined" style="font-size: 14px;">arrow_downward</span> 10%</p>
+</div>
+</div>
+<div class="grid grid-cols-6 gap-2 items-end h-[160px] mt-2 pt-4 border-t border-dashed border-border-light dark:border-gray-700">
+<!-- Apr -->
+<div class="flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary/20 dark:bg-primary/20 rounded-t-sm group-hover:bg-primary/40 transition-all relative group" style="height: 40%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">8</div>
+</div>
+<span class="text-[11px] font-medium text-text-secondary-light dark:text-gray-500">Apr</span>
+</div>
+<!-- May -->
+<div class="flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary/20 dark:bg-primary/20 rounded-t-sm group-hover:bg-primary/40 transition-all relative group" style="height: 25%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">5</div>
+</div>
+<span class="text-[11px] font-medium text-text-secondary-light dark:text-gray-500">May</span>
+</div>
+<!-- Jun -->
+<div class="flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary/20 dark:bg-primary/20 rounded-t-sm group-hover:bg-primary/40 transition-all relative group" style="height: 60%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">12</div>
+</div>
+<span class="text-[11px] font-medium text-text-secondary-light dark:text-gray-500">Jun</span>
+</div>
+<!-- Jul -->
+<div class="flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary dark:bg-primary rounded-t-sm relative group" style="height: 85%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">17</div>
+</div>
+<span class="text-[11px] font-bold text-primary dark:text-white">Jul</span>
+</div>
+<!-- Aug -->
+<div class="flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary/20 dark:bg-primary/20 rounded-t-sm group-hover:bg-primary/40 transition-all relative group" style="height: 35%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">7</div>
+</div>
+<span class="text-[11px] font-medium text-text-secondary-light dark:text-gray-500">Aug</span>
+</div>
+<!-- Sep -->
+<div class="flex flex-col items-center gap-2 h-full justify-end group cursor-pointer">
+<div class="w-full bg-primary/60 dark:bg-primary/60 rounded-t-sm group-hover:bg-primary/80 transition-all relative group" style="height: 55%;">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">11</div>
+</div>
+<span class="text-[11px] font-medium text-text-secondary-light dark:text-gray-500">Sep</span>
+</div>
+</div>
+</section>
+<!-- Chart: Expense Distribution -->
+<section class="flex flex-col gap-4 rounded-xl border border-border-light dark:border-gray-800 bg-surface-light dark:bg-surface-dark p-5 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-text-primary-light dark:text-white text-base font-bold leading-tight">Expense Distribution</h3>
+<button class="text-primary hover:bg-primary-light p-1 rounded-full"><span class="material-symbols-outlined" style="font-size: 20px;">more_horiz</span></button>
+</div>
+<div class="flex items-center gap-6">
+<!-- Donut Chart Representation -->
+<div class="relative size-32 shrink-0">
+<!-- Simplified Donut Chart using SVG -->
+<svg class="size-full -rotate-90" viewbox="0 0 36 36">
+<!-- Background Circle -->
+<path class="text-gray-100 dark:text-gray-800" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4.5"></path>
+<!-- Segment 1: Utilities 40% (Blue) -->
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="40, 100" stroke-width="4.5"></path>
+<!-- Segment 2: Staff 30% (Light Blue) -->
+<path class="text-sky-400" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="30, 100" stroke-dashoffset="-40" stroke-width="4.5"></path>
+<!-- Segment 3: Maintenance 20% (Teal) -->
+<path class="text-teal-400" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="20, 100" stroke-dashoffset="-70" stroke-width="4.5"></path>
+<!-- Segment 4: Other 10% (Gray) -->
+<path class="text-gray-300 dark:text-gray-600" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="10, 100" stroke-dashoffset="-90" stroke-width="4.5"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-[10px] font-medium text-text-secondary-light">Total</span>
+<span class="text-sm font-bold text-text-primary-light dark:text-white">$12k</span>
+</div>
+</div>
+<!-- Legend List -->
+<div class="flex-1 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-primary"></div>
+<span class="text-xs font-medium text-text-primary-light dark:text-white">Utilities</span>
+</div>
+<span class="text-xs font-bold text-text-primary-light dark:text-white">40%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-sky-400"></div>
+<span class="text-xs font-medium text-text-primary-light dark:text-white">Staff</span>
+</div>
+<span class="text-xs font-bold text-text-primary-light dark:text-white">30%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-teal-400"></div>
+<span class="text-xs font-medium text-text-primary-light dark:text-white">Maint.</span>
+</div>
+<span class="text-xs font-bold text-text-primary-light dark:text-white">20%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+<span class="text-xs font-medium text-text-primary-light dark:text-white">Other</span>
+</div>
+<span class="text-xs font-bold text-text-primary-light dark:text-white">10%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Chart: Occupancy Status -->
+<section class="flex flex-col gap-4 rounded-xl border border-border-light dark:border-gray-800 bg-surface-light dark:bg-surface-dark p-5 shadow-sm">
+<div class="flex items-center justify-between">
+<h3 class="text-text-primary-light dark:text-white text-base font-bold leading-tight">Occupancy Status</h3>
+<span class="text-xs bg-green-50 text-green-700 px-2 py-1 rounded font-medium">92% Occupied</span>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex justify-between text-xs text-text-secondary-light">
+<span>Total Units: 160</span>
+<span>Vacant: 13</span>
+</div>
+<!-- Progress Bar -->
+<div class="h-4 w-full bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden flex">
+<div class="h-full bg-primary" style="width: 70%"></div> <!-- Owners -->
+<div class="h-full bg-sky-300" style="width: 22%"></div> <!-- Tenants -->
+</div>
+<!-- Legend -->
+<div class="flex gap-4 mt-2">
+<div class="flex items-center gap-1.5">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-xs text-text-secondary-light dark:text-gray-400">Owners (112)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="size-2 rounded-full bg-sky-300"></div>
+<span class="text-xs text-text-secondary-light dark:text-gray-400">Tenants (35)</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button / Bottom Bar -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark pointer-events-none max-w-md mx-auto">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-white font-bold h-12 rounded-xl shadow-lg pointer-events-auto hover:bg-blue-600 transition-colors active:scale-[0.98]">
+<span class="material-symbols-outlined" style="font-size: 20px;">download</span>
+<span>Download Report</span>
+</button>
+</div>
+</div>
+</body></html>

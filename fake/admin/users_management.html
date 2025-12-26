@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Super Admin User Management</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display min-h-screen flex flex-col overflow-x-hidden antialiased selection:bg-primary selection:text-white">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-50 bg-white dark:bg-[#1a2632] shadow-sm border-b border-gray-100 dark:border-gray-800">
+<div class="flex items-center p-4 justify-between h-16">
+<div class="flex items-center gap-4">
+<button class="text-[#111418] dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-[#111418] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">User Management</h1>
+</div>
+<div class="flex items-center justify-end gap-2">
+<button class="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">person_add</span>
+</button>
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<!-- User Profile Avatar Placeholder -->
+<div class="size-8 rounded-full bg-gray-200 overflow-hidden" data-alt="User profile avatar">
+<img alt="Super Admin Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZQFdl5LFmJbneiSxnHRz_ATyiJmpVxx2Upq0rAL4btMTE_WSH0jiLbGwu5x3oGxzPk9biUWeiJhzD0_CDZIAM7cdGJWhMmONXeOU0flJQzy4TEanBl9LQ2h5WH7O5pRZYWf9w3CNpmWEURJg1ihuRU1ixSUT2Q-Sww25CaVlIlx9ARPyD2nQxX4eVl_xB3f2djmFoauQrI8tVrcshrN5P09A-BXx0oFziEfs-bq00fCtYhOVzaFd7Ga6Lme6zgnf1r9VNgki8XM1n"/>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 w-full max-w-md mx-auto md:max-w-2xl lg:max-w-4xl px-4 py-4 pb-24">
+<!-- Stats Section -->
+<section class="grid grid-cols-3 gap-3 mb-6">
+<div class="flex flex-col gap-1 rounded-xl bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 p-3 shadow-sm items-start">
+<p class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">1,240</p>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Total Users</p>
+</div>
+<div class="flex flex-col gap-1 rounded-xl bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 p-3 shadow-sm items-start">
+<p class="text-primary text-2xl font-bold leading-tight">85</p>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium uppercase tracking-wider">New (Sept)</p>
+</div>
+<div class="flex flex-col gap-1 rounded-xl bg-white dark:bg-[#1a2632] border border-[#dbe0e6] dark:border-gray-700 p-3 shadow-sm items-start">
+<p class="text-orange-500 text-2xl font-bold leading-tight">12</p>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium uppercase tracking-wider">Pending</p>
+</div>
+</section>
+<!-- Search Bar -->
+<section class="mb-4">
+<label class="relative flex w-full items-center">
+<div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-[#617589]">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a2632] py-3 pl-12 pr-4 text-base text-[#111418] dark:text-white placeholder:text-[#617589] focus:border-primary focus:ring-1 focus:ring-primary shadow-sm" placeholder="Search by name, email, or building..." type="text"/>
+</label>
+</section>
+<!-- Filter Chips -->
+<section class="flex gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-[#111418] text-white px-5 shadow-md transition-transform active:scale-95">
+<span class="text-sm font-medium">All Users</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2632] border border-gray-200 dark:border-gray-700 px-5 text-[#111418] dark:text-white shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors active:scale-95">
+<span class="text-sm font-medium">Admins</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2632] border border-gray-200 dark:border-gray-700 px-5 text-[#111418] dark:text-white shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors active:scale-95">
+<span class="text-sm font-medium">Tenants</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2632] border border-gray-200 dark:border-gray-700 px-5 text-[#111418] dark:text-white shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors active:scale-95">
+<span class="text-sm font-medium">Staff</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2632] border border-gray-200 dark:border-gray-700 px-5 text-[#111418] dark:text-white shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors active:scale-95">
+<span class="text-sm font-medium">Pending</span>
+</button>
+</section>
+<!-- User List -->
+<div class="flex flex-col gap-4">
+<!-- User Card 1: Admin, Active -->
+<div class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl bg-white dark:bg-[#1a2632] p-4 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="relative size-14 shrink-0 overflow-hidden rounded-full bg-gray-100" data-alt="Portrait of Sarah Jenkins">
+<img alt="Sarah Jenkins" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7TjB6sqMyMZ09eF4qJwa1wdWKZvVq0giDknaoZ-3avIMg6amMbC_XynPXL9JZTmp8yz8OQ5ocvf20Jn2VXs5Emi4IkJUcZBFE8dMj-XcGtbtPaZdjP9lWmEkjpkcXibLAIuxZKJNEQPwtOIfRDvt9Mn0BLfb65T4pMJKi2HSzQo_zBivc-SS5KG-8PGv8vgGOJA3_rD0-aGRengJvJlufip-D48k1NcyVBBirucDhHV7-aY282pGkHCkXBo3WgNa-f7JUOWEO34uU"/>
+<div class="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-green-500 ring-2 ring-white dark:ring-[#1a2632]"></div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1">
+<p class="text-base font-bold text-[#111418] dark:text-white">Sarah Jenkins</p>
+<span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">Admin</span>
+</div>
+<p class="text-sm text-[#617589] dark:text-gray-400">sarah.j@sunrise-heights.com</p>
+<div class="mt-1 flex items-center gap-1 text-xs text-[#617589] dark:text-gray-500">
+<span class="material-symbols-outlined text-[14px]">apartment</span>
+                            Sunrise Heights
+                        </div>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto pl-[4.5rem] sm:pl-0 border-t border-gray-50 dark:border-gray-700 sm:border-0 pt-3 sm:pt-0">
+<span class="sm:hidden text-sm font-medium text-gray-500">Status</span>
+<div class="flex items-center gap-4">
+<label class="inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox" value=""/>
+<div class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:border-white focus:outline-none focus:ring-2 focus:ring-green-500/20"></div>
+</label>
+<button class="text-gray-400 hover:text-[#111418] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- User Card 2: Tenant, Active -->
+<div class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl bg-white dark:bg-[#1a2632] p-4 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="relative size-14 shrink-0 overflow-hidden rounded-full bg-gray-100" data-alt="Portrait of Michael Chen">
+<img alt="Michael Chen" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0nRUrxA4zfbBLvE3iCHLQznK2x_KxvIZWj_RGrXQns6kB6t2BmSC5ryThPU67DCF-YE5RJLyNuP4-ViSXpwAkThQYLEzkTXRlAHuPNd34bCq9bhuhdaOu6owlkECGrgBA5Z_2aGzX3LcA_cyX0g149Lxt4pgBs07qenISUKiy6FJHwAVNCEJhWrHSgaLiH-1kYi3qAc2HeeAwOPADO0BLcTzoFsRCwGGvFhKvDqpZ780Rl-nSF1NEHSS1nm_Xjk95QlIA4Swz3eY2"/>
+<div class="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-green-500 ring-2 ring-white dark:ring-[#1a2632]"></div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1">
+<p class="text-base font-bold text-[#111418] dark:text-white">Michael Chen</p>
+<span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Tenant</span>
+</div>
+<p class="text-sm text-[#617589] dark:text-gray-400">m.chen88@gmail.com</p>
+<div class="mt-1 flex items-center gap-1 text-xs text-[#617589] dark:text-gray-500">
+<span class="material-symbols-outlined text-[14px]">apartment</span>
+                            Azure Towers, Unit 402
+                        </div>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto pl-[4.5rem] sm:pl-0 border-t border-gray-50 dark:border-gray-700 sm:border-0 pt-3 sm:pt-0">
+<span class="sm:hidden text-sm font-medium text-gray-500">Status</span>
+<div class="flex items-center gap-4">
+<label class="inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox" value=""/>
+<div class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:border-white focus:outline-none focus:ring-2 focus:ring-green-500/20"></div>
+</label>
+<button class="text-gray-400 hover:text-[#111418] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- User Card 3: Staff, Inactive -->
+<div class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl bg-white dark:bg-[#1a2632] p-4 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/30 transition-all opacity-80">
+<div class="flex items-center gap-4">
+<div class="relative size-14 shrink-0 overflow-hidden rounded-full bg-gray-100 grayscale" data-alt="Portrait of David Ross">
+<img alt="David Ross" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAub8-SbjxA_VSlw8QSGvfA0Ergg3TOVHIp8TqSnb2qLaFjAzYW_5FZfCAJ-1eme_OU4b23p7H7TwHEliLxmACzmx1lGwwhSK-c-5uWLl8H4J4w4u7W256PcnM8E9DvEtI7j-JVM-lrO2Ha8CaYrlWAW5VIcj6mLfPyZUjwtzCykMGitYtLnlGDiddB3e0-X1C85layzdNRAQGzGHC8gBoDT2kmRuYSp5-_snpTXTDWXL8HKYdKOgwCMypCxL7elmB2yZvJBYnGwzrv"/>
+<div class="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-gray-400 ring-2 ring-white dark:ring-[#1a2632]"></div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1">
+<p class="text-base font-bold text-[#617589] dark:text-gray-300">David Ross</p>
+<span class="inline-flex items-center rounded-md bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">Staff</span>
+</div>
+<p class="text-sm text-[#617589] dark:text-gray-500 line-through">d.ross@maintenance.net</p>
+<div class="mt-1 flex items-center gap-1 text-xs text-[#617589] dark:text-gray-500">
+<span class="material-symbols-outlined text-[14px]">apartment</span>
+                            Sunrise Heights
+                        </div>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto pl-[4.5rem] sm:pl-0 border-t border-gray-50 dark:border-gray-700 sm:border-0 pt-3 sm:pt-0">
+<span class="sm:hidden text-sm font-medium text-gray-500">Status</span>
+<div class="flex items-center gap-4">
+<label class="inline-flex cursor-pointer items-center">
+<input class="peer sr-only" type="checkbox" value=""/>
+<div class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:border-white focus:outline-none focus:ring-2 focus:ring-green-500/20"></div>
+</label>
+<button class="text-gray-400 hover:text-[#111418] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- User Card 4: Tenant, Pending -->
+<div class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl bg-white dark:bg-[#1a2632] p-4 shadow-sm border border-l-4 border-l-orange-500 border-y-gray-100 border-r-gray-100 dark:border-y-gray-800 dark:border-r-gray-800 hover:border-r-primary/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="relative size-14 shrink-0 overflow-hidden rounded-full bg-gray-100" data-alt="Portrait of Emily Blunt">
+<img alt="Emily Blunt" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkJ3LbRy4rvclPV_lQqHvk6b-j2z-Bz5ZP_2dYQp0S-xGp0qyT2LaUIclz74Vfgf6rfe7iGE37QPTq2i2MTO3RJB3M6MaoBC9arFfMEPB4Hy3opWlBWHY9UcaiUvnwtuRlGr6RSIvWsu6-Is8VTSZyyF2DIuZeZsmnrD4Yonu3ZuX5pF58XF409av6_VKIqikbl5n9u_R2coXhHdQPiR-rBDoBuBqOdRnDB55sWwNlj-SnCX74GHmNPpMo4ff_KXTR0gi2AYP39DJa"/>
+<div class="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-orange-500 ring-2 ring-white dark:ring-[#1a2632]"></div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1">
+<p class="text-base font-bold text-[#111418] dark:text-white">Emily Blunt</p>
+<span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Tenant</span>
+</div>
+<p class="text-sm text-[#617589] dark:text-gray-400">emily.b@outlook.com</p>
+<div class="mt-1 flex items-center gap-1 text-xs text-orange-600 dark:text-orange-400 font-medium">
+<span class="material-symbols-outlined text-[14px]">hourglass_empty</span>
+                            Awaiting Approval
+                        </div>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto pl-[4.5rem] sm:pl-0 border-t border-gray-50 dark:border-gray-700 sm:border-0 pt-3 sm:pt-0">
+<span class="sm:hidden text-sm font-medium text-gray-500">Actions</span>
+<div class="flex items-center gap-2">
+<button class="flex h-8 items-center justify-center gap-1 rounded-lg bg-green-50 px-3 text-sm font-medium text-green-700 hover:bg-green-100 transition-colors">
+<span class="material-symbols-outlined text-[18px]">check</span> Approve
+                        </button>
+<button class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-50 text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- User Card 5: Admin, Active -->
+<div class="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl bg-white dark:bg-[#1a2632] p-4 shadow-sm border border-gray-100 dark:border-gray-800 hover:border-primary/30 transition-all">
+<div class="flex items-center gap-4">
+<div class="relative size-14 shrink-0 overflow-hidden rounded-full bg-gray-100" data-alt="Portrait of Marcus Johnson">
+<img alt="Marcus Johnson" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHKKJ8cK2Ff_mOt6snbznwUt5S2cMnXg6MgyvrCv8xs5CcTyAR2tvg2UPQxISVmbZ-7RWU7x1t3SryyWD2sWxoLANikSfKkoUuz7W_QPxO-kN-_TeI2_UcH86xaq0PiIRHCHZvmCz7gvrVHRonx0fTz9yIUI6YWUWGEMPet2Xe_ud9HhygcZ9ctUQRkg8-_lxpo2zNLGADwSSMx21bsdWZH7mluoIvpLAUgl_mVLMY0_2Nb9edMxTWRrhlaRRlkshkP99bVdVlrsMG"/>
+<div class="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-green-500 ring-2 ring-white dark:ring-[#1a2632]"></div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1">
+<p class="text-base font-bold text-[#111418] dark:text-white">Marcus Johnson</p>
+<span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">Admin</span>
+</div>
+<p class="text-sm text-[#617589] dark:text-gray-400">m.johnson@prop-mgmt.io</p>
+<div class="mt-1 flex items-center gap-1 text-xs text-[#617589] dark:text-gray-500">
+<span class="material-symbols-outlined text-[14px]">apartment</span>
+                            All Buildings
+                        </div>
+</div>
+</div>
+<div class="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto pl-[4.5rem] sm:pl-0 border-t border-gray-50 dark:border-gray-700 sm:border-0 pt-3 sm:pt-0">
+<span class="sm:hidden text-sm font-medium text-gray-500">Status</span>
+<div class="flex items-center gap-4">
+<label class="inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox" value=""/>
+<div class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-500 peer-checked:after:translate-x-full peer-checked:after:border-white focus:outline-none focus:ring-2 focus:ring-green-500/20"></div>
+</label>
+<button class="text-gray-400 hover:text-[#111418] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Loading Indicator for Infinite Scroll -->
+<div class="mt-8 flex justify-center">
+<div class="flex items-center gap-2 text-primary font-medium">
+<div class="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
+                Loading more users...
+            </div>
+</div>
+</main>
+<!-- Bottom Navigation (Simulated) -->
+<nav class="fixed bottom-0 z-50 w-full bg-white dark:bg-[#1a2632] border-t border-gray-200 dark:border-gray-800 pb-safe">
+<div class="flex h-16 items-center justify-around px-2">
+<button class="flex flex-col items-center justify-center gap-1 w-full h-full text-[#617589] dark:text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 w-full h-full text-primary">
+<span class="material-symbols-outlined fill-current">group</span>
+<span class="text-[10px] font-medium">Users</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 w-full h-full text-[#617589] dark:text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">apartment</span>
+<span class="text-[10px] font-medium">Buildings</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 w-full h-full text-[#617589] dark:text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</div>
+</nav>
+<style>
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</body></html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SA Settings - Features Tab</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-10 bg-white dark:bg-[#1a2632] border-b border-[#e5e7eb] dark:border-[#2a3a4a]">
+<div class="flex items-center p-4 pb-3 justify-between">
+<div class="flex size-10 shrink-0 items-center justify-center cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full text-[#111418] dark:text-white">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">
+                Settings
+            </h2>
+</div>
+</div>
+<!-- Segmented Control / Tabs -->
+<div class="bg-white dark:bg-[#1a2632] px-4 py-3 border-b border-[#e5e7eb] dark:border-[#2a3a4a] mb-4">
+<div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-[#f0f2f4] dark:bg-[#232f3c] p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-[7px] px-2 text-[#617589] dark:text-[#9aaab9] text-sm font-medium leading-normal hover:bg-gray-200 dark:hover:bg-[#2e3d4c] transition-colors">
+<span class="truncate">General</span>
+<input class="invisible w-0" name="tabs" type="radio" value="General"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-[7px] px-2 bg-white dark:bg-[#1a2632] shadow-[0_0_4px_rgba(0,0,0,0.1)] text-primary text-sm font-medium leading-normal">
+<span class="truncate">Features</span>
+<input checked="" class="invisible w-0" name="tabs" type="radio" value="Features"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-[7px] px-2 text-[#617589] dark:text-[#9aaab9] text-sm font-medium leading-normal hover:bg-gray-200 dark:hover:bg-[#2e3d4c] transition-colors">
+<span class="truncate">Permissions</span>
+<input class="invisible w-0" name="tabs" type="radio" value="Permissions"/>
+</label>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex flex-col gap-4 pb-8 max-w-2xl mx-auto w-full">
+<!-- Global Configuration Banner -->
+<div class="px-4">
+<div class="flex flex-col items-start justify-between gap-4 rounded-xl border border-[#dbe0e6] dark:border-[#2a3a4a] bg-white dark:bg-[#1a2632] p-5 shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-[#111418] dark:text-white mb-1">
+<span class="material-symbols-outlined text-primary" style="font-size: 20px;">info</span>
+<p class="text-base font-bold leading-tight">Global Configuration</p>
+</div>
+<p class="text-[#617589] dark:text-[#9aaab9] text-sm font-normal leading-normal">
+                        Disabling a module here hides it for all society residents. Changes apply immediately to the tenant app.
+                    </p>
+</div>
+<button class="w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary/10 hover:bg-primary/20 text-primary text-sm font-medium leading-normal transition-colors">
+<span class="truncate">Dismiss</span>
+</button>
+</div>
+</div>
+<!-- Section: Operations -->
+<div>
+<h3 class="text-[#617589] dark:text-[#9aaab9] text-sm font-bold uppercase tracking-wider px-6 pb-2 pt-2">Operations</h3>
+<div class="bg-white dark:bg-[#1a2632] rounded-xl overflow-hidden shadow-sm mx-4 border border-[#e5e7eb] dark:border-[#2a3a4a]">
+<!-- Maintenance Requests -->
+<div class="flex items-center gap-4 px-4 py-3 justify-between border-b border-[#f0f2f4] dark:border-[#2a3a4a] last:border-0">
+<div class="flex items-center gap-4">
+<div class="text-[#111418] dark:text-white flex items-center justify-center rounded-lg bg-[#eff6ff] dark:bg-blue-900/30 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">handyman</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111418] dark:text-white text-base font-medium leading-normal line-clamp-1">Maintenance Requests</p>
+<p class="text-[#617589] dark:text-[#9aaab9] text-xs font-normal leading-normal line-clamp-2">Manage repairs &amp; tickets</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#e5e7eb] dark:bg-[#374151] p-0.5 has-[:checked]:bg-primary transition-colors duration-200">
+<div class="h-[27px] w-[27px] rounded-full bg-white shadow-sm transition-transform duration-200 translate-x-0 peer-checked:translate-x-[20px]"></div>
+<input checked="" class="peer invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Complaints Module -->
+<div class="flex items-center gap-4 px-4 py-3 justify-between border-b border-[#f0f2f4] dark:border-[#2a3a4a] last:border-0">
+<div class="flex items-center gap-4">
+<div class="text-[#111418] dark:text-white flex items-center justify-center rounded-lg bg-[#eff6ff] dark:bg-blue-900/30 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">report_problem</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111418] dark:text-white text-base font-medium leading-normal line-clamp-1">Complaints Module</p>
+<p class="text-[#617589] dark:text-[#9aaab9] text-xs font-normal leading-normal line-clamp-2">Incident reporting system</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#e5e7eb] dark:bg-[#374151] p-0.5 has-[:checked]:bg-primary transition-colors duration-200">
+<div class="h-[27px] w-[27px] rounded-full bg-white shadow-sm transition-transform duration-200 translate-x-0 peer-checked:translate-x-[20px]"></div>
+<input checked="" class="peer invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Expenses Module -->
+<div class="flex items-center gap-4 px-4 py-3 justify-between last:border-0">
+<div class="flex items-center gap-4">
+<div class="text-[#111418] dark:text-white flex items-center justify-center rounded-lg bg-[#eff6ff] dark:bg-blue-900/30 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111418] dark:text-white text-base font-medium leading-normal line-clamp-1">Expenses Module</p>
+<p class="text-[#617589] dark:text-[#9aaab9] text-xs font-normal leading-normal line-clamp-2">Track society spending</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#e5e7eb] dark:bg-[#374151] p-0.5 has-[:checked]:bg-primary transition-colors duration-200">
+<div class="h-[27px] w-[27px] rounded-full bg-white shadow-sm transition-transform duration-200 translate-x-0 peer-checked:translate-x-[20px]"></div>
+<input class="peer invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Community -->
+<div>
+<h3 class="text-[#617589] dark:text-[#9aaab9] text-sm font-bold uppercase tracking-wider px-6 pb-2 pt-2">Community</h3>
+<div class="bg-white dark:bg-[#1a2632] rounded-xl overflow-hidden shadow-sm mx-4 border border-[#e5e7eb] dark:border-[#2a3a4a]">
+<!-- Voting / Polls -->
+<div class="flex items-center gap-4 px-4 py-3 justify-between border-b border-[#f0f2f4] dark:border-[#2a3a4a] last:border-0">
+<div class="flex items-center gap-4">
+<div class="text-[#111418] dark:text-white flex items-center justify-center rounded-lg bg-[#eff6ff] dark:bg-blue-900/30 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">poll</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111418] dark:text-white text-base font-medium leading-normal line-clamp-1">Voting / Polls</p>
+<p class="text-[#617589] dark:text-[#9aaab9] text-xs font-normal leading-normal line-clamp-2">AGM &amp; Committee elections</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#e5e7eb] dark:bg-[#374151] p-0.5 has-[:checked]:bg-primary transition-colors duration-200">
+<div class="h-[27px] w-[27px] rounded-full bg-white shadow-sm transition-transform duration-200 translate-x-0 peer-checked:translate-x-[20px]"></div>
+<input checked="" class="peer invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Documents Repository -->
+<div class="flex items-center gap-4 px-4 py-3 justify-between border-b border-[#f0f2f4] dark:border-[#2a3a4a] last:border-0">
+<div class="flex items-center gap-4">
+<div class="text-[#111418] dark:text-white flex items-center justify-center rounded-lg bg-[#eff6ff] dark:bg-blue-900/30 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111418] dark:text-white text-base font-medium leading-normal line-clamp-1">Documents Repository</p>
+<p class="text-[#617589] dark:text-[#9aaab9] text-xs font-normal leading-normal line-clamp-2">Shared rules &amp; bylaws</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#e5e7eb] dark:bg-[#374151] p-0.5 has-[:checked]:bg-primary transition-colors duration-200">
+<div class="h-[27px] w-[27px] rounded-full bg-white shadow-sm transition-transform duration-200 translate-x-0 peer-checked:translate-x-[20px]"></div>
+<input checked="" class="peer invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Community Forums -->
+<div class="flex items-center gap-4 px-4 py-3 justify-between last:border-0">
+<div class="flex items-center gap-4">
+<div class="text-[#111418] dark:text-white flex items-center justify-center rounded-lg bg-[#eff6ff] dark:bg-blue-900/30 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">forum</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-[#111418] dark:text-white text-base font-medium leading-normal line-clamp-1">Community Forums</p>
+<p class="text-[#617589] dark:text-[#9aaab9] text-xs font-normal leading-normal line-clamp-2">Discussion boards</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#e5e7eb] dark:bg-[#374151] p-0.5 has-[:checked]:bg-primary transition-colors duration-200">
+<div class="h-[27px] w-[27px] rounded-full bg-white shadow-sm transition-transform duration-200 translate-x-0 peer-checked:translate-x-[20px]"></div>
+<input class="peer invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Style for the custom toggle transition -->
+<style>
+        /* This ensures the dot moves smoothly when the checkbox is checked */
+        input:checked + div {
+            transform: translateX(20px);
+        }
+    </style>
+</body></html>

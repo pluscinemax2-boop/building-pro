@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Super Admin Profile</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar hiding for cleaner mobile look */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Smooth switch transition */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #137fec;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #137fec;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white flex flex-col min-h-screen overflow-x-hidden pb-[90px]">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-[#101922]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-4 pt-safe-top">
+<div class="flex items-center justify-between h-14 max-w-md mx-auto w-full">
+<button class="flex items-center justify-center w-10 h-10 -ml-2 text-gray-900 dark:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight">Profile</h1>
+<button class="flex items-center justify-center h-10 px-2 text-primary font-bold text-[15px] hover:opacity-80 transition-opacity">
+                Edit
+            </button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 w-full max-w-md mx-auto p-4 space-y-6">
+<!-- Profile Header Card -->
+<section class="bg-white dark:bg-[#1a2632] rounded-xl p-6 shadow-sm border border-gray-100/50 dark:border-gray-700/30 flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Decorative background blur -->
+<div class="absolute top-0 w-full h-24 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none"></div>
+<div class="relative z-10">
+<div class="relative">
+<div class="w-28 h-28 rounded-full bg-gray-200 border-4 border-white dark:border-[#1a2632] shadow-sm bg-center bg-cover" data-alt="Professional headshot of Alex Sterling, Super Admin, wearing a suit" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1xWu8U2_piLzC5LhFoM03bfSMhsCg0JtRTeXokKDFTnVGlC1VUyhfEuCRknW1ftPD69W6tXG03Vz_80JliRZrzoFHRjxKNNetgnQ8P3CxvU5Hjo7Wwd02gCvnxSHR1AIiQEkAuQUF5NcdTFSnRkh7AJZmNYQINAtYcmBPhf4YgEHlbz2npQUgalmr0BdbN3KtvnfPw_hlmIENyUFnXUuOgpWZk1QH6e3LCr77nWM3YWFSyFpRHndIjgEq7l3_thcKoXwJPWjXHEWX');">
+</div>
+<button class="absolute bottom-1 right-1 bg-primary text-white rounded-full p-2 flex items-center justify-center border-2 border-white dark:border-[#1a2632] shadow-sm hover:bg-blue-600 transition-colors">
+<span class="material-symbols-outlined text-[16px]">photo_camera</span>
+</button>
+</div>
+</div>
+<div class="mt-4 text-center z-10">
+<h2 class="text-xl font-bold text-[#111418] dark:text-white leading-tight">Alex Sterling</h2>
+<div class="mt-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                    Super Admin
+                </div>
+</div>
+</section>
+<!-- Personal Information Section -->
+<section>
+<h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 pl-2">Personal Information</h3>
+<div class="bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-gray-100/50 dark:border-gray-700/30 overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
+<!-- Full Name Field -->
+<div class="group flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+<div class="flex-1">
+<label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">Full Name</label>
+<input class="w-full bg-transparent border-none p-0 text-[#111418] dark:text-white text-[15px] font-medium focus:ring-0 placeholder:text-gray-400" type="text" value="Alex Sterling"/>
+</div>
+<span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-[18px]">edit</span>
+</div>
+<!-- Email Field (Locked) -->
+<div class="group flex items-center gap-4 p-4 bg-gray-50/50 dark:bg-gray-800/20">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</div>
+<div class="flex-1">
+<label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">Email Address</label>
+<input class="w-full bg-transparent border-none p-0 text-gray-500 dark:text-gray-400 text-[15px] font-medium focus:ring-0 cursor-not-allowed" readonly="" type="email" value="admin@skylineheights.com"/>
+</div>
+<span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-[18px]">lock</span>
+</div>
+<!-- Phone Field -->
+<div class="group flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</div>
+<div class="flex-1">
+<label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">Phone Number</label>
+<input class="w-full bg-transparent border-none p-0 text-[#111418] dark:text-white text-[15px] font-medium focus:ring-0 placeholder:text-gray-400" type="tel" value="+1 (555) 019-2834"/>
+</div>
+<span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-[18px]">edit</span>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section>
+<h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 pl-2">Security</h3>
+<div class="bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-gray-100/50 dark:border-gray-700/30 overflow-hidden divide-y divide-gray-100 dark:divide-gray-800">
+<!-- Change Password -->
+<button class="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors text-left group">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-primary">
+<span class="material-symbols-outlined text-[20px]">lock_reset</span>
+</div>
+<span class="text-[15px] font-medium text-[#111418] dark:text-white">Change Password</span>
+</div>
+<span class="material-symbols-outlined text-gray-300 group-hover:text-primary transition-colors text-[20px]">chevron_right</span>
+</button>
+<!-- Biometric Toggle -->
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-primary">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[15px] font-medium text-[#111418] dark:text-white">Biometric Login</span>
+<span class="text-xs text-gray-500">FaceID / TouchID</span>
+</div>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Logout Button -->
+<button class="w-full mt-4 bg-white dark:bg-[#1a2632] border border-red-100 dark:border-red-900/30 rounded-xl p-4 shadow-sm flex items-center justify-center gap-2 text-red-600 dark:text-red-500 font-semibold text-[15px] hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+            Log Out
+        </button>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 z-40 w-full bg-white dark:bg-[#101922] border-t border-gray-100 dark:border-gray-800 pb-safe-bottom">
+<div class="flex justify-around items-center h-[60px] max-w-md mx-auto">
+<a class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors gap-1" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors gap-1" href="#">
+<span class="material-symbols-outlined text-[24px]">apartment</span>
+<span class="text-[10px] font-medium">Units</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors gap-1" href="#">
+<span class="material-symbols-outlined text-[24px]">assignment</span>
+<span class="text-[10px] font-medium">Requests</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary gap-1" href="#">
+<span class="material-symbols-outlined text-[24px] fill-current">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+</div>
+</nav>
+<!-- Safe Area Spacing for Bottom Nav -->
+<style>
+        .pb-safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        .pt-safe-top {
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+    </style>
+</body></html>

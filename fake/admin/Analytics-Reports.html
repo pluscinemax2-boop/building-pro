@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Super Admin Analytics &amp; Reports</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1a222b",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem", 
+              "lg": "0.5rem", 
+              "xl": "0.75rem", 
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar hiding for horizontal scroll areas */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white pb-24 antialiased selection:bg-primary/20">
+<!-- Sticky Header -->
+<div class="sticky top-0 z-20 bg-surface-light dark:bg-surface-dark px-4 py-3 flex items-center justify-between border-b border-[#f0f2f4] dark:border-[#293038] shadow-sm">
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Platform Analytics</h2>
+<div class="flex items-center gap-4">
+<button class="relative flex items-center justify-center w-10 h-10 rounded-full bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[#111418] dark:text-white">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-[#1a222b]"></span>
+</button>
+<div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden" data-alt="User profile avatar placeholder showing a generic silhouette">
+<img alt="Admin Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvQ7hYAnY6q_hdeRxpVcHPOi9NRXX60AzHquyP-U8ZcXDQp4q14o0DufD8PMh8WO0XCV4CEPa_wxqJc6TXbWmmOureXxZ1QvIQ-3OfRsmGZF4T6IGgxhlgGn-NmUhiN2uxuZYigfxi19FNQxmYabGxJMRy7YmFimOtMvKaUZHddeK6-xHepsiCflTfGlIk0HAQtil5t40ImF0C2JbpRYuHzLQwy3M65fj9CTPRFrzc0LBzeyfsn-8FvSsViAaQb4l1QZkjAFtKfK-A"/>
+</div>
+</div>
+</div>
+<!-- Date Filters (Horizontal Scroll) -->
+<div class="flex gap-3 p-4 overflow-x-auto no-scrollbar bg-surface-light dark:bg-surface-dark border-b border-[#f0f2f4] dark:border-[#293038]">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white pl-4 pr-3 shadow-md shadow-primary/20 transition-transform active:scale-95">
+<span class="text-sm font-medium leading-normal">This Month</span>
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-[#f0f2f4] dark:bg-[#293038] pl-4 pr-3 transition-transform active:scale-95 border border-transparent dark:border-gray-700">
+<span class="text-[#111418] dark:text-white text-sm font-medium leading-normal">Last 30 Days</span>
+<span class="material-symbols-outlined text-[#111418] dark:text-white text-[20px]">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-[#f0f2f4] dark:bg-[#293038] pl-4 pr-3 transition-transform active:scale-95 border border-transparent dark:border-gray-700">
+<span class="text-[#111418] dark:text-white text-sm font-medium leading-normal">Custom Range</span>
+<span class="material-symbols-outlined text-[#111418] dark:text-white text-[20px]">calendar_today</span>
+</button>
+</div>
+<!-- Main Content Area -->
+<main class="p-4 space-y-4">
+<!-- KPI Row (Horizontal Scroll) -->
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4 snap-x">
+<!-- Total Revenue -->
+<div class="snap-start flex min-w-[160px] flex-col gap-2 rounded-xl p-5 bg-surface-light dark:bg-surface-dark border border-[#dbe0e6] dark:border-[#293038] shadow-sm">
+<div class="flex items-center gap-2">
+<div class="p-1.5 rounded-md bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
+<span class="material-symbols-outlined text-[20px]">attach_money</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Total Revenue</p>
+</div>
+<p class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">$1.2M</p>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[#078838] text-[16px]">trending_up</span>
+<p class="text-[#078838] text-xs font-bold">+8.5%</p>
+<span class="text-gray-400 text-xs ml-1">vs last mo</span>
+</div>
+</div>
+<!-- Active Societies -->
+<div class="snap-start flex min-w-[160px] flex-col gap-2 rounded-xl p-5 bg-surface-light dark:bg-surface-dark border border-[#dbe0e6] dark:border-[#293038] shadow-sm">
+<div class="flex items-center gap-2">
+<div class="p-1.5 rounded-md bg-blue-100 dark:bg-blue-900/30 text-primary dark:text-blue-400">
+<span class="material-symbols-outlined text-[20px]">apartment</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Active Societies</p>
+</div>
+<p class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">342</p>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[#078838] text-[16px]">trending_up</span>
+<p class="text-[#078838] text-xs font-bold">+12%</p>
+<span class="text-gray-400 text-xs ml-1">vs last mo</span>
+</div>
+</div>
+<!-- Total Users -->
+<div class="snap-start flex min-w-[160px] flex-col gap-2 rounded-xl p-5 bg-surface-light dark:bg-surface-dark border border-[#dbe0e6] dark:border-[#293038] shadow-sm">
+<div class="flex items-center gap-2">
+<div class="p-1.5 rounded-md bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined text-[20px]">group</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Total Users</p>
+</div>
+<p class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">12.5k</p>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[#078838] text-[16px]">trending_up</span>
+<p class="text-[#078838] text-xs font-bold">+5%</p>
+<span class="text-gray-400 text-xs ml-1">vs last mo</span>
+</div>
+</div>
+</div>
+<!-- Revenue Chart -->
+<div class="flex flex-col gap-4 rounded-xl bg-surface-light dark:bg-surface-dark border border-[#dbe0e6] dark:border-[#293038] p-5 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal">Revenue Trends</p>
+<p class="text-[#111418] dark:text-white tracking-tight text-[28px] font-bold leading-tight truncate">$124,500</p>
+</div>
+<button class="text-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+<div class="flex gap-2 items-center">
+<span class="px-2 py-1 rounded bg-green-100 dark:bg-green-900/30 text-[#078838] dark:text-green-400 text-xs font-bold">+12%</span>
+<p class="text-[#617589] dark:text-gray-500 text-xs font-normal">than previous month</p>
+</div>
+<div class="flex min-h-[180px] flex-1 flex-col gap-4 mt-2">
+<!-- SVG Chart -->
+<svg class="overflow-visible" fill="none" height="120" preserveaspectratio="none" viewbox="0 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_revenue" x1="236" x2="236" y1="20" y2="150">
+<stop stop-color="#137fec" stop-opacity="0.2"></stop>
+<stop offset="1" stop-color="#137fec" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Area -->
+<path d="M0 109C18.15 109 18.15 21 36.3 21C54.46 21 54.46 41 72.6 41C90.7 41 90.7 93 108.9 93C127 93 127 33 145.2 33C163.3 33 163.3 101 181.5 101C199.6 101 199.6 61 217.8 61C236 61 236 45 254.1 45C272.3 45 272.3 121 290.4 121C308.6 121 308.6 149 326.7 149C344.9 149 344.9 1 363 1C381.2 1 381.2 81 399.3 81C417.5 81 417.5 129 435.6 129C453.8 129 453.8 25 472 25V150H0V109Z" fill="url(#paint0_linear_revenue)"></path>
+<!-- Line -->
+<path d="M0 109C18.15 109 18.15 21 36.3 21C54.46 21 54.46 41 72.6 41C90.7 41 90.7 93 108.9 93C127 93 127 33 145.2 33C163.3 33 163.3 101 181.5 101C199.6 101 199.6 61 217.8 61C236 61 236 45 254.1 45C272.3 45 272.3 121 290.4 121C308.6 121 308.6 149 326.7 149C344.9 149 344.9 1 363 1C381.2 1 381.2 81 399.3 81C417.5 81 417.5 129 435.6 129C453.8 129 453.8 25 472 25" stroke="#137fec" stroke-linecap="round" stroke-width="3"></path>
+<!-- Tooltip approximation (circle) -->
+<circle class="dark:stroke-[#1a222b]" cx="363" cy="1" fill="#137fec" r="6" stroke="white" stroke-width="2"></circle>
+</svg>
+<div class="flex justify-between border-t border-[#f0f2f4] dark:border-[#293038] pt-3 mt-2">
+<p class="text-[#617589] text-xs font-medium">Jan</p>
+<p class="text-[#617589] text-xs font-medium">Feb</p>
+<p class="text-[#617589] text-xs font-medium">Mar</p>
+<p class="text-[#617589] text-xs font-medium">Apr</p>
+<p class="text-[#617589] text-xs font-medium">May</p>
+<p class="text-[#111418] dark:text-white text-xs font-bold">Jun</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- New Buildings (Bar Chart) -->
+<div class="flex flex-col gap-2 rounded-xl border border-[#dbe0e6] dark:border-[#293038] bg-surface-light dark:bg-surface-dark p-5 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal">New Buildings</p>
+<p class="text-[#111418] dark:text-white tracking-tight text-2xl font-bold leading-tight">24 New</p>
+</div>
+<span class="material-symbols-outlined text-[#617589] dark:text-gray-500 text-[20px]">bar_chart</span>
+</div>
+<div class="flex gap-1 mb-4">
+<p class="text-[#617589] dark:text-gray-500 text-xs font-normal">This Quarter</p>
+<p class="text-[#078838] text-xs font-medium">+4%</p>
+</div>
+<div class="grid h-[140px] grid-flow-col gap-4 items-end justify-between px-2">
+<!-- Bar 1 -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-[#f0f2f4] dark:bg-[#293038] rounded-t-sm relative h-[100px] overflow-hidden group">
+<div class="absolute bottom-0 w-full bg-primary/40 h-[60%] rounded-t-sm transition-all duration-500 group-hover:bg-primary"></div>
+</div>
+<p class="text-[#617589] text-[10px] font-bold uppercase">W1</p>
+</div>
+<!-- Bar 2 -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-[#f0f2f4] dark:bg-[#293038] rounded-t-sm relative h-[100px] overflow-hidden group">
+<div class="absolute bottom-0 w-full bg-primary/60 h-[80%] rounded-t-sm transition-all duration-500 group-hover:bg-primary"></div>
+</div>
+<p class="text-[#617589] text-[10px] font-bold uppercase">W2</p>
+</div>
+<!-- Bar 3 -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-[#f0f2f4] dark:bg-[#293038] rounded-t-sm relative h-[100px] overflow-hidden group">
+<div class="absolute bottom-0 w-full bg-primary h-[95%] rounded-t-sm transition-all duration-500"></div>
+</div>
+<p class="text-[#617589] text-[10px] font-bold uppercase">W3</p>
+</div>
+<!-- Bar 4 -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-full bg-[#f0f2f4] dark:bg-[#293038] rounded-t-sm relative h-[100px] overflow-hidden group">
+<div class="absolute bottom-0 w-full bg-primary/50 h-[40%] rounded-t-sm transition-all duration-500 group-hover:bg-primary"></div>
+</div>
+<p class="text-[#617589] text-[10px] font-bold uppercase">W4</p>
+</div>
+</div>
+</div>
+<!-- Churn Rate (Donut Chart) -->
+<div class="flex flex-col gap-2 rounded-xl border border-[#dbe0e6] dark:border-[#293038] bg-surface-light dark:bg-surface-dark p-5 shadow-sm relative overflow-hidden">
+<div class="flex justify-between items-start mb-2 z-10">
+<div>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal">Churn Rate</p>
+</div>
+<span class="material-symbols-outlined text-[#617589] dark:text-gray-500 text-[20px]">pie_chart</span>
+</div>
+<div class="flex items-center justify-center py-2 z-10">
+<div class="relative w-32 h-32">
+<svg class="w-full h-full transform -rotate-90">
+<!-- Background Circle -->
+<circle class="text-[#f0f2f4] dark:text-[#293038]" cx="64" cy="64" fill="transparent" r="56" stroke="currentColor" stroke-width="12"></circle>
+<!-- Foreground Circle (2.4% is small, let's visualize slightly more for effect or stick to logic ~ 2.4/100 * 351 (circumference) ~= 8.5, looks too small. Let's pretend the gauge is out of a target or just visualize it clearly.) -->
+<!-- Let's assume the circle represents 100%, 2.4 is tiny. Let's make the visual a "Retention" visual where 97.6 is filled and 2.4 is gap, or just a generic gauge. -->
+<!-- Let's just show a small segment for churn. -->
+<circle cx="64" cy="64" fill="transparent" r="56" stroke="#ef4444" stroke-dasharray="351.85" stroke-dashoffset="330" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-bold text-[#111418] dark:text-white">2.4%</span>
+<span class="text-[10px] text-[#617589] font-medium uppercase tracking-wide">Lost</span>
+</div>
+</div>
+</div>
+<div class="flex justify-center gap-6 mt-2 z-10">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+<span class="text-xs text-[#617589] font-medium">Churned</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#f0f2f4] dark:bg-[#293038] border border-gray-300 dark:border-gray-600"></span>
+<span class="text-xs text-[#617589] font-medium">Retained</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity List -->
+<div class="rounded-xl border border-[#dbe0e6] dark:border-[#293038] bg-surface-light dark:bg-surface-dark shadow-sm">
+<div class="flex items-center justify-between p-4 border-b border-[#f0f2f4] dark:border-[#293038]">
+<h3 class="text-[#111418] dark:text-white text-base font-bold">Recent Activity</h3>
+<button class="text-primary text-sm font-medium hover:underline">View All</button>
+</div>
+<div class="flex flex-col">
+<!-- Item 1 -->
+<div class="flex items-center gap-3 p-4 border-b border-[#f0f2f4] dark:border-[#293038] last:border-0 hover:bg-gray-50 dark:hover:bg-[#202932] transition-colors">
+<div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-[#111418] dark:text-white truncate">New Premium Plan</p>
+<p class="text-xs text-[#617589] dark:text-gray-400 truncate">Purchased by Green Valley Society</p>
+</div>
+<p class="text-xs text-[#617589] font-medium whitespace-nowrap">2m ago</p>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-3 p-4 border-b border-[#f0f2f4] dark:border-[#293038] last:border-0 hover:bg-gray-50 dark:hover:bg-[#202932] transition-colors">
+<div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-[20px]">warning</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-[#111418] dark:text-white truncate">Payment Failed</p>
+<p class="text-xs text-[#617589] dark:text-gray-400 truncate">Royal Palms - Transaction #8821</p>
+</div>
+<p class="text-xs text-[#617589] font-medium whitespace-nowrap">1h ago</p>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-3 p-4 border-b border-[#f0f2f4] dark:border-[#293038] last:border-0 hover:bg-gray-50 dark:hover:bg-[#202932] transition-colors">
+<div class="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-green-600 dark:text-green-400 text-[20px]">add_business</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-[#111418] dark:text-white truncate">New Society Onboarded</p>
+<p class="text-xs text-[#617589] dark:text-gray-400 truncate">Highland Towers joined basic plan</p>
+</div>
+<p class="text-xs text-[#617589] font-medium whitespace-nowrap">4h ago</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface-light dark:bg-surface-dark border-t border-[#f0f2f4] dark:border-[#293038] px-2 pb-6 pt-2 flex justify-around items-center z-50">
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined text-[24px] filled">analytics</span>
+<span class="text-[10px] font-bold">Analytics</span>
+</button>
+<div class="relative">
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">group</span>
+<span class="text-[10px] font-medium">Users</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</div>
+</body></html>

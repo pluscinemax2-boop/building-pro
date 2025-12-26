@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Building Admin Voting / Polls</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2634",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for cleaner UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white overflow-x-hidden antialiased selection:bg-primary/30">
+<div class="relative flex h-full min-h-screen w-full flex-col max-w-md mx-auto bg-background-light dark:bg-background-dark pb-24">
+<!-- Header -->
+<header class="sticky top-0 z-30 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-5 py-3 flex items-center justify-between">
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Voting &amp; Polls</h1>
+<button class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full hover:bg-blue-600 active:scale-95 transition-all shadow-md shadow-primary/20">
+<span class="material-symbols-outlined text-[20px] font-bold">add</span>
+<span class="text-sm font-bold">New Poll</span>
+</button>
+</header>
+<!-- Segmented Control Tabs -->
+<nav class="px-5 py-4">
+<div class="flex p-1 bg-slate-200/60 dark:bg-surface-dark border border-slate-200 dark:border-slate-700 rounded-xl">
+<button class="flex-1 py-2 px-3 rounded-lg bg-surface-light dark:bg-slate-700 text-primary dark:text-white shadow-sm text-sm font-bold transition-all text-center">Active (3)</button>
+<button class="flex-1 py-2 px-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 text-sm font-medium transition-all text-center">Scheduled</button>
+<button class="flex-1 py-2 px-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 text-sm font-medium transition-all text-center">Past</button>
+</div>
+</nav>
+<!-- Quick Stats Summary -->
+<section class="px-5 mb-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-800 flex flex-col gap-2">
+<span class="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">Avg. Turnout</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">78%</span>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-400 px-1.5 py-0.5 rounded-md flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">trending_up</span> 5%
+                        </span>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-800 flex flex-col gap-2">
+<span class="text-slate-500 dark:text-slate-400 text-xs font-semibold uppercase tracking-wider">Votes This Month</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">142</span>
+<span class="text-xs font-medium text-slate-400 dark:text-slate-500">residents</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Polls Section -->
+<section class="px-5 pb-4">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Active Polls</h3>
+<button class="text-xs font-semibold text-primary hover:underline">View All</button>
+</div>
+<!-- Poll Card 1 (High Priority) -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 mb-4 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-700 relative overflow-hidden group hover:border-primary/30 transition-colors">
+<!-- Status Indicator Strip -->
+<div class="absolute top-0 left-0 w-1.5 h-full bg-primary"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3">
+<div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">palette</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white text-base leading-tight">Lobby Paint Color</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Ends Oct 24 • High Importance</p>
+</div>
+</div>
+<span class="bg-amber-50 text-amber-700 border border-amber-100 dark:border-amber-900 dark:bg-amber-900/20 dark:text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Ends Soon</span>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-xs font-semibold mb-2">
+<span class="text-slate-600 dark:text-slate-300">45/80 Residents Voted</span>
+<span class="text-primary">56%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500 ease-out" style="width: 56%"></div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white dark:border-surface-dark flex items-center justify-center text-[8px] font-bold text-slate-500">JP</div>
+<div class="w-6 h-6 rounded-full bg-blue-200 border-2 border-white dark:border-surface-dark flex items-center justify-center text-[8px] font-bold text-blue-600">AS</div>
+<div class="w-6 h-6 rounded-full bg-slate-100 border-2 border-white dark:border-surface-dark flex items-center justify-center text-[8px] text-slate-400">+42</div>
+</div>
+<button class="text-sm font-bold text-primary hover:text-blue-700 dark:hover:text-blue-400 flex items-center gap-1">
+                        Manage <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Poll Card 2 -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 mb-4 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-700 relative overflow-hidden group hover:border-primary/30 transition-colors">
+<div class="absolute top-0 left-0 w-1.5 h-full bg-slate-300 dark:bg-slate-600"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3">
+<div class="w-11 h-11 rounded-xl bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+<span class="material-symbols-outlined text-[24px]">event</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white text-base leading-tight">Annual AGM Date</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Ends Nov 01 • General</p>
+</div>
+</div>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-xs font-semibold mb-2">
+<span class="text-slate-600 dark:text-slate-300">12/80 Residents Voted</span>
+<span class="text-primary">15%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500 ease-out" style="width: 15%"></div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+<button class="text-sm font-bold text-primary hover:text-blue-700 dark:hover:text-blue-400 flex items-center gap-1">
+                        Manage <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Poll Card 3 -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 mb-4 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-700 relative overflow-hidden group hover:border-primary/30 transition-colors">
+<div class="absolute top-0 left-0 w-1.5 h-full bg-slate-300 dark:bg-slate-600"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3">
+<div class="w-11 h-11 rounded-xl bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-600 dark:text-orange-400 shrink-0">
+<span class="material-symbols-outlined text-[24px]">local_parking</span>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white text-base leading-tight">New Visitor Parking</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Ends Oct 30 • Amenity</p>
+</div>
+</div>
+</div>
+<div class="mt-5">
+<div class="flex justify-between text-xs font-semibold mb-2">
+<span class="text-slate-600 dark:text-slate-300">68/80 Residents Voted</span>
+<span class="text-primary">85%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500 ease-out" style="width: 85%"></div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+<button class="text-sm font-bold text-primary hover:text-blue-700 dark:hover:text-blue-400 flex items-center gap-1">
+                        Manage <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+</section>
+<!-- Recent Results Section -->
+<section class="px-5 pt-2">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Recent Results</h3>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-700 flex items-center gap-4 mb-3">
+<div class="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 border-2 border-emerald-100 dark:border-emerald-800">
+<span class="material-symbols-outlined">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-slate-900 dark:text-white text-sm truncate">Guest Parking Rules</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Ended Oct 15 • Approved</p>
+<div class="flex mt-2.5 h-2 w-full rounded-full overflow-hidden">
+<div class="bg-emerald-500 w-[60%] border-r border-white/20"></div>
+<div class="bg-rose-400 w-[40%]"></div>
+</div>
+<div class="flex justify-between text-[10px] mt-1.5 font-medium text-slate-500 dark:text-slate-400">
+<span>60% Yes</span>
+<span>40% No</span>
+</div>
+</div>
+<div class="shrink-0 text-right pl-2">
+<span class="block text-xl font-bold text-slate-900 dark:text-white">60%</span>
+<span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wide">Passed</span>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-5 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-700 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-rose-50 dark:bg-rose-900/20 flex items-center justify-center text-rose-600 dark:text-rose-400 shrink-0 border-2 border-rose-100 dark:border-rose-800">
+<span class="material-symbols-outlined">close</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-slate-900 dark:text-white text-sm truncate">Roof Garden Access</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Ended Sep 30 • Rejected</p>
+<div class="flex mt-2.5 h-2 w-full rounded-full overflow-hidden">
+<div class="bg-emerald-500 w-[30%] border-r border-white/20"></div>
+<div class="bg-rose-400 w-[70%]"></div>
+</div>
+<div class="flex justify-between text-[10px] mt-1.5 font-medium text-slate-500 dark:text-slate-400">
+<span>30% Yes</span>
+<span>70% No</span>
+</div>
+</div>
+<div class="shrink-0 text-right pl-2">
+<span class="block text-xl font-bold text-slate-900 dark:text-white">70%</span>
+<span class="text-[10px] text-rose-600 dark:text-rose-400 font-bold uppercase tracking-wide">No Votes</span>
+</div>
+</div>
+</section>
+<!-- Bottom Tab Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-surface-dark/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 pb-6 pt-2 px-6 flex justify-between items-center h-[84px] shadow-[0_-4px_20px_rgba(0,0,0,0.05)] max-w-md mx-auto">
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors cursor-pointer w-16">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold tracking-wide">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary cursor-pointer w-16 relative">
+<div class="absolute -top-1 right-3 w-2 h-2 bg-red-500 rounded-full border border-white dark:border-surface-dark"></div>
+<span class="material-symbols-outlined fill-current">how_to_vote</span>
+<span class="text-[10px] font-bold tracking-wide">Polls</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors cursor-pointer w-16">
+<span class="material-symbols-outlined">people</span>
+<span class="text-[10px] font-bold tracking-wide">People</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors cursor-pointer w-16">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold tracking-wide">Settings</span>
+</div>
+</nav>
+</div>
+</body></html>

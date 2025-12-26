@@ -1,0 +1,153 @@
+@extends('layouts.app')
+@section('content')
+@php
+    // Example dynamic data for system maintenance
+    $maintenanceMode = false; // true = enabled, false = disabled
+    $systemStatus = $maintenanceMode ? 'Maintenance Enabled' : 'System Active';
+    $systemStatusColor = $maintenanceMode ? 'text-orange-600' : 'text-green-600';
+    $appVersion = env('APP_VERSION', '2.4.1');
+    $build = env('APP_BUILD', '890');
+    $server = env('APP_SERVER', 'us-east-1');
+@endphp
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-xl border-x border-slate-200 dark:border-slate-800">
+    <!-- Top App Bar -->
+    <div class="sticky top-0 z-20 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 pb-2 justify-between border-b border-slate-200/50 dark:border-slate-800/50">
+        <a href="{{ route('dashboard') }}" class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+            <span class="material-symbols-outlined text-slate-900 dark:text-white" style="font-size: 24px;">arrow_back</span>
+        </a>
+        <h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center">System Maintenance</h2>
+        <div class="flex size-10 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition-colors">
+            <span class="material-symbols-outlined text-slate-900 dark:text-white" style="font-size: 24px;">info</span>
+        </div>
+    </div>
+    <!-- Scrollable Content -->
+    <div class="flex-1 flex flex-col p-4 gap-6 pb-12">
+        @if(session('maintenance_secret'))
+            <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <strong class="font-bold">Admin Access During Maintenance:</strong>
+                <span class="block sm:inline">Use this link to access the site as admin during maintenance mode:<br>
+                <span class="font-mono text-xs break-all">{{ url('/') }}?secret={{ session('maintenance_secret') }}</span></span>
+            </div>
+        @endif
+        <!-- Maintenance Mode Card -->
+        <div class="flex flex-col gap-2">
+            <div class="flex flex-1 flex-col items-start justify-between gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1a2632] p-5 shadow-sm">
+                <div class="flex w-full items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 size-10">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">build</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-slate-900 dark:text-white text-base font-bold leading-tight">Maintenance Mode</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs font-normal leading-normal mt-0.5">Status: <span class="{{ $systemStatusColor }} font-medium">{{ $systemStatus }}</span></p>
+                        </div>
+                    </div>
+                    <form method="POST" action="{{ route('admin.system.maintenance.toggle') }}">
+                        @csrf
+                        <label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-slate-200 dark:bg-slate-700 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary transition-all duration-200">
+                            <div class="h-[27px] w-[27px] rounded-full bg-white shadow-sm transition-all {{ $maintenanceMode ? 'translate-x-[20px]' : 'translate-x-0' }}"></div>
+                            <input class="invisible absolute" type="checkbox" name="maintenance_mode" {{ $maintenanceMode ? 'checked' : '' }} onchange="this.form.submit()" />
+                        </label>
+                    </form>
+                </div>
+                <div class="w-full h-px bg-slate-100 dark:bg-slate-700/50"></div>
+                <p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">
+                    Enable to restrict user access during updates. Admins will retain access.
+                </p>
+            </div>
+        </div>
+        <!-- Performance & Config Section -->
+        <div class="flex flex-col gap-2">
+            <h3 class="text-slate-900 dark:text-white text-base font-bold leading-tight px-1">Performance & Config</h3>
+            <div class="flex flex-col overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1a2632] shadow-sm divide-y divide-slate-100 dark:divide-slate-700/50">
+                <!-- Item: Clear Cache -->
+                <div class="flex items-center gap-4 px-4 py-4 justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">cleaning_services</span>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <p class="text-slate-900 dark:text-white text-sm font-semibold leading-normal line-clamp-1">Clear Cache</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs font-normal leading-normal line-clamp-1">Purges temporary system files</p>
+                        </div>
+                    </div>
+                    <div class="shrink-0">
+                        <form method="POST" action="{{ route('admin.system.maintenance.clear-cache') }}">
+                            <button type="submit" class="flex min-w-[70px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-3 bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold leading-normal w-fit hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                                <span class="truncate">Run</span>
+                            </button>
+                            @csrf
+                        </form>
+                    </div>
+                </div>
+                <!-- Item: Rebuild Config -->
+                <div class="flex items-center gap-4 px-4 py-4 justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">settings_backup_restore</span>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <p class="text-slate-900 dark:text-white text-sm font-semibold leading-normal line-clamp-1">Rebuild Config</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs font-normal leading-normal line-clamp-1">Refreshes system parameters</p>
+                        </div>
+                    </div>
+                    <div class="shrink-0">
+                        <form method="POST" action="{{ route('admin.system.maintenance.rebuild-config') }}">
+                            <button type="submit" class="flex min-w-[70px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-3 bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold leading-normal w-fit hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                                <span class="truncate">Run</span>
+                            </button>
+                            @csrf
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Diagnostics Section -->
+        <div class="flex flex-col gap-2">
+            <h3 class="text-slate-900 dark:text-white text-base font-bold leading-tight px-1">Diagnostics</h3>
+            <div class="flex flex-col overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1a2632] shadow-sm divide-y divide-slate-100 dark:divide-slate-700/50">
+                <!-- Item: System Logs -->
+                <a href="{{ route('admin.system.maintenance.view-logs') }}" class="flex items-center gap-4 px-4 py-4 justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <div class="text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <p class="text-slate-900 dark:text-white text-sm font-semibold leading-normal line-clamp-1">View System Logs</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs font-normal leading-normal line-clamp-1">Check server activity records</p>
+                        </div>
+                    </div>
+                    <div class="shrink-0 text-slate-400 group-hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">chevron_right</span>
+                    </div>
+                </a>
+                <!-- Item: Diagnostic Report -->
+                <div class="flex items-center gap-4 px-4 py-4 justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="text-slate-700 dark:text-slate-300 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">bug_report</span>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <p class="text-slate-900 dark:text-white text-sm font-semibold leading-normal line-clamp-1">Send Diagnostic Report</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs font-normal leading-normal line-clamp-1">Send logs to dev team</p>
+                        </div>
+                    </div>
+                    <div class="shrink-0">
+                        <form method="POST" action="{{ route('admin.system.maintenance.send-diagnostic') }}">
+                            @csrf
+                            <button type="submit" class="flex min-w-[70px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-3 bg-primary/10 text-primary text-xs font-bold leading-normal w-fit hover:bg-primary/20 transition-colors">
+                                <span class="truncate">Send</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="mt-4 flex flex-col items-center justify-center gap-1">
+            <p class="text-slate-400 dark:text-slate-600 text-xs font-medium">App Version {{ $appVersion }}</p>
+            <p class="text-slate-400 dark:text-slate-600 text-[10px] font-normal font-mono">Build {{ $build }} • Server: {{ $server }}</p>
+        </div>
+    </div>
+</div>
+@endsection

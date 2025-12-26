@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Super Admin Settings - Email Tab</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "card-light": "#ffffff",
+              "card-dark": "#1C2630",
+              "text-main": "#111418",
+              "text-secondary": "#617589",
+              "border-light": "#dbe0e6",
+              "border-dark": "#2a3b4d"
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem", 
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar hiding if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased min-h-screen flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark px-4 py-3 shadow-sm transition-colors duration-200">
+<div class="flex items-center justify-between">
+<button class="flex items-center justify-center w-10 h-10 -ml-2 rounded-full hover:bg-background-light dark:hover:bg-background-dark text-text-main dark:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold text-text-main dark:text-white tracking-tight">Email Configuration</h1>
+<button class="text-primary font-semibold text-base px-2 py-1 rounded hover:bg-primary/10 transition-colors">
+                Save
+            </button>
+</div>
+</header>
+<!-- Tabs -->
+<div class="bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark transition-colors duration-200">
+<div class="flex px-4 overflow-x-auto no-scrollbar">
+<a class="flex flex-1 flex-col items-center justify-center border-b-[3px] border-transparent pb-3 pt-4 text-text-secondary dark:text-gray-400 hover:text-text-main dark:hover:text-white min-w-[80px]" href="#">
+<span class="text-sm font-semibold tracking-wide whitespace-nowrap">General</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center border-b-[3px] border-primary pb-3 pt-4 text-primary min-w-[80px]" href="#">
+<span class="text-sm font-semibold tracking-wide whitespace-nowrap">Email</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center border-b-[3px] border-transparent pb-3 pt-4 text-text-secondary dark:text-gray-400 hover:text-text-main dark:hover:text-white min-w-[80px]" href="#">
+<span class="text-sm font-semibold tracking-wide whitespace-nowrap">SMS</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center border-b-[3px] border-transparent pb-3 pt-4 text-text-secondary dark:text-gray-400 hover:text-text-main dark:hover:text-white min-w-[80px]" href="#">
+<span class="text-sm font-semibold tracking-wide whitespace-nowrap">Payment</span>
+</a>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col p-4 gap-6 max-w-lg mx-auto w-full">
+<!-- Section 1: Service Provider -->
+<section class="flex flex-col gap-2">
+<h3 class="text-text-main dark:text-white text-sm font-bold uppercase tracking-wider px-1">Service Provider</h3>
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-border-light dark:border-border-dark overflow-hidden p-4">
+<div class="flex flex-col gap-4">
+<label class="flex flex-col w-full">
+<span class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">Mail Driver</span>
+<div class="relative">
+<select class="w-full appearance-none rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark text-text-main dark:text-white h-12 px-4 pr-10 text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+<option value="smtp">SMTP</option>
+<option value="mailgun">Mailgun</option>
+<option value="sendgrid">SendGrid</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-text-secondary dark:text-gray-400">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</label>
+<!-- Conditional fields style hints (visual only for this demo) -->
+<div class="flex items-center gap-2 p-3 bg-primary/10 rounded-lg border border-primary/20">
+<span class="material-symbols-outlined text-primary text-xl">info</span>
+<p class="text-xs text-text-main dark:text-gray-200">Additional SMTP configuration fields will appear below when selected.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Sender Details -->
+<section class="flex flex-col gap-2">
+<h3 class="text-text-main dark:text-white text-sm font-bold uppercase tracking-wider px-1">Sender Details</h3>
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-border-light dark:border-border-dark overflow-hidden p-4 flex flex-col gap-5">
+<!-- From Name Input -->
+<label class="flex flex-col w-full group">
+<span class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">From Name</span>
+<div class="relative flex items-center">
+<span class="absolute left-4 text-text-secondary dark:text-gray-400 material-symbols-outlined text-[20px]">badge</span>
+<input class="w-full rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark text-text-main dark:text-white h-12 pl-11 pr-4 text-base placeholder:text-text-secondary/60 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all" placeholder="e.g. Skyline Admin" type="text" value="Skyline Residency Admin"/>
+</div>
+</label>
+<!-- From Email Input -->
+<label class="flex flex-col w-full group">
+<span class="text-text-main dark:text-gray-200 text-sm font-medium pb-2">From Email</span>
+<div class="relative flex items-center">
+<span class="absolute left-4 text-text-secondary dark:text-gray-400 material-symbols-outlined text-[20px]">alternate_email</span>
+<input class="w-full rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark text-text-main dark:text-white h-12 pl-11 pr-4 text-base placeholder:text-text-secondary/60 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all" placeholder="e.g. admin@skyline.com" type="email" value="noreply@skylineresidency.com"/>
+</div>
+</label>
+</div>
+</section>
+<!-- Section 3: System Behavior -->
+<section class="flex flex-col gap-2 mb-8">
+<h3 class="text-text-main dark:text-white text-sm font-bold uppercase tracking-wider px-1">System Behavior</h3>
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-border-light dark:border-border-dark overflow-hidden divide-y divide-border-light dark:divide-border-dark">
+<!-- Queue Emails Toggle -->
+<div class="flex items-center justify-between p-4">
+<div class="flex flex-col pr-4">
+<span class="text-text-main dark:text-white text-base font-medium">Queue Emails</span>
+<span class="text-text-secondary dark:text-gray-400 text-xs mt-1">Process emails in background jobs for better performance.</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Another Setting Example (Encrypted) -->
+<div class="flex items-center justify-between p-4">
+<div class="flex flex-col pr-4">
+<span class="text-text-main dark:text-white text-base font-medium">Encrypt Connection</span>
+<span class="text-text-secondary dark:text-gray-400 text-xs mt-1">Force TLS encryption for outgoing mail.</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Footer Action -->
+<div class="mt-auto pb-6">
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/30 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                Save Configuration
+            </button>
+</div>
+</main>
+</body></html>

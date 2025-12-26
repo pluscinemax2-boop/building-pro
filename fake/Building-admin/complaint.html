@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Building Admin Complaints</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "neutral-100": "#f0f2f4",
+              "neutral-200": "#dbe0e6",
+              "text-primary": "#111418",
+              "text-secondary": "#617589",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        /* Hide scrollbar for stats row */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark">
+<div class="relative flex h-full min-h-screen w-full flex-col max-w-md mx-auto bg-white dark:bg-background-dark shadow-xl overflow-hidden">
+<!-- Sticky Top Bar -->
+<div class="sticky top-0 z-20 bg-white dark:bg-background-dark border-b border-neutral-100 dark:border-neutral-800">
+<div class="flex items-center p-4 pb-2 justify-between">
+<div class="flex items-center gap-2">
+<button class="text-text-primary dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-text-primary dark:text-white text-xl font-bold leading-tight tracking-tight">Complaints</h2>
+</div>
+<div class="flex items-center justify-end gap-2">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-neutral-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-text-primary dark:text-white">filter_list</span>
+</button>
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-neutral-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+</button>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="px-4 pb-4">
+<label class="flex flex-col h-11 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm">
+<div class="text-text-secondary dark:text-gray-400 flex border-none bg-neutral-100 dark:bg-gray-800 items-center justify-center pl-4 rounded-l-xl border-r-0">
+<span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-text-primary dark:text-white focus:outline-0 focus:ring-0 border-none bg-neutral-100 dark:bg-gray-800 focus:border-none h-full placeholder:text-text-secondary dark:placeholder:text-gray-500 px-3 rounded-l-none border-l-0 text-sm font-medium leading-normal transition-all" placeholder="Search unit, issue, or tenant name" value=""/>
+</div>
+</label>
+</div>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto pb-20">
+<!-- Summary Stats -->
+<div class="pt-4 px-4">
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+<div class="flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800/30 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="p-1.5 bg-orange-100 dark:bg-orange-800/40 rounded-lg text-orange-600 dark:text-orange-400">
+<span class="material-symbols-outlined" style="font-size: 20px;">warning</span>
+</div>
+<span class="flex h-2 w-2 rounded-full bg-orange-500"></span>
+</div>
+<div class="mt-2">
+<p class="text-text-secondary dark:text-gray-400 text-xs font-semibold uppercase tracking-wider">Pending</p>
+<p class="text-text-primary dark:text-white text-2xl font-bold leading-tight">12</p>
+</div>
+</div>
+<div class="flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="p-1.5 bg-blue-100 dark:bg-blue-800/40 rounded-lg text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined" style="font-size: 20px;">engineering</span>
+</div>
+</div>
+<div class="mt-2">
+<p class="text-text-secondary dark:text-gray-400 text-xs font-semibold uppercase tracking-wider">In Progress</p>
+<p class="text-text-primary dark:text-white text-2xl font-bold leading-tight">5</p>
+</div>
+</div>
+<div class="flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/30 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="p-1.5 bg-green-100 dark:bg-green-800/40 rounded-lg text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined" style="font-size: 20px;">check_circle</span>
+</div>
+</div>
+<div class="mt-2">
+<p class="text-text-secondary dark:text-gray-400 text-xs font-semibold uppercase tracking-wider">Resolved</p>
+<p class="text-text-primary dark:text-white text-2xl font-bold leading-tight">48</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Priority Section -->
+<div class="px-4 pt-6 pb-2">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-text-primary dark:text-white text-lg font-bold leading-tight">High Priority Actions</h3>
+<button class="text-primary text-sm font-medium hover:text-blue-600">See All</button>
+</div>
+<!-- Card 1: Urgent -->
+<div class="flex flex-col gap-4 mb-4 rounded-2xl bg-white dark:bg-gray-800 p-4 border border-neutral-200 dark:border-gray-700 shadow-sm transition-transform active:scale-[0.99]">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-red-50 dark:bg-red-900/30 px-2 py-1 text-xs font-medium text-red-700 dark:text-red-400 ring-1 ring-inset ring-red-600/10">High Priority</span>
+<span class="text-xs text-text-secondary dark:text-gray-400">• 2 hrs ago</span>
+</div>
+<p class="text-text-primary dark:text-white text-base font-bold leading-tight mb-1">Unit 304 - Elevator Noise</p>
+<p class="text-text-secondary dark:text-gray-400 text-sm font-normal line-clamp-2">Tenant reports loud grinding noise when elevator passes 3rd floor. Please investigate immediately.</p>
+</div>
+<div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-neutral-200 dark:border-gray-700">
+<div class="w-full h-full bg-cover bg-center" data-alt="Close up of elevator buttons and metal texture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTLZU19xps1vMWyBpUFfVtF2w8ac_93ji34Cm4BfP2jROY_mIAxGGGlI2zA_14EaZejesd5NRrcqVnLIs_dn1TtqNzz3j7KdRZ55Pk_Xntn9s1ci3ikFsepHvIBseotirbHg6iEdRj9y5puYfXPAaMsxOqeMKDLCvZ5j4R5Vyqf2VKXVD5p9c0f0VAEC1vTcN-fOP8NJxf0Mh9cOv_j_ViR2zDiyjhsa4VvEm9CiCwzCy6Xn5Fk1Y5SaRm2i3TH27juAz4lk6jqDci");'></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-neutral-100 dark:border-gray-700">
+<div class="flex items-center gap-2">
+<div class="h-6 w-6 rounded-full bg-gray-200 dark:bg-gray-600 overflow-hidden">
+<img alt="Tenant avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl7XbrAI2fFnZOx5orSsSi-7pL7G0FgNjC3SAUEg6aauQTjoBqWFgF3FdPzUn8mXM9e9io1zP1__eUhXTe4lt7szuBRl6gqq2YJqMXb9IWV8OolCZ5plS2qfbRaX8mFoNS4rEoCYtSrsg1uHu7Ky6i7_DgRodIwilvrBAFkw8LrO39KLG1VraX5J77X7VhiiG9VWLKXDq0sl3V2DHVGG4sF0C4NzqgcOtv0PwxT2MalAofmXu8OICnDC_DkoaGG43EgxVepoLm3N35"/>
+</div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-400">John D.</span>
+</div>
+<button class="flex cursor-pointer items-center justify-center rounded-lg h-8 px-4 bg-primary text-white text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+                            Update Status
+                        </button>
+</div>
+</div>
+<!-- Card 2: Leak -->
+<div class="flex flex-col gap-4 mb-4 rounded-2xl bg-white dark:bg-gray-800 p-4 border border-neutral-200 dark:border-gray-700 shadow-sm transition-transform active:scale-[0.99]">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-red-50 dark:bg-red-900/30 px-2 py-1 text-xs font-medium text-red-700 dark:text-red-400 ring-1 ring-inset ring-red-600/10">High Priority</span>
+<span class="text-xs text-text-secondary dark:text-gray-400">• 5 hrs ago</span>
+</div>
+<p class="text-text-primary dark:text-white text-base font-bold leading-tight mb-1">Lobby - Water Leakage</p>
+<p class="text-text-secondary dark:text-gray-400 text-sm font-normal line-clamp-2">Water dripping from the ceiling near the main entrance. Bucket placed but filling fast.</p>
+</div>
+<!-- No image variant -->
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-neutral-100 dark:border-gray-700">
+<div class="flex items-center gap-2">
+<div class="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-600 text-[10px] font-bold">
+                                SM
+                            </div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-400">Sarah M.</span>
+</div>
+<button class="flex cursor-pointer items-center justify-center rounded-lg h-8 px-4 bg-primary text-white text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+                            Update Status
+                        </button>
+</div>
+</div>
+</div>
+<!-- Recent Activity Section -->
+<div class="px-4 pt-2">
+<h3 class="text-text-primary dark:text-white text-lg font-bold leading-tight mb-3">Recent Complaints</h3>
+<!-- Card 3: In Progress -->
+<div class="flex flex-col gap-4 mb-3 rounded-2xl bg-white dark:bg-gray-800 p-4 border border-neutral-200 dark:border-gray-700 shadow-sm">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/30 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10">In Progress</span>
+<span class="text-xs text-text-secondary dark:text-gray-400">• 1 day ago</span>
+</div>
+<p class="text-text-primary dark:text-white text-base font-bold leading-tight mb-1">Unit 102 - AC Maintenance</p>
+<p class="text-text-secondary dark:text-gray-400 text-sm font-normal line-clamp-2">Regular maintenance requested. Technician scheduled for tomorrow morning.</p>
+</div>
+<div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-neutral-200 dark:border-gray-700">
+<div class="w-full h-full bg-cover bg-center" data-alt="Air conditioning unit on a wall" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsH2ULJFN-YljtBkkSZe7R4ebJHuh3_GVe3rUphG4WbM1CIuC3poKBXSW6mts2q3wTGFGJJPwd6jfxN2RjFXn1aVpEej0HxJKX9MM6wCtFDUXhs4lJwNgQdQRrRQ56GlOfGQlBfC4_RDdFGS6WGXY1zTIvmdVWJbPA3j6UfM9S2vwqnjRNdpDwj_GxSFyrOAJKSUZGw6jbwfTm68NwHN8UJJA3dBnN-mmTY3AkjM2vBUumbmiivZbKv2lB1Sv1zhiXAGD5toqRoCLe");'></div>
+</div>
+</div>
+<div class="flex items-center justify-end pt-2 border-t border-neutral-100 dark:border-gray-700">
+<button class="flex cursor-pointer items-center justify-center rounded-lg h-8 px-4 bg-neutral-100 dark:bg-gray-700 text-text-primary dark:text-white text-sm font-medium hover:bg-neutral-200 dark:hover:bg-gray-600 transition-colors">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- Card 4: Resolved -->
+<div class="flex flex-col gap-4 mb-3 rounded-2xl bg-white dark:bg-gray-800 p-4 border border-neutral-200 dark:border-gray-700 shadow-sm opacity-80">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-green-50 dark:bg-green-900/30 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-400 ring-1 ring-inset ring-green-600/20">Resolved</span>
+<span class="text-xs text-text-secondary dark:text-gray-400">• 3 days ago</span>
+</div>
+<p class="text-text-primary dark:text-white text-base font-bold leading-tight mb-1">Gym - Equipment Broken</p>
+<p class="text-text-secondary dark:text-gray-400 text-sm font-normal line-clamp-2">Treadmill #3 belt was stuck. Replaced belt and tested.</p>
+</div>
+</div>
+<!-- Less emphasis on resolved items actions -->
+</div>
+<!-- Card 5: Medium Priority -->
+<div class="flex flex-col gap-4 mb-3 rounded-2xl bg-white dark:bg-gray-800 p-4 border border-neutral-200 dark:border-gray-700 shadow-sm">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-yellow-50 dark:bg-yellow-900/30 px-2 py-1 text-xs font-medium text-yellow-800 dark:text-yellow-400 ring-1 ring-inset ring-yellow-600/20">Medium Priority</span>
+<span class="text-xs text-text-secondary dark:text-gray-400">• 4 days ago</span>
+</div>
+<p class="text-text-primary dark:text-white text-base font-bold leading-tight mb-1">Parking - Wrong Slot Usage</p>
+<p class="text-text-secondary dark:text-gray-400 text-sm font-normal line-clamp-2">Car with plate ABC-123 is parked in slot 45 reserved for Unit 501.</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-neutral-100 dark:border-gray-700">
+<div class="flex items-center gap-2">
+<div class="flex items-center justify-center h-6 w-6 rounded-full bg-purple-100 text-purple-600 text-[10px] font-bold">
+                                AD
+                            </div>
+<span class="text-xs font-medium text-text-secondary dark:text-gray-400">Admin</span>
+</div>
+<button class="flex cursor-pointer items-center justify-center rounded-lg h-8 px-4 bg-primary/10 text-primary text-sm font-medium hover:bg-primary/20 transition-colors">
+                            Update Status
+                        </button>
+</div>
+</div>
+</div>
+<div class="h-20"></div> <!-- Spacer for bottom area -->
+</div>
+<!-- Floating Action Button (Alternative placement) -->
+<div class="absolute bottom-6 right-6 z-30">
+<button class="flex items-center justify-center size-14 rounded-full bg-primary text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:scale-105 transition-all">
+<span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+</button>
+</div>
+</div>
+</body></html>

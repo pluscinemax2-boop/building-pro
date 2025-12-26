@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Building Profile Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Inter", "Noto Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-24">
+<!-- Top App Bar -->
+<div class="flex items-center bg-white dark:bg-[#1a2632] p-4 sticky top-0 z-30 border-b border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="text-[#111418] dark:text-white flex size-12 shrink-0 items-center justify-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-full transition-colors">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight flex-1 text-center pr-12">Building Profile</h2>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex flex-col gap-6 p-4 md:max-w-xl md:mx-auto w-full">
+<!-- Profile Header / Hero -->
+<div class="flex flex-col items-center gap-4 mt-2">
+<div class="relative group">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-2xl h-32 w-32 shadow-md ring-4 ring-white dark:ring-gray-800" data-alt="Modern high-rise residential building facade with glass windows and balconies against a blue sky" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDv9WLoiPx5ptjjbJSwxvKFZfdUXosyXv5VMQoMOj2G8Z0fVEqQ9zD5oVJBfwMmPvLJuPVJjnvK4hDcTQE_gBDeby1vZnqUzU2QpBbb96PfKhHErjB6zuOIFWaTb7at4KBZLyaVCGiVC57CFjTfwYT6P1Rom1R2ABY-y4CcsREDsP_gt7nilwnyrnSmnUBd8GebmjopZf4ZM5a0T3gXU-QUHuXviOVM6j_xygJPJbiKa5GPwj2rUgxsuTfduJOsnVMJydCEPqLTbLoO");'>
+</div>
+<!-- Status Badge overlaid -->
+<div class="absolute -bottom-2 -right-2 bg-white dark:bg-[#1a2632] p-1.5 rounded-full shadow-sm border border-gray-100 dark:border-gray-700">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 text-center">
+<h1 class="text-[#111418] dark:text-white text-2xl font-bold leading-tight tracking-tight">Sunrise Heights Tower A</h1>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-normal">1234 Skyline Ave, Tech Park</p>
+<div class="mt-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 text-xs font-semibold rounded-full border border-emerald-100 dark:border-emerald-800">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+                            Active Status
+                        </span>
+</div>
+</div>
+</div>
+<!-- Card: General Information -->
+<div class="flex flex-col gap-2">
+<h3 class="text-[#111418] dark:text-white text-base font-bold px-1">General Information</h3>
+<div class="bg-white dark:bg-[#1a2632] rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 overflow-hidden">
+<!-- Item: City -->
+<div class="flex items-center justify-between p-4 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-9 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary">
+<span class="material-symbols-outlined text-[20px]">location_city</span>
+</div>
+<span class="text-[#617589] dark:text-gray-400 text-sm font-medium">City</span>
+</div>
+<span class="text-[#111418] dark:text-white text-sm font-medium">San Francisco</span>
+</div>
+<!-- Item: State -->
+<div class="flex items-center justify-between p-4 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-9 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary">
+<span class="material-symbols-outlined text-[20px]">map</span>
+</div>
+<span class="text-[#617589] dark:text-gray-400 text-sm font-medium">State</span>
+</div>
+<span class="text-[#111418] dark:text-white text-sm font-medium">CA</span>
+</div>
+<!-- Item: Zip Code -->
+<div class="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-9 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary">
+<span class="material-symbols-outlined text-[20px]">pin_drop</span>
+</div>
+<span class="text-[#617589] dark:text-gray-400 text-sm font-medium">Zip Code</span>
+</div>
+<span class="text-[#111418] dark:text-white text-sm font-medium">94103</span>
+</div>
+</div>
+</div>
+<!-- Card: Capacity & Structure -->
+<div class="flex flex-col gap-2">
+<h3 class="text-[#111418] dark:text-white text-base font-bold px-1">Capacity &amp; Structure</h3>
+<div class="bg-white dark:bg-[#1a2632] rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 overflow-hidden">
+<!-- Item: Total Floors -->
+<div class="flex items-center justify-between p-4 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-9 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary">
+<span class="material-symbols-outlined text-[20px]">stairs</span>
+</div>
+<span class="text-[#617589] dark:text-gray-400 text-sm font-medium">Total Floors</span>
+</div>
+<span class="text-[#111418] dark:text-white text-sm font-medium">12 Floors</span>
+</div>
+<!-- Item: Total Flats -->
+<div class="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-9 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary">
+<span class="material-symbols-outlined text-[20px]">door_front</span>
+</div>
+<span class="text-[#617589] dark:text-gray-400 text-sm font-medium">Total Flats</span>
+</div>
+<span class="text-[#111418] dark:text-white text-sm font-medium">48 Units</span>
+</div>
+</div>
+</div>
+<!-- Card: Primary Contact -->
+<div class="flex flex-col gap-2">
+<h3 class="text-[#111418] dark:text-white text-base font-bold px-1">Primary Contact</h3>
+<div class="bg-white dark:bg-[#1a2632] rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 overflow-hidden">
+<!-- Item: Manager -->
+<div class="flex items-center justify-between p-4 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-9 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+<span class="text-[#617589] dark:text-gray-400 text-sm font-medium">Manager</span>
+</div>
+<span class="text-[#111418] dark:text-white text-sm font-medium">Jane Doe</span>
+</div>
+<!-- Item: Emergency Phone -->
+<div class="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer group/phone">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-9 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-primary">
+<span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
+</div>
+<span class="text-[#617589] dark:text-gray-400 text-sm font-medium">Emergency</span>
+</div>
+<span class="text-primary text-sm font-medium group-hover/phone:underline">(555) 123-4567</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Button Area -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 dark:bg-[#1a2632]/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 flex justify-center z-40">
+<button class="w-full md:max-w-md bg-primary hover:bg-[#0f6bca] active:scale-[0.98] transition-all duration-200 text-white font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20">
+<span class="material-symbols-outlined text-[20px]">edit_document</span>
+<span>Edit Information</span>
+</button>
+</div>
+</div>
+</body></html>
