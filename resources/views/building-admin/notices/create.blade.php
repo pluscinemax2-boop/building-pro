@@ -4,12 +4,23 @@
 <div class="min-h-screen flex flex-col items-center justify-center bg-background-light dark:bg-background-dark">
     <div class="max-w-xl w-full bg-white dark:bg-surface-dark rounded-xl shadow-md p-8 border border-border dark:border-gray-800">
         <h1 class="text-2xl font-bold text-text-main dark:text-white mb-4">Post New Notice</h1>
+        @if($errors->any())
+            <div class="mb-4 text-red-600">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{ route('building-admin.notices.store') }}" enctype="multipart/form-data">
             @csrf
+            <!--
             <div class="mb-4">
                 <label class="block text-xs font-medium mb-1 text-text-main dark:text-white">Image (optional, max 10MB)</label>
                 <input type="file" name="image" accept="image/*" class="w-full rounded border border-border dark:border-gray-700 px-2 py-1 text-sm bg-white dark:bg-surface-dark text-text-main dark:text-white" maxlength="10485760">
             </div>
+            -->
             <div class="mb-4 text-left">
                 <label class="block text-sm font-medium mb-1 text-text-main dark:text-white">Title</label>
                 <input type="text" name="title" class="w-full rounded border border-border dark:border-gray-700 px-3 py-2 text-sm bg-white dark:bg-surface-dark text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20" required>

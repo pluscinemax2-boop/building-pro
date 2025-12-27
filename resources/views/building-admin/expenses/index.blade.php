@@ -1,4 +1,3 @@
-
 @extends('building-admin.layout')
 
 @section('content')
@@ -183,12 +182,13 @@
             @endforelse
         </div>
     </main>
-    <!-- Floating Create Expense Button -->
-        <a href="{{ route('building-admin.expenses.create') }}" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 bg-primary text-white rounded-lg shadow-lg px-6 py-3 flex items-center gap-2 font-bold text-base hover:bg-primary/90 transition">
-            <span class="material-symbols-outlined">add_circle</span>
-            Create Expense
-        </a>
     @include('building-admin.partials.bottom-nav', ['active' => 'expenses'])
+
+    <!-- Floating Create Expense Button -->
+    <a href="{{ route('building-admin.expenses.create') }}" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 bg-primary text-white rounded-lg shadow-lg px-6 py-3 flex items-center gap-2 font-bold text-base hover:bg-primary/90 transition">
+        <span class="material-symbols-outlined">add_circle</span>
+        Create Expense
+    </a>
 </div>
 
     <!-- Floating FAB overlayed on nav -->

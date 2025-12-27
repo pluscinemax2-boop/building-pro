@@ -169,7 +169,10 @@ class ExpenseController extends Controller
 
     public function index(Request $request)
     {
-        $expenses = Expense::with(['category', 'creator', 'approver'])->orderByDesc('expense_date')->get();
+        $user = auth()->user();
+        $expenses = Expense::with(['category', 'creator', 'approver'])
+            ->where('building_id', $user->building_id)
+            ->orderByDesc('expense_date')->get();
         $allPendingExpenses = $expenses->where('status', 'pending')->sortByDesc('expense_date');
         $pendingExpenses = $allPendingExpenses->take(5);
         $historyExpenses = $expenses->whereIn('status', ['approved', 'rejected']);
@@ -283,6 +286,7 @@ class ExpenseController extends Controller
             'description' => $request->description,
             'status' => 'pending',
             'created_by' => \Illuminate\Support\Facades\Auth::id(),
+            'building_id' => \Illuminate\Support\Facades\Auth::user()->building_id,
         ]);
 
         if ($request->hasFile('bill')) {

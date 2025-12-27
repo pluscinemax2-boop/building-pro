@@ -10,6 +10,7 @@
         <span class="text-xs">Complaints</span>
     </a>
     <!-- Add / Action (Center Button) -->
+    @if ($active == 'dashboard')
     <div class="relative flex-1 flex items-center justify-center">
         <button id="actionSheetBtn" class="bg-primary text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center absolute -top-6 left-1/2 transform -translate-x-1/2 z-10">
             <span class="material-symbols-outlined text-2xl">add</span>
@@ -25,11 +26,14 @@
             <button class="w-full flex items-center gap-2 py-2 text-primary hover:bg-gray-100 rounded" onclick="location.href='{{ route('building-admin.emergency.create') }}'">
                 <span class="material-symbols-outlined">emergency</span> Send Emergency Alert
             </button>
-            <button class="w-full flex items-center gap-2 py-2 text-primary hover:bg-gray-100 rounded" onclick="location.href='{{ route('building-admin.documents.create') }}'">
-                <span class="material-symbols-outlined">upload_file</span> Upload Document
+            <input type="file" name="file" id="fileInput" class="hidden" onchange="document.getElementById('uploadForm').submit()" required />
+            <button type="button" onclick="document.getElementById('fileInput').click()" class="w-full flex items-center gap-2 py-2 text-primary hover:bg-gray-100 rounded">
+                <span class="material-symbols-outlined text-xl">upload</span>
+                Upload
             </button>
         </div>
     </div>
+    @endif
     <!-- Expenses -->
     <a href="{{ route('building-admin.expenses.index') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'expenses' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
         <span class="material-symbols-outlined text-2xl">payments</span>

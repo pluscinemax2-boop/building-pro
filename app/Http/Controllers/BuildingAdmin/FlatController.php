@@ -20,9 +20,10 @@ class FlatController extends Controller
 
     public function index(Request $request)
     {
+        $user = auth()->user();
         $filter = $request->query('filter', 'all');
         $search = $request->query('search', '');
-        $query = Flat::query();
+        $query = Flat::where('building_id', $user->building_id);
         if ($filter === 'occupied') {
             $query->where('status', 'occupied');
         } elseif ($filter === 'vacant') {

@@ -27,6 +27,7 @@ class Expense extends Model
         'created_by',
         'approved_by',
         'approved_at',
+        'building_id',
     ];
 
     public function category()

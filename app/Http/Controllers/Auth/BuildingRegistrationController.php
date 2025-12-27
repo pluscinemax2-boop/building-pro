@@ -38,7 +38,7 @@ class BuildingRegistrationController extends Controller
         // GET Building Admin Role
         $role = Role::where('name', 'Building Admin')->firstOrFail();
 
-        // 1️⃣ Create User
+        // 1️⃣ Create User (without building_id for now)
         $user = User::create([
             'name'     => $request->admin_name,
             'email'    => $request->email,
@@ -49,7 +49,7 @@ class BuildingRegistrationController extends Controller
         ]);
 
         // 2️⃣ Create Building
-        Building::create([
+        $building = Building::create([
             'name'              => $request->building_name,
             'city'              => $request->city,
             'state'             => $request->state,
@@ -60,6 +60,10 @@ class BuildingRegistrationController extends Controller
             'building_admin_id' => $user->id,
             'status'            => 'inactive', // no subscription yet
         ]);
+
+        // 2b️⃣ Assign building_id to user
+        $user->building_id = $building->id;
+        $user->save();
 
         // 3️⃣ Auto login
         Auth::login($user);

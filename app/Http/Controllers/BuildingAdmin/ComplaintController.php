@@ -9,7 +9,8 @@ class ComplaintController extends Controller
     // Show all complaints (View All page)
     public function all(Request $request)
     {
-        $query = \App\Models\Complaint::query();
+        $user = auth()->user();
+        $query = \App\Models\Complaint::where('building_id', $user->building_id);
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where('description', 'like', "%$search%")
@@ -59,7 +60,8 @@ class ComplaintController extends Controller
 
     public function index(Request $request)
     {
-        $query = \App\Models\Complaint::query();
+        $user = auth()->user();
+        $query = \App\Models\Complaint::where('building_id', $user->building_id);
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where('description', 'like', "%$search%")

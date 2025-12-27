@@ -12,12 +12,15 @@ class NoticeController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Notice::query();
+        $user = auth()->user();
+        $query = Notice::where('building_id', $user->building_id);
 
         // Search
         if ($request->filled('search')) {
-            $query->where('title', 'like', '%'.$request->search.'%')
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%'.$request->search.'%')
                   ->orWhere('body', 'like', '%'.$request->search.'%');
+            });
         }
 
         // Tabs (status)
@@ -39,13 +42,16 @@ class NoticeController extends Controller
 
         // Counts for tabs
         $counts = [
-            'active' => Notice::where(function($q) use ($now) {
-                $q->whereNull('visible_from')->orWhere('visible_from', '<=', $now);
-            })->where(function($q) use ($now) {
-                $q->whereNull('visible_to')->orWhere('visible_to', '>=', $now);
-            })->count(),
-            'scheduled' => Notice::where('visible_from', '>', $now)->count(),
-            'expired' => Notice::where('visible_to', '<', $now)->count(),
+            'active' => Notice::where('building_id', $user->building_id)
+                ->where(function($q) use ($now) {
+                    $q->whereNull('visible_from')->orWhere('visible_from', '<=', $now);
+                })->where(function($q) use ($now) {
+                    $q->whereNull('visible_to')->orWhere('visible_to', '>=', $now);
+                })->count(),
+            'scheduled' => Notice::where('building_id', $user->building_id)
+                ->where('visible_from', '>', $now)->count(),
+            'expired' => Notice::where('building_id', $user->building_id)
+                ->where('visible_to', '<', $now)->count(),
         ];
 
         // Add computed properties for UI
@@ -91,22 +97,24 @@ class NoticeController extends Controller
             'body' => 'required',
             'visible_from' => 'required|date',
             'visible_to' => 'required|date|after_or_equal:visible_from',
-            'image' => 'nullable|image|max:10240', // 10MB
+            // 'image' => 'nullable|image|max:10240', // 10MB
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('notices', 'public');
-        }
+        // $imagePath = null;
+        // if ($request->hasFile('image')) {
+        //     $imagePath = $request->file('image')->store('notices', 'public');
+        // }
 
-        Notice::create([
+        $notice = Notice::create([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => $imagePath,
+            // 'image' => $imagePath,
             'visible_from' => $request->visible_from,
             'visible_to' => $request->visible_to,
             'posted_by' => Auth::user()->name ?? 'Admin',
+            'building_id' => Auth::user()->building_id,
         ]);
+        \Log::info('Notice created:', $notice->toArray());
         return redirect()->route('building-admin.notices.index')->with('success', 'Notice posted successfully.');
     }
 
@@ -124,7 +132,7 @@ class NoticeController extends Controller
             'body' => 'required',
             'visible_from' => 'required|date',
             'visible_to' => 'required|date|after_or_equal:visible_from',
-            'image' => 'nullable|image|max:10240', // 10MB
+            // 'image' => 'nullable|image|max:10240', // 10MB
         ]);
 
         $data = [
@@ -134,9 +142,9 @@ class NoticeController extends Controller
             'visible_to' => $request->visible_to,
         ];
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('notices', 'public');
-        }
+        // if ($request->hasFile('image')) {
+        //     $data['image'] = $request->file('image')->store('notices', 'public');
+        // }
 
         $notice->update($data);
         return redirect()->route('building-admin.notices.index')->with('success', 'Notice updated successfully.');

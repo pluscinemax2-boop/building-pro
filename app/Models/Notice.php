@@ -16,6 +16,7 @@ class Notice extends Model
         'visible_from',
         'visible_to',
         'posted_by',
+        'building_id',
     ];
 
     public function creator()

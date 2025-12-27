@@ -561,6 +561,8 @@ Route::middleware(['web','auth','role:Super Admin'])->prefix('admin')->group(fun
 });
 
 Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin')->group(function () {
+                // Document upload/store route
+                Route::post('/documents', [\App\Http\Controllers\BuildingAdmin\DocumentController::class, 'store'])->name('building-admin.documents.store');
             // Financial Reports Download Routes
             Route::get('/reports/download/monthly-expenses', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadMonthlyExpenses'])->name('building-admin.reports.download.monthly-expenses');
             Route::get('/reports/download/maintenance-collections', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadMaintenanceCollections'])->name('building-admin.reports.download.maintenance-collections');

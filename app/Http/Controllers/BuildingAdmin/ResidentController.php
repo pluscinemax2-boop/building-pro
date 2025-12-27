@@ -17,6 +17,10 @@ class ResidentController extends Controller
         $building = $user->building;
         $flats = $building ? $building->flats()->get() : collect();
         $residents = \App\Models\Resident::whereIn('flat_id', $flats->pluck('id'))->get();
+        // Only show residents whose flat belongs to this building
+        $residents = $residents->filter(function($resident) use ($flats) {
+            return $flats->pluck('id')->contains($resident->flat_id);
+        });
         $stats = [
             'total' => $residents->count(),
             'occupied' => $residents->where('status', 'occupied')->count(),

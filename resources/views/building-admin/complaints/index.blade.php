@@ -98,11 +98,12 @@
             -->
         </div>
     </div>
-</div>
-    @include('building-admin.partials.bottom-nav', ['active' => 'complaints'])
+
     <!-- Floating Create Complaint Button -->
     <a href="{{ route('building-admin.complaints.create') }}" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 bg-primary text-white rounded-lg shadow-lg px-6 py-3 flex items-center gap-2 font-bold text-base hover:bg-primary/90 transition">
         <span class="material-symbols-outlined">add_circle</span>
         Create Complaint
     </a>
+</div>
+    @include('building-admin.partials.bottom-nav', ['active' => 'complaints'])
 @endsection
