@@ -9,6 +9,7 @@
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "pragmarx/google2fa-laravel": "*",
         "razorpay/razorpay": "^2.9",
         "setasign/fpdf": "^1.8"
     },

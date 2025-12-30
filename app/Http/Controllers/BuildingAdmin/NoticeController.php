@@ -97,18 +97,18 @@ class NoticeController extends Controller
             'body' => 'required',
             'visible_from' => 'required|date',
             'visible_to' => 'required|date|after_or_equal:visible_from',
-            // 'image' => 'nullable|image|max:10240', // 10MB
+            'image' => 'nullable|image|max:10240', // 10MB
         ]);
 
-        // $imagePath = null;
-        // if ($request->hasFile('image')) {
-        //     $imagePath = $request->file('image')->store('notices', 'public');
-        // }
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('notices', 'public');
+        }
 
         $notice = Notice::create([
             'title' => $request->title,
             'body' => $request->body,
-            // 'image' => $imagePath,
+            'image' => $imagePath,
             'visible_from' => $request->visible_from,
             'visible_to' => $request->visible_to,
             'posted_by' => Auth::user()->name ?? 'Admin',
@@ -132,7 +132,7 @@ class NoticeController extends Controller
             'body' => 'required',
             'visible_from' => 'required|date',
             'visible_to' => 'required|date|after_or_equal:visible_from',
-            // 'image' => 'nullable|image|max:10240', // 10MB
+            'image' => 'nullable|image|max:10240', // 10MB
         ]);
 
         $data = [
@@ -142,9 +142,13 @@ class NoticeController extends Controller
             'visible_to' => $request->visible_to,
         ];
 
-        // if ($request->hasFile('image')) {
-        //     $data['image'] = $request->file('image')->store('notices', 'public');
-        // }
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($notice->image) {
+                \Storage::disk('public')->delete($notice->image);
+            }
+            $data['image'] = $request->file('image')->store('notices', 'public');
+        }
 
         $notice->update($data);
         return redirect()->route('building-admin.notices.index')->with('success', 'Notice updated successfully.');

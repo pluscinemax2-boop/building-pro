@@ -10,11 +10,6 @@
             </a>
         </div>
         <h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Notice Board</h2>
-        <div class="flex w-12 items-center justify-end">
-            <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-background-light dark:bg-gray-800 text-[#111418] dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
-                <span class="material-symbols-outlined text-2xl">account_circle</span>
-            </button>
-        </div>
     </div>
     <!-- Search Bar -->
     <div class="px-4 py-3 bg-white dark:bg-[#1a2632]">
@@ -121,11 +116,10 @@
             <p class="text-[#617589] dark:text-gray-400 text-sm">No notices found.</p>
         @endforelse
     </div>
-    <!-- FAB: Create Notice -->
-    <div class="fixed bottom-24 right-4 z-30">
-        <a href="{{ route('building-admin.notices.create') }}" class="group flex items-center justify-center w-14 h-14 bg-primary rounded-full shadow-lg shadow-primary/30 text-white hover:bg-blue-600 transition-all hover:scale-105 active:scale-95">
-            <span class="material-symbols-outlined text-3xl">add</span>
-        </a>
-    </div>
+        <!-- Floating Create Expense Button -->
+    <a href="{{ route('building-admin.notices.create') }}" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 bg-primary text-white rounded-lg shadow-lg px-6 py-3 flex items-center gap-2 font-bold text-base hover:bg-primary/90 transition">
+        <span class="material-symbols-outlined">add_circle</span>
+        Create Notice
+    </a>
 </div>
 @endsection

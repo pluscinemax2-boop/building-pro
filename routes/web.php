@@ -39,6 +39,10 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
+// ✅ 2FA ROUTES
+Route::get('/verify-2fa', [AuthController::class, 'show2FAForm'])->name('verify-2fa');
+Route::post('/verify-2fa', [AuthController::class, 'verify2FA'])->name('verify-2fa-code');
+
 Route::get('/register-building', [BuildingRegistrationController::class, 'showForm']);
 Route::post('/register-building', [BuildingRegistrationController::class, 'register']);
 
@@ -707,18 +711,21 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
         return redirect()->route('building-admin.profile')->with('success', 'Building settings updated successfully!');
     })->name('building-admin.building-settings.save');
     
+    // Building Profile Routes
     Route::get('/profile', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'show'])->name('building-admin.profile');
-    Route::get('/reports', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'index'])->name('building-admin.reports');
-    Route::get('/analytics', function () {
-        return view('building-admin.analytics');
-    })->name('building-admin.analytics');
-    Route::get('/users', function () {
-        return view('building-admin.users');
-    })->name('building-admin.users');
-    Route::get('/settings', function () {
-        return view('building-admin.settings');
-    })->name('building-admin.settings');
-    Route::post('/profile/avatar', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'updateAvatar'])->name('building-admin.profile.avatar');  
+    
+    // Admin User Profile Routes
+    Route::get('/profile/admin', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'adminProfile'])->name('building-admin.admin-profile');
+    Route::get('/profile/admin/edit', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'edit'])->name('building-admin.admin-profile.edit');
+    Route::post('/profile/admin/update', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'update'])->name('building-admin.admin-profile.update');
+    Route::get('/profile/admin/password', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'passwordForm'])->name('building-admin.admin-profile.password');
+    Route::post('/profile/admin/password', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'updatePassword'])->name('building-admin.admin-profile.password.update');
+    Route::post('/profile/admin/avatar', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'updateAvatar'])->name('building-admin.admin-profile.avatar');
+    
+    // 2FA Routes
+    Route::get('/profile/admin/two-factor-setup', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'twoFactorSetup'])->name('building-admin.admin-profile.two-factor-setup');
+    Route::post('/profile/admin/two-factor-verify', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'verifyTwoFactor'])->name('building-admin.admin-profile.two-factor-verify');
+    Route::post('/profile/admin/two-factor-disable', [\App\Http\Controllers\BuildingAdmin\ProfileController::class, 'disableTwoFactor'])->name('building-admin.admin-profile.two-factor-disable');  
     //Route::get('/payments/{payment}/receipt', [\App\Http\Controllers\BuildingAdmin\PaymentReceiptController::class, 'download'])->name('building-admin.payments.receipt');
     //Route::get('/reports/pdf', [\App\Http\Controllers\BuildingAdmin\ComplaintReportController::class, 'pdf'])->name('building-admin.reports.pdf');  
     
@@ -729,13 +736,24 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
 
     // Removed duplicate static /reports route for building-admin (now handled by controller)
     // Removed reports create route as report creation is not used
-    Route::get('/polls', function() { return view('building-admin.polls'); })->name('building-admin.polls.index');
+    
+    // Polls Routes
+    Route::get('/polls', [\App\Http\Controllers\BuildingAdmin\PollController::class, 'index'])->name('building-admin.polls.index');
+    Route::get('/polls/create', [\App\Http\Controllers\BuildingAdmin\PollController::class, 'create'])->name('building-admin.polls.create');
+    Route::post('/polls', [\App\Http\Controllers\BuildingAdmin\PollController::class, 'store'])->name('building-admin.polls.store');
+    Route::get('/polls/{poll}', [\App\Http\Controllers\BuildingAdmin\PollController::class, 'show'])->name('building-admin.polls.show');
+    Route::get('/polls/{poll}/edit', [\App\Http\Controllers\BuildingAdmin\PollController::class, 'edit'])->name('building-admin.polls.edit');
+    Route::put('/polls/{poll}', [\App\Http\Controllers\BuildingAdmin\PollController::class, 'update'])->name('building-admin.polls.update');
+    Route::delete('/polls/{poll}', [\App\Http\Controllers\BuildingAdmin\PollController::class, 'destroy'])->name('building-admin.polls.destroy');
+    
+    // Notices Routes
     Route::get('/notices', [\App\Http\Controllers\BuildingAdmin\NoticeController::class, 'index'])->name('building-admin.notices.index');
     Route::get('/notices/create', [\App\Http\Controllers\BuildingAdmin\NoticeController::class, 'create'])->name('building-admin.notices.create');
     Route::post('/notices', [\App\Http\Controllers\BuildingAdmin\NoticeController::class, 'store'])->name('building-admin.notices.store');
     Route::get('/notices/{notice}/edit', [\App\Http\Controllers\BuildingAdmin\NoticeController::class, 'edit'])->name('building-admin.notices.edit');
     Route::put('/notices/{notice}', [\App\Http\Controllers\BuildingAdmin\NoticeController::class, 'update'])->name('building-admin.notices.update');
     Route::delete('/notices/{notice}', [\App\Http\Controllers\BuildingAdmin\NoticeController::class, 'destroy'])->name('building-admin.notices.destroy');
+    
     Route::get('/support', function() { return view('building-admin.support'); })->name('building-admin.support');
     Route::get('/logout', function() { return view('building-admin.logout');})->name('building-admin.logout');
 

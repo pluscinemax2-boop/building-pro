@@ -15,12 +15,10 @@
         @endif
         <form method="POST" action="{{ route('building-admin.notices.store') }}" enctype="multipart/form-data">
             @csrf
-            <!--
             <div class="mb-4">
                 <label class="block text-xs font-medium mb-1 text-text-main dark:text-white">Image (optional, max 10MB)</label>
                 <input type="file" name="image" accept="image/*" class="w-full rounded border border-border dark:border-gray-700 px-2 py-1 text-sm bg-white dark:bg-surface-dark text-text-main dark:text-white" maxlength="10485760">
             </div>
-            -->
             <div class="mb-4 text-left">
                 <label class="block text-sm font-medium mb-1 text-text-main dark:text-white">Title</label>
                 <input type="text" name="title" class="w-full rounded border border-border dark:border-gray-700 px-3 py-2 text-sm bg-white dark:bg-surface-dark text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20" required>

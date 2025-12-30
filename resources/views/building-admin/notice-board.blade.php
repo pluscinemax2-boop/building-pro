@@ -11,11 +11,6 @@
             </a>
         </div>
         <h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Notice Board</h2>
-        <div class="flex w-12 items-center justify-end">
-            <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-background-light dark:bg-gray-800 text-[#111418] dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
-                <span class="material-symbols-outlined text-2xl">account_circle</span>
-            </button>
-        </div>
     </div>
     <!-- Search Bar -->
     <div class="px-4 py-3 bg-white dark:bg-[#1a2632]">

@@ -14,6 +14,10 @@ class Poll extends Model
         'start_date',
         'end_date',
         'created_by',
+        'building_id',
+        'category',
+        'description',
+        'status',
     ];
 
     public function options()
@@ -29,5 +33,10 @@ class Poll extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
     }
 }
