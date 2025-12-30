@@ -27,6 +27,9 @@ class User extends Authenticatable
         'role_id',
         'status',
         'email_notifications_enabled',
+        'two_factor_enabled',
+        'two_factor_secret',
+        'two_factor_backup_codes',
         'building_id',
     ];
 
@@ -51,7 +54,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'email_notifications_enabled' => 'boolean',
+            'two_factor_enabled' => 'boolean',
         ];
+    }
+
+    /**
+     * Check if user has 2FA enabled
+     */
+    public function hasTwoFactorEnabled(): bool
+    {
+        return $this->two_factor_enabled && !is_null($this->two_factor_secret);
     }
 
     public function building()

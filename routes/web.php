@@ -568,6 +568,7 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
                 // Document upload/store route
                 Route::post('/documents', [\App\Http\Controllers\BuildingAdmin\DocumentController::class, 'store'])->name('building-admin.documents.store');
             // Financial Reports Download Routes
+            Route::get('/reports', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'index'])->name('building-admin.reports');
             Route::get('/reports/download/monthly-expenses', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadMonthlyExpenses'])->name('building-admin.reports.download.monthly-expenses');
             Route::get('/reports/download/maintenance-collections', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadMaintenanceCollections'])->name('building-admin.reports.download.maintenance-collections');
             Route::get('/reports/download/category-wise-expenses', [\App\Http\Controllers\BuildingAdmin\ReportsController::class, 'downloadCategoryWiseExpenses'])->name('building-admin.reports.download.category-wise-expenses');
@@ -624,12 +625,13 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
     Route::delete('/residents/{resident}', [\App\Http\Controllers\BuildingAdmin\ResidentController::class, 'destroy']);
 
     // Emergency Alerts CRUD
-    Route::get('/emergency', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'index']);
+    Route::get('/emergency', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'index'])->name('building-admin.emergency');
     Route::get('/emergency/create', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'create'])->name('building-admin.emergency.create');
-    Route::post('/emergency', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'store']);
-    Route::get('/emergency/{emergency}/edit', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'edit']);
-    Route::put('/emergency/{emergency}', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'update']);
-    Route::delete('/emergency/{emergency}', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'destroy']);
+    Route::post('/emergency', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'store'])->name('building-admin.emergency.store');
+    Route::get('/emergency/{emergency}', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'show'])->name('building-admin.emergency.show');
+    Route::get('/emergency/{emergency}/edit', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'edit'])->name('building-admin.emergency.edit');
+    Route::put('/emergency/{emergency}', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'update'])->name('building-admin.emergency.update');
+    Route::delete('/emergency/{emergency}', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'destroy'])->name('building-admin.emergency.destroy');
 
     // Complaints
     Route::get('/complaints', [\App\Http\Controllers\BuildingAdmin\ComplaintController::class, 'index'])->name('building-admin.complaints.index');

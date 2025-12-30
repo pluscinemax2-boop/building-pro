@@ -47,17 +47,49 @@
         </button>
         <!-- More Menu (hidden by default, show on click) -->
         <div id="moreMenu" class="hidden absolute bottom-16 right-0 bg-white dark:bg-[#1a2632] rounded-xl shadow-lg p-4 w-56">
-            <a href="{{ route('building-admin.building-settings') }}" class="block py-2"><span class="material-symbols-outlined">apartment</span> Building Settings</a>
-            <a href="{{ route('building-admin.subscription') }}" class="block py-2"><span class="material-symbols-outlined">credit_card</span> Subscription</a>
-            <a href="{{ route('building-admin.flat-management.index') }}" class="block py-2"><span class="material-symbols-outlined">home_work</span> Flats</a>
-            <a href="{{ route('building-admin.resident-management.index') }}" class="block py-2"><span class="material-symbols-outlined">groups</span> Residents</a>
-            <a href="{{ route('building-admin.documents.index') }}" class="block py-2"><span class="material-symbols-outlined">folder_open</span> Documents</a>
-            <a href="{{ route('building-admin.reports.all-financial') }}" class="block py-2"><span class="material-symbols-outlined">bar_chart</span> Reports</a>
-            <a href="{{ route('building-admin.notices.index') }}" class="block py-2"><span class="material-symbols-outlined">campaign</span> Notices</a>
-            <a href="{{ route('building-admin.polls.index') }}" class="block py-2"><span class="material-symbols-outlined">how_to_vote</span> Polls</a>
-            <a href="{{ route('building-admin.admin-profile') }}" class="block py-2"><span class="material-symbols-outlined">person</span> Profile</a>
-            <a href="{{ route('building-admin.support') }}" class="block py-2"><span class="material-symbols-outlined">support_agent</span> Support</a>
-            <a href="{{ route('building-admin.logout') }}" class="block py-2"><span class="material-symbols-outlined">logout</span> Logout</a>
+            <a href="{{ route('building-admin.emergency') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'emergency' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">campaign</span>
+                <span class="text-xs">Alerts</span>
+            <a href="{{ route('building-admin.subscription') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'subscription' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">credit_card</span>
+                <span class="text-xs">Subscription</span>
+            </a>
+            <a href="{{ route('building-admin.flat-management.index') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'flat-management' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">home_work</span>
+                <span class="text-xs">Flats</span>
+            </a>
+            <a href="{{ route('building-admin.resident-management.index') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'resident-management' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">groups</span>
+                <span class="text-xs">Residents</span>
+            </a>
+            <a href="{{ route('building-admin.resident-management.index') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'resident-management' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">groups</span>
+                <span class="text-xs">Residents</span>
+            </a>
+            <a href="{{ route('building-admin.documents.index') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'documents' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">folder_open</span>
+                <span class="text-xs">Documents</span>
+            </a>
+            <a href="{{ route('building-admin.reports') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'reports' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">bar_chart</span>
+                <span class="text-xs">Reports</span>
+            </a>
+            <a href="{{ route('building-admin.notices.index') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'notices' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">how_to_vote</span>
+                <span class="text-xs">Polls</span>
+            </a>
+            <a href="{{ route('building-admin.admin-profile') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'admin-profile' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">person</span>
+                <span class="text-xs">Profile</span>
+            </a>
+            <a href="{{ route('building-admin.support') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'support' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">support_agent</span>
+                <span class="text-xs">Support</span>
+            </a>
+            <a href="{{ route('building-admin.logout') }}" class="flex flex-col items-center justify-center flex-1 {{ $active == 'logout' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                <span class="material-symbols-outlined text-2xl">logout</span>
+                <span class="text-xs">Logout</span>
+            </a>
         </div>
     </div>
 </nav>
