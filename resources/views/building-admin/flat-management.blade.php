@@ -11,19 +11,7 @@
             <div class="flex-1 flex justify-center absolute left-0 right-0 pointer-events-none">
                 <h1 class="text-text-main dark:text-white text-xl font-bold tracking-tight text-center pointer-events-auto">Flats Management</h1>
             </div>
-            <div class="flex items-center gap-3 flex-1 justify-end z-10">
-                <form method="get" action="{{ route('building-admin.flat-management.index') }}" class="flex gap-2 w-full max-w-xs">
-                    <input type="hidden" name="filter" value="{{ $filter }}" />
-                    <div class="relative flex-1">
-                        <span class="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 material-symbols-outlined">search</span>
-                        <input type="text" name="search" value="{{ $search }}" placeholder="Search by flat, resident..." class="pl-9 pr-2 py-2 w-full rounded-lg border border-border dark:border-gray-700 text-sm focus:ring-2 focus:ring-primary outline-none bg-white dark:bg-surface-dark text-text-main dark:text-white" />
-                    </div>
-                    <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors">Search</button>
-                    @if($search)
-                        <a href="{{ route('building-admin.flat-management.index', ['filter' => $filter]) }}" class="ml-2 text-xs text-gray-500 hover:text-primary underline flex items-center">Clear</a>
-                    @endif
-                </form>
-            </div>
+
         </div>
     </header>
     <!-- Main Content -->
@@ -52,6 +40,15 @@
                     <p class="text-text-main dark:text-white text-2xl font-bold">{{ $stats['vacant'] ?? 0 }}</p>
                 </div>
             </div>
+        </section>
+            <!-- Search Bar -->
+        <section class="px-4">
+            <form method="GET" action="" class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                    <span class="material-symbols-outlined text-[20px]">search</span>
+                </span>
+                <input name="search" value="{{ request('search') }}" class="w-full py-3 pl-10 pr-4 bg-white dark:bg-slate-800 border-none rounded-xl text-sm font-medium text-slate-900 dark:text-white placeholder-slate-400 shadow-sm focus:ring-2 focus:ring-primary/50 outline-none" placeholder="Search files..." type="text" />
+            </form>
         </section>
         <!-- Filter Chips -->
         <section class="px-4 overflow-x-auto no-scrollbar">
@@ -127,12 +124,11 @@
             @endforelse
         </section>
     </main>
-    <!-- Floating Action Button -->
-    <div class="fixed bottom-24 right-4 z-40">
-        <a href="{{ route('building-admin.flats.create') }}" class="bg-primary hover:bg-blue-600 text-white w-14 h-14 rounded-full shadow-floating flex items-center justify-center transition-transform hover:scale-105 active:scale-95">
-            <span class="material-symbols-outlined text-3xl">add</span>
-        </a>
-    </div>
+    <!-- Fixed Action Button (modern UX) -->
+    <a href="http://127.0.0.1:8000/building-admin/flats/create" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 bg-primary text-white rounded-lg shadow-lg px-6 py-3 flex items-center gap-2 font-bold text-base hover:bg-primary/90 transition">
+        <span class="material-symbols-outlined">add_circle</span>
+        Create Flat
+    </a>
     <!-- Bottom Navigation removed -->
 </div>
 @endsection

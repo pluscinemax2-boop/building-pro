@@ -20,6 +20,11 @@ class Resident extends Model
     {
         return $this->belongsTo(Flat::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
+    
     public function complaints()
     {
         return $this->hasMany(\App\Models\Complaint::class);

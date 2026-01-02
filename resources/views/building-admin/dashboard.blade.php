@@ -108,11 +108,11 @@
                     </div>
                     <span class="text-xs font-medium text-[#111418] dark:text-gray-300 text-center leading-tight">New<br/>Notice</span>
                 </a>
-                <a href="#" class="flex flex-col items-center gap-2 min-w-[76px] group opacity-50 cursor-not-allowed" tabindex="-1" aria-disabled="true">
+                <a href="{{ route('building-admin.reports') }}" class="flex flex-col items-center gap-2 min-w-[76px] group">
                     <div class="flex size-14 items-center justify-center rounded-full bg-white dark:bg-[#1e2732] text-primary shadow-sm border border-gray-200 dark:border-gray-700 group-active:scale-95 group-hover:border-primary/50 transition-all">
-                        <span class="material-symbols-outlined text-[26px]">verified_user</span>
+                        <span class="material-symbols-outlined text-[26px]">bar_chart</span>
                     </div>
-                    <span class="text-xs font-medium text-[#111418] dark:text-gray-300 text-center leading-tight">Approve<br/>Entry</span>
+                    <span class="text-xs font-medium text-[#111418] dark:text-gray-300 text-center leading-tight">Reports</span>
                 </a>
                 <a href="{{ route('building-admin.expenses.create') }}" class="flex flex-col items-center gap-2 min-w-[76px] group">
                     <div class="flex size-14 items-center justify-center rounded-full bg-white dark:bg-[#1e2732] text-primary shadow-sm border border-gray-200 dark:border-gray-700 group-active:scale-95 group-hover:border-primary/50 transition-all">

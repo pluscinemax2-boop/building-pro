@@ -12,9 +12,6 @@
                 <h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Emergency Alerts</h2>
             </div>
             <div class="flex w-12 items-center justify-end">
-                <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-transparent text-[#111418] dark:text-white gap-2 min-w-0 p-0">
-                    <span class="material-symbols-outlined text-[24px]">settings</span>
-                </button>
             </div>
         </div>
     </div>
@@ -45,14 +42,19 @@
     
     <!-- Search Bar -->
     <div class="px-4 py-2">
-        <label class="flex flex-col min-w-40 h-10 w-full">
-            <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
-                <div class="text-[#617589] flex border-none bg-background-light dark:bg-[#1a2632] items-center justify-center pl-4 rounded-l-lg border-r-0">
+        <form method="GET" action="{{ route('building-admin.emergency') }}" class="flex">
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-[#617589]">
                     <span class="material-symbols-outlined text-[20px]">search</span>
                 </div>
-                <input name="search" value="{{ old('search', request('search')) }}" class="w-full flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border-none bg-background-light dark:bg-[#1a2632] focus:border-none h-full placeholder:text-[#617589] px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search alert history..." />
+                <input type="text" name="search" value="{{ old('search', request('search')) }}" class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1a2632] text-[#111418] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary h-10 text-sm font-normal leading-normal" placeholder="Search alert history..." />
+                @if(request('search'))
+                <a href="{{ route('building-admin.emergency') }}" class="absolute inset-y-0 right-0 flex items-center pr-3 text-[#617589]">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </a>
+                @endif
             </div>
-        </label>
+        </form>
     </div>
     
     <!-- Filter Chips -->
@@ -97,12 +99,28 @@
                                 <p class="text-xs text-[#617589] dark:text-gray-400">{{ $alert->created_at->format('M d, h:i A') }}</p>
                             </div>
                         </div>
-                        <div class="@if($alert->status == 'sent') bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400
-                                    @elseif($alert->status == 'scheduled') bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400
-                                    @elseif($alert->status == 'draft') bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300
-                                    @else bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 @endif 
-                                    rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide">
-                            {{ ucfirst($alert->status) }}
+                        <div class="flex items-center gap-2">
+                            <div class="@if($alert->status == 'sent') bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400
+                                        @elseif($alert->status == 'scheduled') bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400
+                                        @elseif($alert->status == 'draft') bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300
+                                        @else bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 @endif 
+                                        rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide">
+                                {{ ucfirst($alert->status) }}
+                            </div>
+                            <div class="flex gap-1">
+                                @if(in_array($alert->status, ['draft', 'scheduled']))
+                                <a href="{{ route('building-admin.emergency.edit', $alert->id) }}" class="text-[#617589] hover:text-primary dark:text-gray-400 dark:hover:text-blue-400 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <span class="material-symbols-outlined text-sm">edit</span>
+                                </a>
+                                @endif
+                                <form action="{{ route('building-admin.emergency.destroy', $alert->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this alert?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-[#617589] hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <span class="material-symbols-outlined text-sm">delete</span>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <p class="text-sm text-[#3b4a59] dark:text-gray-300 line-clamp-2 pl-[52px]">

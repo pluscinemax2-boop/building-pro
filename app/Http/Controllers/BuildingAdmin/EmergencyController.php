@@ -42,6 +42,7 @@ class EmergencyController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'message' => 'required|string',
+            'type' => 'required|string',
             'priority' => 'required|in:low,medium,high,critical',
             'status' => 'required|in:draft,scheduled,sent',
             'scheduled_at' => 'nullable|date|after:now',
@@ -53,6 +54,7 @@ class EmergencyController extends Controller
         $alert = EmergencyAlert::create([
             'title' => $request->title,
             'message' => $request->message,
+            'type' => $request->type,
             'priority' => $request->priority,
             'status' => $request->status,
             'scheduled_at' => $request->status === 'scheduled' ? $request->scheduled_at : null,
@@ -78,6 +80,7 @@ class EmergencyController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'message' => 'required|string',
+            'type' => 'required|string',
             'priority' => 'required|in:low,medium,high,critical',
             'status' => 'required|in:draft,scheduled,sent',
             'scheduled_at' => 'nullable|date|after:now',
@@ -86,6 +89,7 @@ class EmergencyController extends Controller
         $emergency->update([
             'title' => $request->title,
             'message' => $request->message,
+            'type' => $request->type,
             'priority' => $request->priority,
             'status' => $request->status,
             'scheduled_at' => $request->status === 'scheduled' ? $request->scheduled_at : null,

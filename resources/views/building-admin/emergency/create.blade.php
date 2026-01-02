@@ -1,4 +1,4 @@
-@extends('building-admin.layout')
+    @extends('building-admin.layout')
 
 @section('content')
 <div class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white pb-24 min-h-screen">
@@ -12,9 +12,7 @@
                 <h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Compose Alert</h2>
             </div>
             <div class="flex w-12 items-center justify-end">
-                <button type="submit" form="emergencyForm" class="text-primary">
-                    <span class="material-symbols-outlined text-2xl">check</span>
-                </button>
+                <!-- Submit button moved to bottom of form -->
             </div>
         </div>
     </div>
@@ -59,32 +57,32 @@
             @enderror
         </div>
         
-        <!-- Priority -->
+        <!-- Priority Level -->
         <div class="mb-6">
             <label class="block text-sm font-medium text-[#111418] dark:text-white mb-2">Priority Level</label>
-            <div class="grid grid-cols-2 gap-3">
-                <label class="flex items-center p-3 border border-[#dbe0e6] dark:border-gray-700 rounded-lg bg-white dark:bg-[#1a2632] cursor-pointer {{ old('priority') == 'low' ? 'ring-2 ring-primary border-primary' : '' }}">
-                    <input type="radio" name="priority" value="low" class="sr-only" {{ old('priority') == 'low' ? 'checked' : '' }}>
-                    <span class="material-symbols-outlined text-gray-400 mr-2">flag</span>
-                    <span class="text-[#111418] dark:text-white">Low</span>
-                </label>
-                <label class="flex items-center p-3 border border-[#dbe0e6] dark:border-gray-700 rounded-lg bg-white dark:bg-[#1a2632] cursor-pointer {{ old('priority') == 'medium' ? 'ring-2 ring-primary border-primary' : '' }}">
-                    <input type="radio" name="priority" value="medium" class="sr-only" {{ old('priority') == 'medium' ? 'checked' : '' }}>
-                    <span class="material-symbols-outlined text-primary mr-2">flag</span>
-                    <span class="text-[#111418] dark:text-white">Medium</span>
-                </label>
-                <label class="flex items-center p-3 border border-[#dbe0e6] dark:border-gray-700 rounded-lg bg-white dark:bg-[#1a2632] cursor-pointer {{ old('priority') == 'high' ? 'ring-2 ring-primary border-primary' : '' }}">
-                    <input type="radio" name="priority" value="high" class="sr-only" {{ old('priority') == 'high' ? 'checked' : '' }}>
-                    <span class="material-symbols-outlined text-orange-500 mr-2">warning</span>
-                    <span class="text-[#111418] dark:text-white">High</span>
-                </label>
-                <label class="flex items-center p-3 border border-[#dbe0e6] dark:border-gray-700 rounded-lg bg-white dark:bg-[#1a2632] cursor-pointer {{ old('priority') == 'critical' ? 'ring-2 ring-primary border-primary' : '' }}">
-                    <input type="radio" name="priority" value="critical" class="sr-only" {{ old('priority') == 'critical' ? 'checked' : '' }}>
-                    <span class="material-symbols-outlined text-red-500 mr-2">warning</span>
-                    <span class="text-[#111418] dark:text-white">Critical</span>
-                </label>
-            </div>
+            <select name="priority" class="w-full px-4 py-3 rounded-lg border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1a2632] text-[#111418] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                <option value="low" {{ old('priority') == 'low' ? 'selected' : (old('priority') ? '' : 'selected') }}>Low</option>
+                <option value="medium" {{ old('priority') == 'medium' ? 'selected' : '' }}>Medium</option>
+                <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>High</option>
+                <option value="critical" {{ old('priority') == 'critical' ? 'selected' : '' }}>Critical</option>
+            </select>
             @error('priority')
+            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+            @enderror
+        </div>
+        
+        <!-- Alert Type -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-[#111418] dark:text-white mb-2">Alert Type</label>
+            <select name="type" class="w-full px-4 py-3 rounded-lg border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1a2632] text-[#111418] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                <option value="fire" {{ old('type') == 'fire' ? 'selected' : (old('type') ? '' : 'selected') }}>Fire</option>
+                <option value="gas" {{ old('type') == 'gas' ? 'selected' : '' }}>Gas</option>
+                <option value="power" {{ old('type') == 'power' ? 'selected' : '' }}>Power</option>
+                <option value="water" {{ old('type') == 'water' ? 'selected' : '' }}>Water</option>
+                <option value="security" {{ old('type') == 'security' ? 'selected' : '' }}>Security</option>
+                <option value="other" {{ old('type') == 'other' ? 'selected' : '' }}>Other</option>
+            </select>
+            @error('type')
             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
             @enderror
         </div>
@@ -92,23 +90,11 @@
         <!-- Status -->
         <div class="mb-6">
             <label class="block text-sm font-medium text-[#111418] dark:text-white mb-2">Status</label>
-            <div class="grid grid-cols-3 gap-3">
-                <label class="flex flex-col items-center p-3 border border-[#dbe0e6] dark:border-gray-700 rounded-lg bg-white dark:bg-[#1a2632] cursor-pointer {{ old('status', 'draft') == 'draft' ? 'ring-2 ring-primary border-primary' : '' }}">
-                    <input type="radio" name="status" value="draft" class="sr-only" {{ old('status', 'draft') == 'draft' ? 'checked' : '' }}>
-                    <span class="material-symbols-outlined text-[#111418] dark:text-white mb-1">edit_document</span>
-                    <span class="text-[#111418] dark:text-white text-sm">Draft</span>
-                </label>
-                <label class="flex flex-col items-center p-3 border border-[#dbe0e6] dark:border-gray-700 rounded-lg bg-white dark:bg-[#1a2632] cursor-pointer {{ old('status') == 'scheduled' ? 'ring-2 ring-primary border-primary' : '' }}">
-                    <input type="radio" name="status" value="scheduled" class="sr-only" {{ old('status') == 'scheduled' ? 'checked' : '' }}>
-                    <span class="material-symbols-outlined text-[#111418] dark:text-white mb-1">schedule</span>
-                    <span class="text-[#111418] dark:text-white text-sm">Scheduled</span>
-                </label>
-                <label class="flex flex-col items-center p-3 border border-[#dbe0e6] dark:border-gray-700 rounded-lg bg-white dark:bg-[#1a2632] cursor-pointer {{ old('status') == 'sent' ? 'ring-2 ring-primary border-primary' : '' }}">
-                    <input type="radio" name="status" value="sent" class="sr-only" {{ old('status') == 'sent' ? 'checked' : '' }}>
-                    <span class="material-symbols-outlined text-[#111418] dark:text-white mb-1">send</span>
-                    <span class="text-[#111418] dark:text-white text-sm">Send Now</span>
-                </label>
-            </div>
+            <select name="status" class="w-full px-4 py-3 rounded-lg border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1a2632] text-[#111418] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                <option value="sent" {{ old('status') == 'sent' ? 'selected' : '' }}>Send Now</option>
+                <option value="draft" {{ old('status', 'draft') == 'draft' ? 'selected' : (old('status') ? '' : 'selected') }}>Draft</option>
+                <option value="scheduled" {{ old('status') == 'scheduled' ? 'selected' : '' }}>Scheduled</option>
+            </select>
             @error('status')
             <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
             @enderror
@@ -124,6 +110,14 @@
                 @enderror
             </div>
         </div>
+        
+        <!-- Submit Button at Bottom -->
+        <div class="flex justify-center mt-6 mb-6">
+            <button type="submit" class="flex w-full max-w-md cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-sm font-bold leading-normal hover:bg-blue-600 transition-colors shadow-sm active:scale-[0.98]">
+                <span class="material-symbols-outlined mr-2 text-[20px]">check</span>
+                <span>Submit Alert</span>
+            </button>
+        </div>
     </form>
     
     <!-- Bottom Navigation Bar -->
@@ -133,18 +127,19 @@
 <script>
 // Toggle scheduled time field based on status selection
 document.addEventListener('DOMContentLoaded', function() {
-    const statusRadios = document.querySelectorAll('input[name="status"]');
+    const statusSelect = document.querySelector('select[name="status"]');
     const scheduledContainer = document.getElementById('scheduledTimeContainer');
     
-    statusRadios.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.value === 'scheduled') {
-                scheduledContainer.classList.remove('hidden');
-            } else {
-                scheduledContainer.classList.add('hidden');
-            }
-        });
+    statusSelect.addEventListener('change', function() {
+        if (this.value === 'scheduled') {
+            scheduledContainer.classList.remove('hidden');
+        } else {
+            scheduledContainer.classList.add('hidden');
+        }
     });
+    
+    // Trigger change event on page load to set initial state
+    statusSelect.dispatchEvent(new Event('change'));
 });
 </script>
 @endsection

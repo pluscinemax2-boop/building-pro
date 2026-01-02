@@ -617,12 +617,23 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
 
     // Residents CRUD
     Route::get('/resident-management', [App\Http\Controllers\BuildingAdmin\ResidentController::class, 'index'])->name('building-admin.resident-management.index');
+    Route::get('/resident-management/call-directory', [App\Http\Controllers\BuildingAdmin\ResidentController::class, 'callDirectory'])->name('building-admin.resident-management.call-directory');
+    Route::get('/resident-management/export-csv', [App\Http\Controllers\BuildingAdmin\ResidentController::class, 'exportCsv'])->name('building-admin.resident-management.export-csv');
     Route::get('/residents', [\App\Http\Controllers\BuildingAdmin\ResidentController::class, 'index'])->name('building-admin.residents.index');
     Route::get('/residents/create', [\App\Http\Controllers\BuildingAdmin\ResidentController::class, 'create'])->name('building-admin.residents.create');
-    Route::post('/residents', [\App\Http\Controllers\BuildingAdmin\ResidentController::class, 'store']);
+    Route::post('/residents', [\App\Http\Controllers\BuildingAdmin\ResidentController::class, 'store'])->name('building-admin.residents.store');
     Route::get('/residents/{resident}/edit', [\App\Http\Controllers\BuildingAdmin\ResidentController::class, 'edit'])->name('building-admin.residents.edit');
     Route::put('/residents/{resident}', [\App\Http\Controllers\BuildingAdmin\ResidentController::class, 'update']);
     Route::delete('/residents/{resident}', [\App\Http\Controllers\BuildingAdmin\ResidentController::class, 'destroy']);
+    
+    // Managers CRUD
+    Route::get('/manager-management', [App\Http\Controllers\BuildingAdmin\ManagerController::class, 'index'])->name('building-admin.manager-management.index');
+    Route::get('/managers', [App\Http\Controllers\BuildingAdmin\ManagerController::class, 'index'])->name('building-admin.managers.index');
+    Route::get('/managers/create', [App\Http\Controllers\BuildingAdmin\ManagerController::class, 'create'])->name('building-admin.managers.create');
+    Route::post('/managers', [App\Http\Controllers\BuildingAdmin\ManagerController::class, 'store'])->name('building-admin.managers.store');
+    Route::get('/managers/{manager}/edit', [App\Http\Controllers\BuildingAdmin\ManagerController::class, 'edit'])->name('building-admin.managers.edit');
+    Route::put('/managers/{manager}', [App\Http\Controllers\BuildingAdmin\ManagerController::class, 'update'])->name('building-admin.managers.update');
+    Route::delete('/managers/{manager}', [App\Http\Controllers\BuildingAdmin\ManagerController::class, 'destroy'])->name('building-admin.managers.destroy');
 
     // Emergency Alerts CRUD
     Route::get('/emergency', [\App\Http\Controllers\BuildingAdmin\EmergencyController::class, 'index'])->name('building-admin.emergency');
