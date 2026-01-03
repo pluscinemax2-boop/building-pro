@@ -2,14 +2,16 @@
 namespace App\Http\Controllers\BuildingAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SecurityLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ComplaintController extends Controller
 {
     // Show all complaints (View All page)
     public function all(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $query = \App\Models\Complaint::where('building_id', $user->building_id);
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -28,6 +30,18 @@ class ComplaintController extends Controller
         ]);
         $complaint->status = $request->input('status');
         $complaint->save();
+        
+        // Log the activity
+        \App\Models\SecurityLog::create([
+            'user_id' => Auth::id(),
+            'building_id' => Auth::user()->building_id,
+            'role' => Auth::user()->role->name ?? 'building-admin',
+            'action' => 'Complaint status changed',
+            'description' => 'Complaint "' . $complaint->title . '" status was changed to "' . $request->input('status') . '" by ' . Auth::user()->name,
+            'ip_address' => $request->ip(),
+            'url' => $request->url(),
+        ]);
+        
         return redirect()->route('building-admin.complaints.index')->with('success', 'Complaint status updated!');
     }
     public function store(Request $request)
@@ -39,7 +53,7 @@ class ComplaintController extends Controller
             'priority' => 'required|in:High,Medium,Low',
             'image' => 'nullable|image|max:4096',
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         $building = $user->building;
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -60,7 +74,7 @@ class ComplaintController extends Controller
 
     public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $query = \App\Models\Complaint::where('building_id', $user->building_id);
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -81,7 +95,7 @@ class ComplaintController extends Controller
     public function create()
     {
         // Get current building for the admin
-        $user = auth()->user();
+        $user = Auth::user();
         $building = $user->building;
         $flats = $building ? $building->flats()->orderBy('flat_number')->get() : collect();
         $residents = \App\Models\Resident::whereIn('flat_id', $flats->pluck('id'))->orderBy('name')->get();

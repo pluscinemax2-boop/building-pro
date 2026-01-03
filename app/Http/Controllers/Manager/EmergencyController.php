@@ -9,7 +9,8 @@ class EmergencyController extends Controller
 {
     public function index()
     {
-        $alerts = EmergencyAlert::latest()->get();
+        $buildingId = request()->user()->building_id;
+        $alerts = EmergencyAlert::where('building_id', $buildingId)->latest()->get();
 
         return view('manager.emergency.index', compact('alerts'));
     }

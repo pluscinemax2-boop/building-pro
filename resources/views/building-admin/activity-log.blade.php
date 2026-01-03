@@ -8,14 +8,14 @@
                 <span class="material-symbols-outlined">arrow_back</span>
             </a>
             <div class="flex-1 flex justify-center absolute left-0 right-0 pointer-events-none">
-                <h1 class="text-text-main dark:text-white text-xl font-bold tracking-tight text-center pointer-events-auto">Recent Activity</h1>
+                <h1 class="text-text-main dark:text-white text-xl font-bold tracking-tight text-center pointer-events-auto">Activity Log</h1>
             </div>
         </div>
     </header>
     <main class="w-full max-w-md mx-auto flex flex-col gap-4 p-3">
-        <!-- Search Bar -->
+           <!-- Search Bar -->
         <section class="px-4">
-            <form method="GET" action="{{ route('building-admin.recent-activities') }}" class="relative">
+            <form method="GET" action="{{ route('building-admin.activity-log.index') }}" class="relative">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
                     <span class="material-symbols-outlined text-[20px]">search</span>
                 </span>
@@ -51,28 +51,72 @@
         <div class="px-4 pt-2 pb-0 flex items-center justify-between">
             <h3 class="text-text-main dark:text-white font-semibold text-lg">Recent Activities</h3>
         </div>
-        <div class="flex flex-col gap-3">
-            @forelse($recentActivity as $activity)
+        <!-- Activity Log List -->
+        <section class="px-4 flex flex-col gap-3">
+            @forelse($logs as $log)
                 <div class="bg-white dark:bg-surface-dark rounded-xl p-4 shadow-card border border-border dark:border-gray-700">
                     <div class="flex items-start gap-3">
-                        <div class="relative w-10 h-10 rounded-lg overflow-hidden shrink-0 flex flex-col items-center justify-center {{ $activity['iconBg'] }} border border-blue-100 dark:border-blue-800 shadow-card">
-                            <span class="material-symbols-outlined {{ $activity['iconText'] }} text-xl">{{ $activity['icon'] }}</span>
+                        <div class="relative w-10 h-10 rounded-lg overflow-hidden shrink-0 flex flex-col items-center justify-center bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 shadow-card">
+                            <span class="material-symbols-outlined text-primary text-xl">
+                                @switch(true)
+                                    @case(str_contains(strtolower($log->action), 'expense'))
+                                        payments
+                                        @break
+                                    @case(str_contains(strtolower($log->action), 'complaint'))
+                                        report
+                                        @break
+                                    @case(str_contains(strtolower($log->action), 'document'))
+                                        folder
+                                        @break
+                                    @case(str_contains(strtolower($log->action), 'notice'))
+                                        campaign
+                                        @break
+                                    @default
+                                        history
+                                @endswitch
+                            </span>
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex items-start justify-between">
                                 <div>
-                                    <h4 class="text-text-main dark:text-white font-bold text-base">{{ $activity['title'] }}</h4>
-                                    <p class="text-text-sub dark:text-gray-500 text-sm mt-1">{!! $activity['desc'] !!}</p>
+                                    <h4 class="text-text-main dark:text-white font-bold text-base">{{ $log->user->name ?? 'System' }}</h4>
+                                    <p class="text-text-sub dark:text-gray-400 text-sm mt-0.5">{{ $log->action }}</p>
+                                    @if($log->description)
+                                        <p class="text-text-sub dark:text-gray-500 text-sm mt-1">{{ $log->description }}</p>
+                                    @endif
                                 </div>
-                                <span class="text-xs text-text-sub dark:text-gray-500 whitespace-nowrap">{{ $activity['time'] }}</span>
+                                <span class="text-xs text-text-sub dark:text-gray-500 whitespace-nowrap">{{ $log->created_at->diffForHumans() }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             @empty
-                <p class="text-text-sub dark:text-gray-400 text-sm text-center py-4">No recent activity</p>
+                <p class="text-text-sub dark:text-gray-400 text-sm">No activities found.</p>
             @endforelse
+        </section>
+        
+        <!-- Pagination -->
+        @if($logs->hasPages())
+        <div class="px-4 py-4 flex justify-center">
+            <div class="flex items-center gap-2">
+                @if($logs->onFirstPage())
+                    <span class="px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-400 text-sm font-medium cursor-not-allowed">Previous</span>
+                @else
+                    <a href="{{ $logs->previousPageUrl() }}" class="px-3 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition">Previous</a>
+                @endif
+                
+                <span class="px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-text-main dark:text-white text-sm font-medium">
+                    {{ $logs->currentPage() }} of {{ $logs->lastPage() }}
+                </span>
+                
+                @if($logs->hasMorePages())
+                    <a href="{{ $logs->nextPageUrl() }}" class="px-3 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90 transition">Next</a>
+                @else
+                    <span class="px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-400 text-sm font-medium cursor-not-allowed">Next</span>
+                @endif
+            </div>
         </div>
+        @endif
     </main>
 </div>
 @endsection

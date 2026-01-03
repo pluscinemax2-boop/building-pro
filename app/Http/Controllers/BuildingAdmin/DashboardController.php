@@ -8,22 +8,82 @@ use Illuminate\Support\Facades\Schema;
 
 class DashboardController extends Controller
 {
-    public function recentActivities()
+    public function recentActivities(Request $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $building = $user->building;
-        // Fetch last 20 complaints for this building (expand to more types as needed)
-        $recentComplaints = \App\Models\Complaint::where('building_id', $building->id)
-            ->latest()->take(20)->get();
+        
+        // Get filter and search parameters
+        $filter = $request->get('filter', 'all');
+        $search = $request->get('search', '');
+        
+        // Build query for SecurityLog
+        $query = \App\Models\SecurityLog::where('building_id', $building->id)
+            ->with('user')
+            ->latest();
+        
+        // Apply filter based on action type
+        switch ($filter) {
+            case 'expenses':
+                $query->where('action', 'like', '%expense%');
+                break;
+            case 'complaints':
+                $query->where('action', 'like', '%complaint%');
+                break;
+            case 'documents':
+                $query->where('action', 'like', '%document%');
+                break;
+            case 'notices':
+                $query->where('action', 'like', '%notice%');
+                break;
+        }
+        
+        // Apply search if provided
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('action', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%')
+                  ->orWhereHas('user', function($uq) use ($search) {
+                      $uq->where('name', 'like', '%' . $search . '%');
+                  });
+            });
+        }
+        
+        // Fetch last 20 activities from SecurityLog for this building
+        $recentLogs = $query->take(20)->get();
+        
         $recentActivity = [];
-        foreach ($recentComplaints as $complaint) {
+        foreach ($recentLogs as $log) {
+            // Determine icon based on action type
+            $icon = 'history';
+            $iconBg = 'bg-blue-50 dark:bg-blue-900/20';
+            $iconText = 'text-blue-600 dark:text-blue-400';
+            
+            if (str_contains(strtolower($log->action), 'expense')) {
+                $icon = 'payments';
+                $iconBg = 'bg-green-50 dark:bg-green-900/20';
+                $iconText = 'text-green-600 dark:text-green-400';
+            } elseif (str_contains(strtolower($log->action), 'complaint')) {
+                $icon = 'report';
+                $iconBg = 'bg-red-50 dark:bg-red-900/20';
+                $iconText = 'text-red-600 dark:text-red-400';
+            } elseif (str_contains(strtolower($log->action), 'document')) {
+                $icon = 'folder';
+                $iconBg = 'bg-purple-50 dark:bg-purple-900/20';
+                $iconText = 'text-purple-600 dark:text-purple-400';
+            } elseif (str_contains(strtolower($log->action), 'notice')) {
+                $icon = 'campaign';
+                $iconBg = 'bg-orange-50 dark:bg-orange-900/20';
+                $iconText = 'text-orange-600 dark:text-orange-400';
+            }
+            
             $recentActivity[] = [
-                'icon' => 'plumbing',
-                'iconBg' => 'bg-red-50 dark:bg-red-900/20',
-                'iconText' => 'text-red-600 dark:text-red-400',
-                'title' => $complaint->title,
-                'time' => $complaint->created_at->diffForHumans(),
-                'desc' => 'Flat ' . ($complaint->flat->flat_number ?? '-') . ' • ' . ($complaint->resident->name ?? 'Resident'),
+                'icon' => $icon,
+                'iconBg' => $iconBg,
+                'iconText' => $iconText,
+                'title' => $log->action,
+                'time' => $log->created_at->diffForHumans(),
+                'desc' => $log->description ?? 'By ' . ($log->user->name ?? 'System'),
             ];
         }
         return view('building-admin.recent-activities', [
@@ -71,18 +131,42 @@ class DashboardController extends Controller
         $expensesChange = '';
 
         // Recent Activity (last 3)
-            // Recent Activity (last 12)
-            $recentComplaints = \App\Models\Complaint::where('building_id', $building->id)
+            // Recent Activity (last 12) from SecurityLog
+            $recentLogs = \App\Models\SecurityLog::where('building_id', $building->id)
+                ->with('user')
                 ->latest()->take(12)->get();
         $recentActivity = [];
-        foreach ($recentComplaints as $complaint) {
+        foreach ($recentLogs as $log) {
+            // Determine icon based on action type
+            $icon = 'history';
+            $iconBg = 'bg-blue-50 dark:bg-blue-900/20';
+            $iconText = 'text-blue-600 dark:text-blue-400';
+            
+            if (str_contains(strtolower($log->action), 'expense')) {
+                $icon = 'payments';
+                $iconBg = 'bg-green-50 dark:bg-green-900/20';
+                $iconText = 'text-green-600 dark:text-green-400';
+            } elseif (str_contains(strtolower($log->action), 'complaint')) {
+                $icon = 'report';
+                $iconBg = 'bg-red-50 dark:bg-red-900/20';
+                $iconText = 'text-red-600 dark:text-red-400';
+            } elseif (str_contains(strtolower($log->action), 'document')) {
+                $icon = 'folder';
+                $iconBg = 'bg-purple-50 dark:bg-purple-900/20';
+                $iconText = 'text-purple-600 dark:text-purple-400';
+            } elseif (str_contains(strtolower($log->action), 'notice')) {
+                $icon = 'campaign';
+                $iconBg = 'bg-orange-50 dark:bg-orange-900/20';
+                $iconText = 'text-orange-600 dark:text-orange-400';
+            }
+            
             $recentActivity[] = [
-                'icon' => 'plumbing',
-                'iconBg' => 'bg-red-50 dark:bg-red-900/20',
-                'iconText' => 'text-red-600 dark:text-red-400',
-                'title' => $complaint->title,
-                'time' => $complaint->created_at->diffForHumans(),
-                'desc' => 'Flat ' . ($complaint->flat->flat_number ?? '-') . ' • ' . ($complaint->resident->name ?? 'Resident'),
+                'icon' => $icon,
+                'iconBg' => $iconBg,
+                'iconText' => $iconText,
+                'title' => $log->action,
+                'time' => $log->created_at->diffForHumans(),
+                'desc' => $log->description ?? 'By ' . ($log->user->name ?? 'System'),
             ];
         }
 

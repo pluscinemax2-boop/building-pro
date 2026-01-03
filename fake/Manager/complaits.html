@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manager Complaints Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-xl">
+<!-- Header Section -->
+<header class="sticky top-0 z-20 bg-white dark:bg-[#1a2632] shadow-sm">
+<!-- Top Bar -->
+<div class="flex items-center justify-between p-4 pb-2">
+<h2 class="text-xl font-bold leading-tight tracking-tight">Complaints</h2>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-white" style="font-size: 24px;">notifications</span>
+</button>
+</div>
+<!-- Search Bar -->
+<div class="px-4 pb-4">
+<div class="relative flex items-center w-full h-12 rounded-lg focus-within:ring-2 focus-within:ring-primary/50 overflow-hidden bg-slate-100 dark:bg-slate-800 transition-all">
+<div class="grid place-items-center h-full w-12 text-slate-500">
+<span class="material-symbols-outlined" style="font-size: 24px;">search</span>
+</div>
+<input class="peer h-full w-full outline-none text-sm text-slate-700 dark:text-slate-200 pr-2 bg-transparent placeholder-slate-500 border-none focus:ring-0" id="search" placeholder="Search flat or keyword..." type="text"/>
+<button class="grid place-items-center h-full w-12 text-slate-500 hover:text-primary transition-colors border-l border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined" style="font-size: 24px;">tune</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Stats Row -->
+<div class="w-full overflow-x-auto hide-scrollbar px-4 pt-6 pb-2">
+<div class="flex gap-3 min-w-max">
+<!-- Stat Card 1 -->
+<div class="flex flex-col justify-between w-32 p-3 bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Pending</span>
+<span class="material-symbols-outlined text-amber-500" style="font-size: 18px;">pending_actions</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">12</p>
+</div>
+<!-- Stat Card 2 -->
+<div class="flex flex-col justify-between w-32 p-3 bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">In Progress</span>
+<span class="material-symbols-outlined text-primary" style="font-size: 18px;">engineering</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-white">5</p>
+</div>
+<!-- Stat Card 3 -->
+<div class="flex flex-col justify-between w-32 p-3 bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Resolved</span>
+<span class="material-symbols-outlined text-green-500" style="font-size: 18px;">check_circle</span>
+</div>
+<div class="flex items-end gap-1">
+<p class="text-2xl font-bold text-slate-900 dark:text-white">42</p>
+<span class="text-xs font-medium text-green-600 mb-1">+10%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section Header -->
+<div class="px-4 py-4 flex items-center justify-between">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Recent Complaints</h3>
+<button class="text-sm font-medium text-primary hover:text-blue-600">See All</button>
+</div>
+<!-- Complaints List -->
+<div class="flex flex-col gap-4 px-4">
+<!-- Card 1: High Priority -->
+<div class="flex flex-col bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+<div class="p-4 flex gap-4">
+<!-- Left Content -->
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">High Priority</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">Pending</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight">Water Heater Malfunction</h4>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-xs mt-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">apartment</span>
+<span>Block B, Flat 305</span>
+<span class="mx-1">•</span>
+<span>Oct 24, 10:30 AM</span>
+</div>
+</div>
+<!-- Right Image -->
+<div class="w-16 h-16 rounded-lg bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0" data-alt="Close up of a rusty water heater pipe" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDs2tzHuCQLIvnwzWlfwuFehbQk1omCB4nnRtcMEV2CS3aOdMzJ8_uEJk4nPU3nKvlNuk7QyQAdOw--1HC3jmwBKVtkvzEZcnwnrl11_lY7nVCBlFTjrVmG1X6hE76bpvDNW6fz-j-P4B7Wo_xEcYFDk_IAXO-oEoFuvDlbfZ6gqG_93AmH4_vNDcua02udMUkRKax7WgMF4vSG0oswS7H5N6VITOo_U78ZaeVkg1S4blo5jD4PQKQi5hl-waA8Idw16ZGI4z7fVK67');">
+</div>
+</div>
+<!-- Actions -->
+<div class="px-4 pb-4 pt-0 grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                            View Details
+                        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined" style="font-size: 18px;">edit_square</span>
+                            Update
+                        </button>
+</div>
+</div>
+<!-- Card 2: Medium Priority -->
+<div class="flex flex-col bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+<div class="p-4 flex gap-4">
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">Medium</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">In Progress</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight">Lobby Light Flickering</h4>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-xs mt-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">apartment</span>
+<span>Main Lobby, Ground Floor</span>
+<span class="mx-1">•</span>
+<span>Yesterday</span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="px-4 pb-4 pt-0 grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                            View Details
+                        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined" style="font-size: 18px;">edit_square</span>
+                            Update
+                        </button>
+</div>
+</div>
+<!-- Card 3: Low Priority -->
+<div class="flex flex-col bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden opacity-75 hover:opacity-100 transition-opacity">
+<div class="p-4 flex gap-4">
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">Low</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Resolved</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight text-slate-600 dark:text-slate-400 line-through decoration-slate-400">Gym AC Noise</h4>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-xs mt-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">fitness_center</span>
+<span>Clubhouse Gym</span>
+<span class="mx-1">•</span>
+<span>Oct 20</span>
+</div>
+</div>
+</div>
+<!-- Actions (Resolved) -->
+<div class="px-4 pb-4 pt-0">
+<button class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                            View Archive
+                        </button>
+</div>
+</div>
+<!-- Card 4: High Priority -->
+<div class="flex flex-col bg-white dark:bg-[#1a2632] rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+<div class="p-4 flex gap-4">
+<!-- Left Content -->
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">High Priority</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">Pending</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 dark:text-white leading-tight">Garage Gate Stuck</h4>
+<div class="flex items-center gap-1 text-slate-500 dark:text-slate-400 text-xs mt-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">garage_home</span>
+<span>Main Entrance</span>
+<span class="mx-1">•</span>
+<span>15 mins ago</span>
+</div>
+</div>
+<!-- Right Image -->
+<div class="w-16 h-16 rounded-lg bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0" data-alt="Metallic garage door partially open" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCbpTxQ0_hApF_mH8svJEj2E9_QwaXu_QQBP6epfQWDzDMhlnoSKr7aoTZkqxjlrU0zO_xgeAUeSVafFc1Dlphch-srQ97G-DOnOuoRRfQT9a-nDe-VuIKBp9bhtYovXFmLZgbl9RmKr_bDstYDvnJDxxSVE0u1nLxBprdSNDttfc2k12CbAoHKnG1q2sYi21fQJ44xFIKX5mg072E6dnphFbQIearzNhR3PRRE3hTBdsVj0q0jK2w9Ay0ZFev7WcEw0v5S7xNZlna6');">
+</div>
+</div>
+<!-- Actions -->
+<div class="px-4 pb-4 pt-0 grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                            View Details
+                        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined" style="font-size: 18px;">edit_square</span>
+                            Update
+                        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Spacer -->
+<div class="h-6"></div>
+</main>
+<!-- Floating Action Button (Optional but mentioned in plan) -->
+<button class="absolute bottom-24 right-4 h-14 w-14 rounded-full bg-primary shadow-lg shadow-blue-300 dark:shadow-blue-900 text-white flex items-center justify-center hover:scale-105 transition-transform z-30">
+<span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+</button>
+<!-- Bottom Navigation -->
+<nav class="absolute bottom-0 w-full bg-white dark:bg-[#1a2632] border-t border-slate-200 dark:border-slate-800 pb-safe z-40">
+<div class="flex items-center justify-around h-16">
+<a class="flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">home</span>
+<span class="text-[10px] font-medium mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary" href="#">
+<span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1; font-size: 24px;">assignment_late</span>
+<span class="text-[10px] font-medium mt-1">Complaints</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">campaign</span>
+<span class="text-[10px] font-medium mt-1">Notices</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">person</span>
+<span class="text-[10px] font-medium mt-1">Profile</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

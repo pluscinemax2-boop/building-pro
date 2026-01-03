@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manager Maintenance Requests</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased selection:bg-primary/30">
+<div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-2xl overflow-hidden pb-24">
+<!-- Top App Bar -->
+<header class="flex items-center bg-white dark:bg-[#1e293b] px-4 py-4 justify-between sticky top-0 z-10 shadow-sm">
+<h2 class="text-[#111418] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] flex-1">
+                Maintenance
+            </h2>
+<div class="flex items-center justify-end gap-3">
+<button class="flex items-center justify-center rounded-full w-10 h-10 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-700 text-[#111418] dark:text-white transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="flex items-center justify-center rounded-full w-10 h-10 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-700 text-[#111418] dark:text-white transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</header>
+<!-- Search Bar -->
+<div class="px-4 py-3 bg-white dark:bg-[#1e293b] border-b border-gray-100 dark:border-gray-800">
+<label class="flex flex-col w-full h-12">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full bg-[#f0f2f4] dark:bg-[#2c3b4b] transition-colors focus-within:ring-2 ring-primary/50">
+<div class="text-[#617589] dark:text-gray-400 flex items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 resize-none overflow-hidden bg-transparent border-none text-[#111418] dark:text-white focus:outline-0 focus:ring-0 placeholder:text-[#617589] dark:placeholder:text-gray-500 px-0 text-base font-normal leading-normal" placeholder="Search unit, issue, or ID..." value=""/>
+</div>
+</label>
+</div>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto no-scrollbar">
+<!-- Quick Stats -->
+<div class="flex gap-3 p-4 overflow-x-auto no-scrollbar">
+<div class="flex min-w-[140px] flex-col gap-1 rounded-xl p-4 bg-white dark:bg-[#1e293b] shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Pending</p>
+</div>
+<p class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">5</p>
+</div>
+<div class="flex min-w-[140px] flex-col gap-1 rounded-xl p-4 bg-white dark:bg-[#1e293b] shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Assigned</p>
+</div>
+<p class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">12</p>
+</div>
+<div class="flex min-w-[140px] flex-col gap-1 rounded-xl p-4 bg-white dark:bg-[#1e293b] shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-500"></span>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Overdue</p>
+</div>
+<p class="text-[#111418] dark:text-white text-2xl font-bold leading-tight">2</p>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 px-4 pb-2 overflow-x-auto no-scrollbar">
+<button class="flex h-9 shrink-0 items-center justify-center px-4 rounded-full bg-[#111418] dark:bg-white text-white dark:text-[#111418] transition-colors shadow-sm">
+<p class="text-sm font-medium leading-normal">All Requests</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center px-4 rounded-full bg-white dark:bg-[#2c3b4b] border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-[#37475a] transition-colors">
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">New</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center px-4 rounded-full bg-white dark:bg-[#2c3b4b] border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-[#37475a] transition-colors">
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">In Progress</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center px-4 rounded-full bg-white dark:bg-[#2c3b4b] border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-[#37475a] transition-colors">
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Completed</p>
+</button>
+</div>
+<!-- Request List -->
+<div class="flex flex-col gap-3 p-4">
+<!-- Item 1: Urgent/Pending -->
+<div class="flex flex-col bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="flex items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/20 shrink-0 h-12 w-12 text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined text-[24px]">thermostat</span>
+</div>
+<div class="flex flex-col">
+<h3 class="text-[#111418] dark:text-white text-base font-bold leading-tight">HVAC Failure</h3>
+<p class="text-[#617589] dark:text-gray-400 text-sm">Gym • Common Area</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-orange-50 dark:bg-orange-900/20 px-2 py-1 text-xs font-medium text-orange-700 dark:text-orange-400 ring-1 ring-inset ring-orange-600/10">Pending</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
+<p class="text-xs text-[#9aa8b8] dark:text-gray-500 font-medium">#REQ-2024 • 2 hrs ago</p>
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span>Assign Now</span>
+</button>
+</div>
+</div>
+<!-- Item 2: In Progress -->
+<div class="flex flex-col bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="flex items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/20 shrink-0 h-12 w-12 text-primary dark:text-blue-400">
+<span class="material-symbols-outlined text-[24px]">water_drop</span>
+</div>
+<div class="flex flex-col">
+<h3 class="text-[#111418] dark:text-white text-base font-bold leading-tight">Kitchen Sink Clog</h3>
+<p class="text-[#617589] dark:text-gray-400 text-sm">Unit 304 • Resident Report</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/20 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10">In Progress</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
+<p class="text-xs text-[#9aa8b8] dark:text-gray-500 font-medium">#REQ-2021 • 5 hrs ago</p>
+<div class="flex items-center gap-2">
+<img alt="Contractor" class="w-6 h-6 rounded-full object-cover border border-white dark:border-gray-600" data-alt="Portrait of a professional man in a suit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3KsXdKFFOLVoj2MbBvBqsGb4gZ4nmkNXx2H2b9HdjHrG5eWV4AW2T3dmgjlHiY4ppADKQMfEuw94PxvdNr5JPhN5O56ikWJAZ82sbq-HjwiSVPrP1hosudnDxB5DNm7UFjGvRWs5xGZWOcC3eDDO0uCk61OiojsBGDIy-iH60ND2r17mqa1h_lLrmi2XDYPRluKPbQiTHerTK4qJs5o5ItZmmYxvnZcWTi9uUr7yKZfi49aOlePUv5N6e9-4x0CAx2hdIuBi5BFR1"/>
+<span class="text-sm text-[#111418] dark:text-gray-200 font-medium">Mike's Plumbing</span>
+</div>
+</div>
+</div>
+<!-- Item 3: In Progress (Warning) -->
+<div class="flex flex-col bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="flex items-center justify-center rounded-lg bg-yellow-50 dark:bg-yellow-900/20 shrink-0 h-12 w-12 text-yellow-600 dark:text-yellow-400">
+<span class="material-symbols-outlined text-[24px]">elevator</span>
+</div>
+<div class="flex flex-col">
+<h3 class="text-[#111418] dark:text-white text-base font-bold leading-tight">Elevator Noise</h3>
+<p class="text-[#617589] dark:text-gray-400 text-sm">Building B • Service Lift</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/20 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10">In Progress</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
+<p class="text-xs text-[#9aa8b8] dark:text-gray-500 font-medium">#REQ-1998 • 1 day ago</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-xs text-indigo-700 dark:text-indigo-300 font-bold">OT</div>
+<span class="text-sm text-[#111418] dark:text-gray-200 font-medium">Otis Tech</span>
+</div>
+</div>
+</div>
+<!-- Item 4: Completed -->
+<div class="flex flex-col bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 gap-3 opacity-80">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 shrink-0 h-12 w-12 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[24px]">lightbulb</span>
+</div>
+<div class="flex flex-col">
+<h3 class="text-[#111418] dark:text-white text-base font-medium leading-tight line-through decoration-gray-400">Lobby Light</h3>
+<p class="text-[#617589] dark:text-gray-400 text-sm">Main Lobby</p>
+</div>
+</div>
+<span class="inline-flex items-center rounded-md bg-green-50 dark:bg-green-900/20 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-400 ring-1 ring-inset ring-green-600/20">Resolved</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
+<p class="text-xs text-[#9aa8b8] dark:text-gray-500 font-medium">#REQ-2015 • Completed Yesterday</p>
+<span class="text-xs text-[#617589] dark:text-gray-400 font-medium">Internal Team</span>
+</div>
+</div>
+<!-- Empty State Illustration Placeholder (Hidden if content exists, but good for completeness) -->
+<!-- 
+                 <div class="flex flex-col items-center justify-center py-12 text-center">
+                    <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-4xl text-gray-400">check_circle</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-[#111418]">All Caught Up!</h3>
+                    <p class="text-[#617589]">No pending requests found.</p>
+                 </div>
+                 -->
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="absolute bottom-0 w-full bg-white dark:bg-[#1e293b] border-t border-gray-100 dark:border-gray-800 px-6 py-2 flex justify-between items-end pb-6 z-20">
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-gray-400 dark:text-gray-500 group-hover:text-primary transition-colors">home</span>
+<span class="text-[10px] font-medium text-gray-400 dark:text-gray-500 group-hover:text-primary transition-colors">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-primary dark:text-primary fill-current">assignment</span>
+<span class="text-[10px] font-medium text-primary dark:text-primary">Requests</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-gray-400 dark:text-gray-500 group-hover:text-primary transition-colors">contacts</span>
+<span class="text-[10px] font-medium text-gray-400 dark:text-gray-500 group-hover:text-primary transition-colors">Directory</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-gray-400 dark:text-gray-500 group-hover:text-primary transition-colors">person</span>
+<span class="text-[10px] font-medium text-gray-400 dark:text-gray-500 group-hover:text-primary transition-colors">Profile</span>
+</button>
+</nav>
+</div>
+</body></html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BuildingAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Document;
+use App\Models\SecurityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -57,9 +58,22 @@ class DocumentController extends Controller
             'mime_type' => $file->getClientMimeType(),
             'size' => $file->getSize(),
             'uploaded_by' => Auth::id(),
+            'building_id' => Auth::user()->building_id,
             'access' => 'private',
             'version' => 1,
         ]);
+        
+        // Log the activity
+        SecurityLog::create([
+            'user_id' => Auth::id(),
+            'building_id' => Auth::user()->building_id,
+            'role' => Auth::user()->role->name ?? 'building-admin',
+            'action' => 'Document uploaded',
+            'description' => 'Document "' . $file->getClientOriginalName() . '" was uploaded by ' . Auth::user()->name,
+            'ip_address' => $request->ip(),
+            'url' => $request->url(),
+        ]);
+        
         return redirect()->route('building-admin.documents.index')->with('success', 'Document uploaded successfully.');
     }
 

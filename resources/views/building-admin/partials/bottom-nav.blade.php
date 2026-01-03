@@ -26,7 +26,10 @@
             <a href="{{ route('building-admin.emergency.create') }}" class="w-full flex items-center gap-2 py-2 text-primary hover:bg-gray-100 rounded">
                 <span class="material-symbols-outlined">emergency</span> Send Emergency Alert
             </a>
-            <input type="file" name="file" id="fileInput" class="hidden" onchange="document.getElementById('uploadForm').submit()" required />
+            <form id="uploadForm" action="{{ route('building-admin.documents.store') }}" method="POST" enctype="multipart/form-data" style="display: none;">
+                @csrf
+                <input type="file" name="file" id="fileInput" class="hidden" onchange="this.form.submit();" required />
+            </form>
             <button type="button" onclick="document.getElementById('fileInput').click()" class="w-full flex items-center gap-2 py-2 text-primary hover:bg-gray-100 rounded">
                 <span class="material-symbols-outlined text-xl">upload</span>
                 Upload
@@ -83,6 +86,10 @@
                 <a href="{{ route('building-admin.admin-profile') }}" class="flex flex-col items-center justify-center p-2 {{ $active == 'admin-profile' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
                     <span class="material-symbols-outlined text-2xl">person</span>
                     <span class="text-xs mt-1">Profile</span>
+                </a>
+                <a href="{{ route('building-admin.activity-log.index') }}" class="flex flex-col items-center justify-center p-2 {{ $active == 'activity-log' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
+                    <span class="material-symbols-outlined text-2xl">history</span>
+                    <span class="text-xs mt-1">Activity</span>
                 </a>
                 <a href="{{ route('building-admin.support') }}" class="flex flex-col items-center justify-center p-2 {{ $active == 'support' ? 'text-primary' : 'text-gray-500 dark:text-gray-300' }}">
                     <span class="material-symbols-outlined text-2xl">support_agent</span>

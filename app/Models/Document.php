@@ -15,10 +15,16 @@ class Document extends Model
         'mime_type',
         'size',
         'uploaded_by',
+        'building_id',
         'access',
         'version',
         'parent_id',
     ];
+    
+    public function building()
+    {
+        return $this->belongsTo(\App\Models\Building::class);
+    }
 
     public function uploader()
     {

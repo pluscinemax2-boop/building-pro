@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BuildingAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Notice;
+use App\Models\SecurityLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,7 @@ class NoticeController extends Controller
 {
     public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $query = Notice::where('building_id', $user->building_id);
 
         // Search
@@ -114,7 +115,18 @@ class NoticeController extends Controller
             'posted_by' => Auth::user()->name ?? 'Admin',
             'building_id' => Auth::user()->building_id,
         ]);
-        \Log::info('Notice created:', $notice->toArray());
+        
+        // Log the activity
+        SecurityLog::create([
+            'user_id' => Auth::id(),
+            'building_id' => Auth::user()->building_id,
+            'role' => Auth::user()->role->name ?? 'building-admin',
+            'action' => 'Notice published',
+            'description' => 'Notice "' . $request->title . '" was published by ' . Auth::user()->name,
+            'ip_address' => $request->ip(),
+            'url' => $request->url(),
+        ]);
+        
         return redirect()->route('building-admin.notices.index')->with('success', 'Notice posted successfully.');
     }
 

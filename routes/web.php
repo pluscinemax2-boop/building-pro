@@ -686,6 +686,7 @@ Route::middleware(['web','auth','role:Building Admin'])->prefix('building-admin'
     Route::post('/subscription/checkout', [PaymentController::class, 'checkout']); // create payment (simulate/pay)
     Route::post('/subscription/webhook/success', [PaymentController::class, 'successWebhook']); // simulate gateway callback
 
+    Route::get('/activity-log', [App\Http\Controllers\BuildingAdmin\ActivityLogController::class, 'index'])->name('building-admin.activity-log.index');
     Route::get('/building-settings', function() {
         $user = \Illuminate\Support\Facades\Auth::user();
         $building = $user->building;
@@ -783,12 +784,30 @@ Route::middleware(['web','auth','role:Building Admin','ensure.subscription'])->p
 
 Route::middleware(['web','auth','role:Manager'])->prefix('manager')->group(function () {
 
-    Route::get('/', [ManagerDashboardController::class, 'index']);
+    Route::get('/', [ManagerDashboardController::class, 'index'])->name('manager.dashboard');
 
-    Route::get('/complaints', [ManagerComplaintController::class, 'index']);
-    Route::post('/complaints/{complaint}/status', [ManagerComplaintController::class, 'updateStatus']);
+    Route::get('/complaints', [ManagerComplaintController::class, 'index'])->name('manager.complaints.index');
+    Route::get('/complaints/create', [ManagerComplaintController::class, 'create'])->name('manager.complaints.create');
+    Route::post('/complaints', [ManagerComplaintController::class, 'store'])->name('manager.complaints.store');
+    Route::get('/complaints/{complaint}', [ManagerComplaintController::class, 'show'])->name('manager.complaints.show');
+    Route::get('/complaints/{complaint}/edit', [ManagerComplaintController::class, 'edit'])->name('manager.complaints.edit');
+    Route::put('/complaints/{complaint}', [ManagerComplaintController::class, 'update'])->name('manager.complaints.update');
+    Route::delete('/complaints/{complaint}', [ManagerComplaintController::class, 'destroy'])->name('manager.complaints.destroy');
+    Route::post('/complaints/{complaint}/status', [ManagerComplaintController::class, 'updateStatus'])->name('manager.complaints.update-status');
 
-    Route::get('/emergency', [ManagerEmergencyController::class, 'index']);
+    Route::get('/emergency', [ManagerEmergencyController::class, 'index'])->name('manager.emergency');
+    
+    Route::get('/documents', [App\Http\Controllers\Manager\DocumentsController::class, 'index'])->name('manager.documents.index');
+    
+    Route::get('/notices', [App\Http\Controllers\Manager\NoticesController::class, 'index'])->name('manager.notices.index');
+    
+    Route::get('/reports', [App\Http\Controllers\Manager\ReportsController::class, 'index'])->name('manager.reports.index');
+    
+    Route::get('/profile', [App\Http\Controllers\Manager\ProfileController::class, 'index'])->name('manager.profile.index');
+    
+    Route::get('/notifications', [App\Http\Controllers\Manager\NotificationController::class, 'index'])->name('manager.notifications');
+    
+    Route::get('/activities', [App\Http\Controllers\Manager\ActivityController::class, 'index'])->name('manager.activities');
 });
 
 Route::middleware(['web', 'auth', 'role:Resident'])->prefix('resident')->group(function () {

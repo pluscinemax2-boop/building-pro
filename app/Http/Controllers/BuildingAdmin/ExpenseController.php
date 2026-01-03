@@ -5,9 +5,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
 use App\Models\Budget;
+use App\Models\SecurityLog;
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Str;
 use Illuminate\Support\Carbon;
 
 
@@ -48,7 +49,7 @@ class ExpenseController extends Controller
         $pdf->Cell(0, 8, 'Approved', 0, 1);
         $pdf->Cell(50, 8, 'Approved At:', 0, 0);
         $pdf->Cell(0, 8, $expense->approved_at ? \Illuminate\Support\Carbon::parse($expense->approved_at)->format('M d, Y h:i A') : '-', 0, 1);
-        if ($expense->file && \Str::startsWith($expense->file->file_type, 'image/')) {
+        if ($expense->file && \Illuminate\Support\Facades\Str::startsWith($expense->file->file_type, 'image/')) {
             $imagePath = public_path('storage/' . $expense->file->file_path);
             if (file_exists($imagePath)) {
                 $pdf->Ln(4);
@@ -169,7 +170,7 @@ class ExpenseController extends Controller
 
     public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $expenses = Expense::with(['category', 'creator', 'approver'])
             ->where('building_id', $user->building_id)
             ->orderByDesc('expense_date')->get();
@@ -234,6 +235,18 @@ class ExpenseController extends Controller
         $expense->approved_by = \Illuminate\Support\Facades\Auth::id();
         $expense->approved_at = now();
         $expense->save();
+        
+        // Log the activity
+        \App\Models\SecurityLog::create([
+            'user_id' => \Illuminate\Support\Facades\Auth::id(),
+            'building_id' => \Illuminate\Support\Facades\Auth::user()->building_id,
+            'role' => \Illuminate\Support\Facades\Auth::user()->role->name ?? 'building-admin',
+            'action' => 'Expense rejected',
+            'description' => 'Expense "' . $expense->title . '" was rejected by ' . \Illuminate\Support\Facades\Auth::user()->name,
+            'ip_address' => $request->ip(),
+            'url' => $request->url(),
+        ]);
+        
         return redirect()->route('building-admin.expenses.index')->with('success', 'Expense rejected.');
     }
 
@@ -309,6 +322,18 @@ class ExpenseController extends Controller
         $expense->approved_by = \Illuminate\Support\Facades\Auth::id();
         $expense->approved_at = now();
         $expense->save();
+        
+        // Log the activity
+        \App\Models\SecurityLog::create([
+            'user_id' => \Illuminate\Support\Facades\Auth::id(),
+            'building_id' => \Illuminate\Support\Facades\Auth::user()->building_id,
+            'role' => \Illuminate\Support\Facades\Auth::user()->role->name ?? 'building-admin',
+            'action' => 'Expense approved',
+            'description' => 'Expense "' . $expense->title . '" was approved by ' . \Illuminate\Support\Facades\Auth::user()->name,
+            'ip_address' => $request->ip(),
+            'url' => $request->url(),
+        ]);
+        
         return redirect()->route('building-admin.expenses.index')->with('success', 'Expense status updated.');
     }
 }

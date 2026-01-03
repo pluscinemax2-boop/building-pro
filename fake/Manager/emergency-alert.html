@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manager Emergency Alerts</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for cleaner UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white antialiased">
+<!-- Main Container: Mobile Form Factor -->
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden bg-white dark:bg-[#101922] mx-auto max-w-md shadow-xl border-x border-gray-100 dark:border-gray-800">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 flex items-center bg-white dark:bg-[#101922] p-4 pb-2 justify-between border-b border-gray-100 dark:border-gray-800">
+<div class="text-[#111418] dark:text-white flex size-12 shrink-0 items-center justify-start cursor-pointer transition-opacity hover:opacity-70">
+<span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Emergency Alerts</h2>
+<div class="flex w-12 items-center justify-end cursor-pointer transition-opacity hover:opacity-70">
+<p class="text-primary text-base font-bold leading-normal tracking-[0.015em] shrink-0">Help</p>
+</div>
+</header>
+<!-- Main Content Scroll Area -->
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Hero Action Section -->
+<div class="px-5 pt-6 pb-2">
+<div class="bg-primary/5 dark:bg-primary/10 rounded-xl p-6 flex flex-col items-center justify-center text-center border border-primary/20">
+<div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-full mb-3">
+<span class="material-symbols-outlined text-primary text-4xl">campaign</span>
+</div>
+<h3 class="text-[#111418] dark:text-white text-xl font-bold mb-1">Incident Reported?</h3>
+<p class="text-[#617589] dark:text-gray-400 text-sm mb-5 px-4">Notify residents and staff immediately about critical situations.</p>
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary hover:bg-blue-600 transition-colors text-white text-base font-bold leading-normal tracking-[0.015em] gap-2 shadow-md shadow-primary/20">
+<span class="material-symbols-outlined text-xl">add_alert</span>
+<span class="truncate">Broadcast New Alert</span>
+</button>
+</div>
+</div>
+<!-- Segmented Control Filters -->
+<div class="flex px-5 py-4 sticky top-[60px] bg-white dark:bg-[#101922] z-40">
+<div class="flex h-10 flex-1 items-center justify-center rounded-lg bg-[#f0f2f4] dark:bg-gray-800 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-gray-700 has-[:checked]:shadow-sm has-[:checked]:text-[#111418] dark:has-[:checked]:text-white text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal transition-all">
+<span class="truncate">Active</span>
+<input checked="" class="invisible w-0 absolute" name="alert-filter" type="radio" value="Active"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-gray-700 has-[:checked]:shadow-sm has-[:checked]:text-[#111418] dark:has-[:checked]:text-white text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal transition-all">
+<span class="truncate">Resolved</span>
+<input class="invisible w-0 absolute" name="alert-filter" type="radio" value="Resolved"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-white dark:has-[:checked]:bg-gray-700 has-[:checked]:shadow-sm has-[:checked]:text-[#111418] dark:has-[:checked]:text-white text-[#617589] dark:text-gray-400 text-sm font-medium leading-normal transition-all">
+<span class="truncate">All</span>
+<input class="invisible w-0 absolute" name="alert-filter" type="radio" value="All"/>
+</label>
+</div>
+</div>
+<!-- List Header -->
+<div class="flex items-center justify-between px-5 pb-2 pt-2">
+<h3 class="text-[#111418] dark:text-white tracking-tight text-lg font-bold leading-tight">Recent Alerts</h3>
+<span class="text-xs font-medium text-[#617589] dark:text-gray-400 cursor-pointer">View Archive</span>
+</div>
+<!-- Alert List -->
+<div class="flex flex-col gap-3 px-5">
+<!-- Critical Alert Item -->
+<div class="flex flex-col gap-3 rounded-xl border border-red-100 bg-white dark:bg-gray-900 dark:border-red-900/30 p-4 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
+<div class="flex justify-between items-start gap-3">
+<div class="flex items-start gap-3 flex-1">
+<div class="text-red-600 dark:text-red-400 flex items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/20 shrink-0 size-10 mt-1">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-0.5">
+<h4 class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Fire Alarm - Block A</h4>
+<span class="px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-[10px] font-bold uppercase tracking-wide">Critical</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium mb-2">4th Floor • 12 mins ago</p>
+<p class="text-[#111418] dark:text-gray-200 text-sm leading-relaxed">Fire reported near the service elevator. Evacuation protocols initiated. Please stay calm and follow exit signs.</p>
+</div>
+</div>
+<div class="shrink-0 flex flex-col items-end gap-1">
+<button class="size-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2 pt-3 border-t border-gray-100 dark:border-gray-800">
+<button class="flex-1 py-1.5 text-xs font-medium text-primary hover:bg-primary/5 rounded text-center transition-colors">Update Status</button>
+<div class="w-px h-4 bg-gray-200 dark:bg-gray-700"></div>
+<button class="flex-1 py-1.5 text-xs font-medium text-[#617589] hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-400 rounded text-center transition-colors">Details</button>
+</div>
+</div>
+<!-- Warning Alert Item -->
+<div class="flex flex-col gap-3 rounded-xl border border-orange-100 bg-white dark:bg-gray-900 dark:border-orange-900/30 p-4 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 left-0 w-1 h-full bg-orange-500"></div>
+<div class="flex justify-between items-start gap-3">
+<div class="flex items-start gap-3 flex-1">
+<div class="text-orange-600 dark:text-orange-400 flex items-center justify-center rounded-lg bg-orange-50 dark:bg-orange-900/20 shrink-0 size-10 mt-1">
+<span class="material-symbols-outlined text-[20px]">elevator</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-0.5">
+<h4 class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Lift Malfunction</h4>
+<span class="px-2 py-0.5 rounded-full bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 text-[10px] font-bold uppercase tracking-wide">Warning</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium mb-2">Lobby B • 2 hours ago</p>
+<p class="text-[#111418] dark:text-gray-200 text-sm leading-relaxed">Main lift in Lobby B is stuck between 2nd and 3rd floor. Technician dispatched and en route.</p>
+</div>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Info Alert Item (Resolved) -->
+<div class="flex flex-col gap-3 rounded-xl border border-gray-100 bg-gray-50 dark:bg-gray-800/50 dark:border-gray-800 p-4 relative overflow-hidden group opacity-80 hover:opacity-100 transition-opacity">
+<div class="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
+<div class="flex justify-between items-start gap-3">
+<div class="flex items-start gap-3 flex-1">
+<div class="text-green-600 dark:text-green-400 flex items-center justify-center rounded-lg bg-green-50 dark:bg-green-900/20 shrink-0 size-10 mt-1">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-0.5">
+<h4 class="text-[#111418] dark:text-white text-base font-semibold leading-tight line-through decoration-gray-400">Water Supply Maint.</h4>
+<span class="px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 text-[10px] font-bold uppercase tracking-wide">Resolved</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium mb-2">Block C • Yesterday</p>
+<p class="text-[#617589] dark:text-gray-400 text-sm leading-relaxed">Scheduled maintenance for water tanks has been completed successfully. Supply restored.</p>
+</div>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-400">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Info Alert Item -->
+<div class="flex flex-col gap-3 rounded-xl border border-blue-100 bg-white dark:bg-gray-900 dark:border-blue-900/30 p-4 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+<div class="flex justify-between items-start gap-3">
+<div class="flex items-start gap-3 flex-1">
+<div class="text-blue-600 dark:text-blue-400 flex items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/20 shrink-0 size-10 mt-1">
+<span class="material-symbols-outlined text-[20px]">security</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-0.5">
+<h4 class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Unidentified Vehicle</h4>
+<span class="px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-[10px] font-bold uppercase tracking-wide">Info</span>
+</div>
+<p class="text-[#617589] dark:text-gray-400 text-xs font-medium mb-2">Main Gate • 2 days ago</p>
+<p class="text-[#111418] dark:text-gray-200 text-sm leading-relaxed">Black SUV parked in No Parking zone near Gate 2. Owner please move it immediately.</p>
+</div>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<div class="h-10"></div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full max-w-md bg-white dark:bg-[#101922] border-t border-gray-100 dark:border-gray-800 pb-safe">
+<div class="flex justify-around items-center h-16">
+<a class="flex flex-col items-center justify-center w-full h-full text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">home</span>
+<span class="text-[10px] font-medium mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary dark:text-primary group" href="#">
+<div class="relative">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform filled">notifications_active</span>
+<span class="absolute -top-1 -right-1 flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+</span>
+</div>
+<span class="text-[10px] font-medium mt-1">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">groups</span>
+<span class="text-[10px] font-medium mt-1">Residents</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-[#617589] dark:text-gray-400 hover:text-primary dark:hover:text-primary group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">build</span>
+<span class="text-[10px] font-medium mt-1">Ops</span>
+</a>
+</div>
+<!-- Home Indicator safe area spacing -->
+<div class="h-1 w-full bg-white dark:bg-[#101922]"></div>
+</nav>
+</div>
+</body></html>

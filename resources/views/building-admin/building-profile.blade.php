@@ -12,7 +12,7 @@
     <div class="flex flex-col gap-6 p-4 md:max-w-xl md:mx-auto w-full">
         <!-- Profile Header / Hero -->
         <div class="flex flex-col items-center gap-4 mt-2">
-            <form method="POST" action="{{ route('building-admin.profile.avatar') }}" enctype="multipart/form-data" class="relative group flex flex-col items-center">
+            <form method="POST" action="{{ route('building-admin.profile') }}" enctype="multipart/form-data" class="relative group flex flex-col items-center">
                 @csrf
                 <label for="avatar-upload" class="cursor-pointer">
                     <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-2xl h-32 w-32 shadow-md ring-4 ring-white dark:ring-gray-800" data-alt="{{ $buildingImageAlt ?? 'Building image' }}" style="background-image: url('{{ $buildingImage }}');"></div>

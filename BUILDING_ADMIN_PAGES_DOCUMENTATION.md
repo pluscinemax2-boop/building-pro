@@ -460,6 +460,29 @@
 
 ---
 
+## Activity Log
+**Route:** `/building-admin/activity-log`
+
+### Main Fields:
+- Search Bar
+- Filter Chips (All, Expenses, Complaints, Documents, Notices)
+- Activity List with Icons
+- Pagination
+- User Information
+- Timestamps
+
+### Sub-pages:
+1. **Activity List:** Shows all logged activities with filtering and search
+   - Expense approved/rejected
+   - Complaint status changed
+   - Document uploaded
+   - Notice published
+
+### Sub-sections:
+- **Filter Options:** All, Expenses, Complaints, Documents, Notices
+- **Search Functionality:** Search by action, description, or user
+- **Activity Details:** User name, action, description, timestamp
+
 ## Support
 **Route:** `/building-admin/support`
 
